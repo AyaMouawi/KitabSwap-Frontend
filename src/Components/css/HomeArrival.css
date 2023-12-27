@@ -1,0 +1,27 @@
+.HomeArrival-title{
+
+ 
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 900px) {
+  .HomeArrival-cont{
+      margin-right: 0;
+      margin-left: 0;
+
+  }
+
+
+}
+
+@media (max-width: 500px) {
+  .HomeArrival-cont{
+      margin-right: 0;
+      margin-left: 0;
+      justify-content: center;
+  }
+.HomeArrival-items-cont{
+  justify-content: center;
+}
+
+}
