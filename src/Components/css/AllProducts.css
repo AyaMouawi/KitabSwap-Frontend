@@ -1,0 +1,18 @@
+.AllProducts-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width:15px;
+    height: 15px;
+    background: white; 
+    border: 2px solid black; 
+    border-radius: 50%; 
+  }
+  
+  .AllProducts-slider::-moz-range-thumb {
+    width: 15px; 
+    height: 15px; 
+    background: white; 
+    border: 2px solid black; 
+    border-radius: 50%; 
+  }
+ 
