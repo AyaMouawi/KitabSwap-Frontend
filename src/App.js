@@ -4,6 +4,7 @@ import ContactUs from './Components/Pages/ContactUs';
 import SignIn from './Components/Pages/SignIn';
 import SignUp from './Components/Pages/SignUp';
 import Cart from './Components/Pages/Cart';
+import TradePage from './Components/Pages/TradePage.jsx'
 import AllProducts from './Components/Pages/AllProducts';
 
 
@@ -16,6 +17,7 @@ function App() {
      <Route path='/SignUp' element={ <SignUp />}/>
      <Route path='/Cart' element={ <Cart />}/>
      <Route path='/Shop' element={ <AllProducts />}/>
+     <Route path='/Trade' element={ <TradePage />}/>
     </Routes>
   );
 }
