@@ -27,7 +27,7 @@ function NavBar() {
               <Link to="/Cart">
                 <img src="../Images/Icons/shoppingcart.png" className="h-7"  />
               </Link>
-              <Link to="/Cart" className="ml-4">
+              <Link to="/UserDash" className="ml-4">
                 <img src="../Images/Icons/dashboard.png" className="h-7"  />
               </Link>
             </div>

@@ -17,11 +17,11 @@ function SignUp() {
   return (
     <div className="flex h-screen SignUp-container scale-95 font-lateef">
       <div className="w-1/2 flex items-center justify-center">
-      <img
+      <Link to="/"><img
         src="Images/AboutPicSign.png"
         alt="Background"
         className="object-cover h-[80vh] SignUp-img"
-      />
+      /></Link>
       </div>
       <div className="w-1/2 flex items-center justify-center SignUp-form ">
         <form className="p-12 py-0 w-full signup-title">
