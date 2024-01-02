@@ -1,0 +1,39 @@
+.not-found-container {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+}
+
+.flex-title-not-found {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 2;
+  font-family: "lateef";
+}
+
+.title-text-not-found {
+  font-size: 3.5rem;
+  color: #B75642;
+  font-family: "lateef";
+}
+
+.subTitle-not-found {
+  font-size: 2.5rem;
+  padding: 3%;
+  font-family: "lateef";
+}
+
+.btn-not {
+  color: #ffff;
+  text-decoration: none;
+  padding: 13px 20px;
+  background: #B75642;
+  
+}
+
+.btn-not:hover {
+  background: #ffff;
+  color: #B75642;
+}
