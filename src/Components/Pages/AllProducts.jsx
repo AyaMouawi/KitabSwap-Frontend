@@ -2,11 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import ProductItem from "../HomeComponents/ProductItem";
 import Footer from "../FrequentlyUsed/Footer";
 import NavBar from "../FrequentlyUsed/NavBar";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { getAllSaleBooks } from "../../redux/actions/saleBooks";
 
 import "../css/AllProducts.css";
 function AllProducts() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef(null); 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllSaleBooks());
+  },[dispatch]);
+
+  const saleBooks = useSelector((state) => state.saleBooks);
+
+  console.log("saleBookssss", saleBooks)
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -43,7 +56,7 @@ function AllProducts() {
     (_, index) => {
       const productIndex = indexOfFirstProduct + index;
       return productIndex < totalProducts ? (
-        <ProductItem key={productIndex}  />
+        <ProductItem key={productIndex} saleBook={saleBooks[productIndex]} />
       ) : null;
     }
   );

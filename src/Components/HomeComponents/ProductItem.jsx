@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../css/ArrivalItem.css";
 import SingleProduct from "../Pages/SingleProduct";
 
-function ProductItem() {
+function ProductItem({saleBook}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const modalRef = useRef(null);
@@ -62,7 +62,7 @@ function ProductItem() {
           30% off
         </div>
         <img
-          src="Images/harrypotter1.webp"
+          src={saleBook.book_image}
           alt=""
           className="ArrivalItem-img"
           onClick={openModal}
@@ -76,11 +76,11 @@ function ProductItem() {
             onMouseEnter={isTitleOverflowed ? toggleTooltip : undefined}
             onMouseLeave={isTitleOverflowed ? toggleTooltip : undefined}
           >
-            Harry Bitar: And The Sorcerer's Stone
+            {saleBook.title}
           </h3>
           {isTooltipVisible && (
             <div className="absolute bottom-full left-0 w-full bg-white text-book my-4 font-sans py-1 px-4 z-10 shadow-xl font-bold">
-              Harry Bitar:And The Sorcerer's Stone
+              {saleBook.title}
             </div>
           )}
         </div>
@@ -94,8 +94,8 @@ function ProductItem() {
         </div>
       </div>
       <div className="">
-        <h1 className="text-2xl">jk rowling</h1>
-        <h4 className="text-2xl">$160</h4>
+        <h1 className="text-2xl">{saleBook.authorName}</h1>
+        <h4 className="text-2xl">${saleBook.price}</h4>
       </div>
 
       {isModalOpen && (

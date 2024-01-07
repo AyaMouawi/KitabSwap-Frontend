@@ -1,5 +1,5 @@
 import HomePage from './Components/Pages/HomePage';
-import { Routes,Route } from 'react-router-dom';
+import {BrowserRouter, Routes,Route } from 'react-router-dom';
 import ContactUs from './Components/Pages/ContactUs';
 import SignIn from './Components/Pages/SignIn';
 import SignUp from './Components/Pages/SignUp';
@@ -13,6 +13,7 @@ import UserDashboard from './Components/Pages/UserDashboard';
 
 function App() {
   return (
+  <BrowserRouter>
   <Routes>
      <Route path='/' element={ <HomePage/>}/>
      <Route path='/ContactUs' element={ <ContactUs/>}/>
@@ -24,6 +25,7 @@ function App() {
      <Route path='/Trade' element={ <TradePage />}/>
      <Route path='/UserDash' element={ <UserDashboard />}/>
     </Routes>
+    </BrowserRouter>
   );
 }
 
