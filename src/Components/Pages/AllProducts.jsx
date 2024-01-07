@@ -4,10 +4,9 @@ import Footer from "../FrequentlyUsed/Footer";
 import NavBar from "../FrequentlyUsed/NavBar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
 import { getAllSaleBooks } from "../../redux/actions/saleBooks";
-
 import "../css/AllProducts.css";
+
 function AllProducts() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null); 
@@ -43,23 +42,20 @@ function AllProducts() {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-  const productsPerPage = 8; 
-  const totalProducts = 22; 
+  const productsPerPage = 4; 
+  const totalProducts = 6; 
 
   const [currentPage, setCurrentPage] = useState(1);
 
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = Array.from(
-    { length: productsPerPage },
-    (_, index) => {
-      const productIndex = indexOfFirstProduct + index;
-      return productIndex < totalProducts ? (
-        <ProductItem key={productIndex} saleBook={saleBooks[productIndex]} />
-      ) : null;
-    }
-  );
+  const currentProducts = saleBooks.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  ).map((saleBook) => (
+    <ProductItem key={saleBook.saleBook_id} saleBook={saleBook} />
+  ));
 
 
   const nextPage = () => {

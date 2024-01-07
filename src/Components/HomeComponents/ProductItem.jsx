@@ -3,6 +3,7 @@ import "../css/ArrivalItem.css";
 import SingleProduct from "../Pages/SingleProduct";
 
 function ProductItem({saleBook}) {
+  console.log("uhsaud", saleBook)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const modalRef = useRef(null);
