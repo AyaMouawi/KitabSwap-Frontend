@@ -13,8 +13,10 @@ function UserDashboard() {
     hourglass.register();
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState (true);
+
+    // GET USER ID FROM LOCAL STORAGE
     const [userId, setUserId] =  useState(4);
-    console.log(userId)
+
 
     const modalRef = useRef(null);
     // Post Trade MODAL

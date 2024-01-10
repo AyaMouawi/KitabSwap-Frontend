@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import SingleTradeData from "./SingleTradeData";
-
 import "../css/SingleProduct.css";
 import TradeRequest from "./TradeRequest";
 
@@ -71,7 +70,7 @@ function SingleTradeItem({tradeBook}) {
             ref={modalRef}
             className="absolute bg-white p-8 rounded shadow-md"
           >
-            <TradeRequest closeRequestModal={closeTradeRequestModal} />
+            <TradeRequest tradeBookId = {tradeBook.tradeBook_id} closeRequestModal={closeTradeRequestModal} />
           </div>
         </div>
       )}

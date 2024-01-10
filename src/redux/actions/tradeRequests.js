@@ -19,3 +19,29 @@ export const getByBookId = (id) => {
   };
   
 }
+
+export const requestTrade = (data) => {
+  const Auth = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2xpZW50IiwiaWF0IjoxNzA0OTIxMjYzLCJleHAiOjE3MDQ5MjQ4NjN9.u_yNjwUqNS4sAMIco0Mi2rXtDw7AalBtrIBNdCm1gOk'
+  return (dispatch) => {
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/tradeRequest/RequestTrade`, data, {
+        headers: {
+          Authorization: `Bearer ${Auth}`, 
+        },
+      })
+      .then((response) => {
+        const tradeRequest = response.data.car;
+        dispatch({
+          type: "requestTrade",
+          payload: tradeRequest,
+        });
+        toast.success("Request sent successfully. Please check your email.");
+      })
+      .catch((error) => {
+        console.log("Failed to request trade :", error.response.data);
+        toast.error(
+          error.response.data.message || "Failed to send request. Please try again."
+        );
+      });
+  };
+};
