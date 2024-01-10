@@ -13,7 +13,11 @@ module.exports = {
       },
       textColor:{
         'book': '#B75642',
-      }
+    
+      },
+      borderColor: {
+        'book': '#B75642',
+      },
     },
   },
   plugins: [],

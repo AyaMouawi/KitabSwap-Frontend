@@ -4,7 +4,7 @@ import SingleTradeData from "./SingleTradeData";
 import "../css/SingleProduct.css";
 import TradeRequest from "./TradeRequest";
 
-function SingleTradeItem() {
+function SingleTradeItem({tradeBook}) {
   const modalRef = useRef(null);
   // Trade Request MODAL
   const [isTradeRequestModalOpen, setTradeRequestModalOpen] = useState(false);
@@ -36,12 +36,33 @@ function SingleTradeItem() {
     <div className="max-w-screen-xl flex flex-wrap mx-auto p-4 justify-center gap-44 bg-white h-fit mb-4">
       <div className="h-fit">
         <div className="mr-11 italic mb-16   text-center flex ">
-          <p className="text-5xl">Genre / Fantasy</p>
+          <p className="text-5xl">Genre / {tradeBook.genreName}</p>
         </div>
-        <img src="Images/harrypotter1.webp" alt="" className="w-[25rem] h-[35rem]" />
+        <img src={tradeBook.bookImage} alt="" className="w-[25rem] h-[35rem]" />
       </div>
-   
-        <SingleTradeData openRequestModal={openTradeRequestModal} />
+        <div className="font-lateef mt-24 flex flex-col">
+        <div className="mb-5">
+          <p className="text-6xl font-bold mb-4">{tradeBook.title}</p>
+          <p className="text-4xl font-love-light">{tradeBook.authorName}</p>
+         <div className="flex items-center"> <p className="text-4xl italic mb-2 underline">Owner: </p><span className="text-3xl ml-2 italic"> {tradeBook.ownerFullName}</span></div>
+         <div className="flex items-center"> <p className="text-4xl italic mb-2 underline">Email: </p> <span className="text-3xl ml-2  italic"> {tradeBook.ownerEmail}</span></div>
+         <div className="flex items-center"> <p className="text-4xl italic mb-2 underline">Phone: </p> <span className="text-3xl ml-2  italic"> {tradeBook.ownerPhone}</span></div>
+         <div className="flex items-center"> <p className="text-4xl italic underline">Location: </p> <span className="text-4xl ml-2  italic"> {tradeBook.ownerCity}</span></div> 
+        </div>
+  
+
+        <div className="mb-4 w-96 text-3xl">
+        {tradeBook.description}
+          
+        </div>
+  
+        <div className="mt-auto">
+          <button className="bg-book text-white py-3 px-6  text-3xl w-full" onClick={openTradeRequestModal}>
+           Request to Trade
+          </button>
+        </div>
+        
+      </div>
      
         {isTradeRequestModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-40">

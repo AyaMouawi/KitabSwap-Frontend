@@ -4,9 +4,11 @@ const saleBookReducer = (state=[], action) => {
 
         case 'getAllSaleBooks':
             return action.payload; 
-            case 'getByGenreName':
-            return action.payload.saleBooks.filter((saleBook)=>saleBook.genreName===action.payload.genreName);
-            default: return state; 
+        case 'getSaleBookById':
+            return action.payload;
+        case 'getLatestSaleBooks':
+            return action.payload;
+        default: return state; 
 }}
 
 export default saleBookReducer;

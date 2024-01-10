@@ -4,21 +4,145 @@ import Footer from "../FrequentlyUsed/Footer";
 import NavBar from "../FrequentlyUsed/NavBar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { hourglass } from 'ldrs'
 import { getAllSaleBooks } from "../../redux/actions/saleBooks";
+import { getAllGenres } from "../../redux/actions/genres";
 import "../css/AllProducts.css";
 
 function AllProducts() {
+  hourglass.register()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null); 
+  const [isLoading, setIsLoading] = useState (true);
+  const [checkedGenre, setCheckedGenre] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [selectAllGenres, setSelectAllGenres] = useState(false);
+  const [showDiscounted, setShowDiscounted] = useState(false);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [sortOption, setSortOption] = useState(null);
+  const [sortedProducts, setSortedProducts] = useState([]);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllSaleBooks());
-  },[dispatch]);
+    const fetchBookData = async () => {
+      try {
+        setIsLoading(true);
+        await dispatch(getAllSaleBooks());
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching saleBooks:", error);
+        setIsLoading(false);
+      }
+    };
+    fetchBookData();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetchGenreData = async () => {
+      try {
+        await dispatch(getAllGenres());
+      } catch (error) {
+        console.error("Error fetching genres:", error);
+      }
+    };
+    fetchGenreData();
+  }, [dispatch]);
 
   const saleBooks = useSelector((state) => state.saleBooks);
+  const genres = useSelector ((state) => state.genres);
+  const [value, setValue] = useState((minPrice + maxPrice) / 2);
+
+  useEffect(() => {
+    const allPrices = saleBooks.map((book) => parseFloat(book.price));
+    const minBookPrice = Math.min(...allPrices);
+    const maxBookPrice = Math.max(...allPrices);
+    setMinPrice(minBookPrice);
+    setMaxPrice(maxBookPrice);
+    setValue(Number((minBookPrice + maxBookPrice) / 2).toFixed(2));
+  }, [saleBooks]);
+
+  
+
+  const handleGenreChange = (event) => {
+    const genre = event.target.name;
+    if (genre === "All") {
+      setCheckedGenre([genre]);
+      setSelectAllGenres(true);
+    } else {
+      setCheckedGenre((prevCheckedGenres) => {
+        if (prevCheckedGenres.includes("All")) {
+          return prevCheckedGenres.filter((g) => g !== "All");
+        }
+        return prevCheckedGenres;
+      });
+
+      if (event.target.checked) {
+        setSelectAllGenres(false);
+        setCheckedGenre((prevCheckedGenres) => [...prevCheckedGenres, genre]);
+      } else {
+        setCheckedGenre((prevCheckedGenres) =>
+          prevCheckedGenres.filter((g) => g !== genre)
+        );
+      }
+    }
+  };
+
+ 
+
+  useEffect(() => {
+    if (selectAllGenres) {
+      setFilteredBooks(
+        saleBooks.filter((book) => {
+          const isDiscounted = showDiscounted ? (book.discount !== null && parseFloat(book.discount) > 0) : true;
+          const isInRange = parseFloat(book.price) >= minPrice && parseFloat(book.price) <= value;
+          const searchMatch = (
+            book.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+            book.authorName.toLowerCase().includes(searchInput.toLowerCase())
+          );
+  
+          return isDiscounted && isInRange && searchMatch;
+        })
+      );
+    } else {
+      const filtered = saleBooks.filter((book) => {
+        const isDiscounted = showDiscounted ? (book.discount !== null && parseFloat(book.discount) > 0) : true;
+        const isInRange = parseFloat(book.price) >= minPrice && parseFloat(book.price) <= value;
+        const searchMatch = (
+          book.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+          book.authorName.toLowerCase().includes(searchInput.toLowerCase())
+        );
+  
+        return (
+          searchMatch &&
+          (checkedGenre.length === 0 || checkedGenre.includes(book.genreName)) &&
+          isDiscounted &&
+          isInRange
+        );
+      });
+  
+      const sorted = sortProducts(filtered);
+      setSortedProducts(sorted);
+  
+      setFilteredBooks(filtered);
+    }
+  }, [checkedGenre, saleBooks, selectAllGenres, showDiscounted, minPrice, value, searchInput, sortOption]);
+
+  const handleSelectAllChange = (event) => {
+    setSelectAllGenres(event.target.checked);
+    setCheckedGenre([]);
+  };
+
+  const handleDiscountedChange = (event) => {
+    setShowDiscounted(event.target.checked);
+  };
+
 
   console.log("saleBookssss", saleBooks)
+  console.log("genresss", genres)
+  console.log ("checkedgenres",checkedGenre )
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -37,24 +161,42 @@ function AllProducts() {
       document.removeEventListener("click", closeDropdown);
     };
   }, []);
-  const [value, setValue] = useState((300 + 45) / 2);
+  
 
   const handleChange = (e) => {
     setValue(e.target.value);
   };
+
+  const handleSortChange = (option) => {
+    setSortOption(option);
+    toggleDropdown(); };
+
+    const sortProducts = (books) => {
+      switch (sortOption) {
+        case "newest":
+          return [...books].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        case "highToLow":
+          return [...books].sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+        case "lowToHigh":
+          return [...books].sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        default:
+          return books;
+      }
+    };
+
   const productsPerPage = 4; 
-  const totalProducts = 6; 
+  const totalProducts = filteredBooks.length;
 
   const [currentPage, setCurrentPage] = useState(1);
 
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = saleBooks.slice(
+  const currentProducts = filteredBooks.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   ).map((saleBook) => (
-    <ProductItem key={saleBook.saleBook_id} saleBook={saleBook} />
+    <ProductItem key={saleBook.saleBook_id} saleBook={saleBook}  />
   ));
 
 
@@ -77,10 +219,12 @@ function AllProducts() {
         <div className="p-4 pb-0">
         <div className="flex justify-end mr-20">
           <div className=" flex justify-start w-fit items-center py-7 relative">
-            <input
-              className="text-lg   leading-none text-left text-gray-600 px-2 py-2 w-full border border-black outline-none"
+          <input
+              className="text-lg leading-none text-left text-gray-600 px-2 py-2 w-full border border-black outline-none"
               type="text"
               placeholder="Search"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
             <svg
               className="absolute right-3 z-10 w-6 cursor-pointer"
@@ -107,7 +251,7 @@ function AllProducts() {
           </div>
           {/* DROPDOWN PRODUCTS */}
           <div className="ml-8 flex items-center">
-            <p className="text-xl mr-4">146 products</p>{" "}
+            <p className="text-xl mr-4">{filteredBooks.length} products</p>{" "}
             <div className="relative inline-block text-left scale-95 z-20" ref={dropdownRef}>
               <button
                 id="dropdownDefaultButton"
@@ -142,7 +286,7 @@ function AllProducts() {
                     <li>
                       <button
                         className="block px-4 py-2   hover:text-book"
-                        onClick={toggleDropdown}
+                        onClick={() => handleSortChange("newest")}
                       >
                         Newest Arrivals
                       </button>
@@ -150,7 +294,7 @@ function AllProducts() {
                     <li>
                       <button
                         className="block px-4 py-2   hover:text-book"
-                        onClick={toggleDropdown}
+                        onClick={() => handleSortChange("highToLow")}
                       >
                         Price High To Low
                       </button>
@@ -158,7 +302,7 @@ function AllProducts() {
                     <li>
                       <button
                         className="block px-4 py-2   hover:text-book"
-                        onClick={toggleDropdown}
+                        onClick={() => handleSortChange("lowToHigh")}
                       >
                         Price Low To High
                       </button>
@@ -182,46 +326,30 @@ function AllProducts() {
 
             <div className="mb-8">
               <form>
-                <label class="flex items-center">
-                  <input type="checkbox" name="All" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">All</span>
-                  <span class=" text-xl italic">142 products</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="Fantasy" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">Fantasy</span>
-                  <span class=" text-xl italic">12 products</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="Romance" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">Romance</span>
-                  <span class=" text-xl italic">14 products</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="Mystery" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">Mystery</span>
-                  <span class=" text-xl italic">6 products</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="Tragedy" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">Tragedy</span>
-                  <span class=" text-xl italic">4 products</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="Poetry" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">Poetry</span>
-                  <span class=" text-xl italic">20 products</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="Drama" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">Drama</span>
-                  <span class=" text-xl italic">14 products</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="checkbox" name="Horror" class="h-4 w-4 mr-2" />
-                  <span class="flex-grow text-2xl">Horror</span>
-                  <span class=" text-xl italic">11 products</span>
-                </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="All"
+                  checked={selectAllGenres}
+                  onChange={handleSelectAllChange}
+                  className="h-4 w-4 mr-2"
+                />
+                <span className="flex-grow text-2xl">All</span>
+                <span className="text-xl italic"> {filteredBooks.length} products</span>
+              </label>
+              {genres.map((genre) => (
+            <label key={genre.genre_id} className="flex items-center">
+              <input
+                type="checkbox"
+                name={genre.genreName}
+                checked={checkedGenre.includes(genre.genreName)}
+                onChange={handleGenreChange}
+                className="h-4 w-4 mr-2"
+              />
+              <span className="flex-grow text-2xl">{genre.genreName}</span>
+              <span className="text-xl italic"> {genre.saleBookCount}products</span>
+            </label>
+          ))}
               </form>
             </div>
          
@@ -230,34 +358,55 @@ function AllProducts() {
             <div className="text-4xl">Price Range</div>
             <div className="border-b-2 w-72 mb-6 border-black my-2"></div>
             <div className="w-full justify-center flex mb-2">
-              <input
+            <input
                 type="range"
-                min="45"
-                max="300"
+                min={minPrice}
+                max={maxPrice}
                 value={value}
-                onChange={handleChange}
-                className=" appearance-none h-0.5 bg-black w-52  AllProducts-slider"
+                onChange={(e) => setValue(e.target.value)}
+                className="appearance-none h-0.5 bg-black w-52  AllProducts-slider"
               />
             </div>
-            <div className="flex items-center w-52 mx-auto justify-between">
-              <span className="">$45</span>
+              <div className="flex items-center w-52 mx-auto justify-between">
+              <span className="">${minPrice}</span>
               <span>${value}</span>
-              <span className="">$300</span>
-            </div>
+              <span className="">${maxPrice}</span>
+              </div>
 
             <div className="border-b-2 w-72 border-black my-2"></div>
             <form>
               <label class="flex items-center mt-8">
-                <input type="checkbox" name="All" class="h-4 w-4 mr-2" />
+              <input
+                    type="checkbox"
+                    name="discounted"
+                    checked={showDiscounted}
+                    onChange={handleDiscountedChange}
+                    className="h-4 w-4 mr-2"
+                  />
                 <span class="flex-grow text-2xl">Discounted</span>
               </label>
             </form>
           </div>
         {/* PRODUCTS PRODUCTS PRODUCTS PRODUCTS PRODUCTS PRODUCTS PRODUCTS PRODUCTS PRODUCTS PRODUCTS */}
           <div className="flex-grow p-4 pl-2">
-      <div className="flex flex-wrap items-center justify-start gap-4 HomeArrival-items-cont mx-12">
-        {currentProducts}
-      </div>
+          {isLoading ? (
+            <div className="flex items-center justify-center h-40">
+              <l-hourglass
+                size="40"
+                bg-opacity="0.1"
+                speed="1.75"
+                color="rgb(183,86,66)"
+              ></l-hourglass>
+            </div>
+          ) : filteredBooks.length === 0 ? (
+            <div className="text-center mt-4 text-xl">
+              No books with these prices in this genre.
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center justify-start gap-4 HomeArrival-items-cont mx-12">
+              {currentProducts}
+            </div>
+          )}
       <div className="flex justify-center">
         <div className="inline-flex items-center justify-center gap-3">
           <button

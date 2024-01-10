@@ -1,6 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getById } from "../../redux/actions/users";
 
-function RequestDetails({ closeRequestModal }) {
+function RequestDetails({ userId, closeRequestModal }) {
+  console.log("id", userId)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dispatch(getById(userId));
+      } catch (error) {
+        console.error("Error fetching requests:", error)
+      }
+    };
+    fetchData();
+  }, [dispatch]);
+
+  const users = useSelector ((state) => state.users )
+  useEffect(() => {
+    console.log(users);
+  },[]);
+
+
   return (
     <div className="  flex items-center justify-center">
       <div className="text-center ">
@@ -16,25 +39,25 @@ function RequestDetails({ closeRequestModal }) {
             
               className="italic md:mt-0 px-4 py-2 bg-gray-100 italic focus:outline-none text-2xl text-black contactUs-input"
              
-            > Owner Name</p>
+            > Name : {users.fullName}</p>
           </div>
           <div className="flex flex-wrap mb-4">
           <p
             
             className="italic md:mt-0 px-4 py-2 bg-gray-100 italic focus:outline-none text-2xl text-black contactUs-input"
            
-          > Owner Phone Number</p>
+          > Phone Number : {users.phoneNumber}</p>
             <span className="contactUsDescription-span"></span>
             <p
             
             className="italic md:mt-0 px-4 py-2 bg-gray-100 italic focus:outline-none text-2xl text-black contactUs-input"
            
-          > Owner Email</p>
+          > Email : {users.email}</p>
           </div>
           <p
             className="w-[40vw] italic px-4 py-2 h-28 bg-gray-100 focus:outline-none  text-2xl text-black text-start"
            
-          >Location Description</p>
+          >Location : {users.address}, {users.additionalDescription}</p>
         </form>
       </div>
     </div>

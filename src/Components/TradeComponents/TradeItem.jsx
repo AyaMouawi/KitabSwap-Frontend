@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../css/ArrivalItem.css";
 import SingleTradeItem from "./TradeDetails";
 
-function TradeItem() {
+function TradeItem({tradeBook}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const modalRef = useRef(null);
@@ -55,12 +55,15 @@ function TradeItem() {
     };
   }, []);
 
+  if (!tradeBook) {
+    return null; 
+  }
 
   return (
     <div className="ArrivalItem-cont mb-12 font-lateef font-light w-fit">
       <div className="ArrivalItem-img-container relative w-fit">
         <img
-          src="Images/harrypotter1.webp"
+          src={tradeBook.bookImage}
           alt=""
           className="ArrivalItem-img"
           onClick={openModal}
@@ -74,11 +77,11 @@ function TradeItem() {
             onMouseEnter={isTitleOverflowed ? toggleTooltip : undefined}
             onMouseLeave={isTitleOverflowed ? toggleTooltip : undefined}
           >
-            Harry Bitar:askaban sazkaban with a lil fazkaban
+            {tradeBook.title}
           </h3>
           {isTooltipVisible && (
             <div className="absolute bottom-full left-0  bg-white text-book my-4 w-52 font-sans py-1 px-4 z-10 shadow-xl font-bold">
-           Harry Bitar:askaban sazkaban with a lil fazkaban
+           {tradeBook.title}
             </div>
           )}
         </div>
@@ -99,10 +102,10 @@ function TradeItem() {
       
           className="text-2xl w-60 overflow-hidden whitespace-nowrap overflow-ellipsis"
         
-        >Owner: Name asdf asdf
+        >Owner: {tradeBook.ownerFullName}
           
         </h1>
-        <h4 className="text-2xl">JK Rowling</h4>
+        <h4 className="text-2xl">{tradeBook.authorName}</h4>
       </div>
 
       {isModalOpen && (
@@ -113,13 +116,7 @@ function TradeItem() {
             className="absolute bg-white px-8 rounded shadow-md"
           >
             <div className="flex">
-              <SingleTradeItem />
-              {/* <button
-              className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
-              onClick={closeModal}
-            >
-              Close
-            </button> */}
+              <SingleTradeItem tradeBook = {tradeBook}/>
               <div>
                 <button className="text-4xl pt-4" onClick={closeModal}>
                   X
