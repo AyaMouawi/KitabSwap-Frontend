@@ -9,7 +9,7 @@ import AllProducts from './Components/Pages/AllProducts';
 import NoAccess from './Components/Pages/NoAccess';
 import PageNotFound from './Components/Pages/PageNotFound';
 import UserDashboard from './Components/Pages/UserDashboard';
-
+import AdminDashboard from './Components/Pages/AdminDashboard.jsx';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
      <Route path='/*' element={<PageNotFound/>}/>
      <Route path='/Trade' element={ <TradePage />}/>
      <Route path='/UserDash' element={ <UserDashboard />}/>
+     <Route path='/AdminDashboard/*' element={ <AdminDashboard />}/>
     </Routes>
     </BrowserRouter>
   );
