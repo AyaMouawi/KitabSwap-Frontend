@@ -3,8 +3,19 @@ import Footer from "../FrequentlyUsed/Footer";
 import NavBar from "../FrequentlyUsed/NavBar";
 import UserItem from "../UserDashComponents/UserItem";
 import PostTrading from "../UserDashComponents/PostTrading";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getByOwnerId } from "../../redux/actions/tradeBook";
+import { hourglass } from 'ldrs'
 
 function UserDashboard() {
+
+    hourglass.register();
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState (true);
+    const [userId, setUserId] =  useState(4);
+    console.log(userId)
+
     const modalRef = useRef(null);
     // Post Trade MODAL
 const [isPostTradeModalOpen, setPostTradeModalOpen] = useState(false);
@@ -31,6 +42,24 @@ useEffect(() => {
     document.removeEventListener("mousedown", handleClickOutside);
   };
 }, [isPostTradeModalOpen]);
+
+useEffect(() => {
+  const fetchBookData = async () => {
+    try {
+      setIsLoading(true);
+      await dispatch(getByOwnerId(userId));
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching saleBooks:", error);
+      setIsLoading(false);
+    }
+  };
+  fetchBookData();
+}, [dispatch]);
+
+const ownerBooks = useSelector ((state) => state.tradeBooks);
+console.log("ownerbooks", ownerBooks)
+
   return (
     <>
       <NavBar />
@@ -42,11 +71,9 @@ useEffect(() => {
         </div>
         <div className="flex flex-wrap items-center justify-between HomeArrival-items-cont mx-24"> 
        
-          <UserItem />
-          <UserItem />
-          <UserItem />
-          <UserItem />
-          <UserItem />
+        {ownerBooks.map((book, index) => (
+            <UserItem key={index} tradeBook={book} />
+          ))}
           
         </div>
         </div>

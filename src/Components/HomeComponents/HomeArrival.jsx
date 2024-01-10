@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
-
+import { getLatestSaleBooks } from "../../redux/actions/saleBooks";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "../css/HomeArrival.css"
 import ProductItem from './ProductItem';
 
 function HomeArrival() {
 
+  const dispatch = useDispatch();
+  useEffect (() => {
+    dispatch(getLatestSaleBooks())
+  },[dispatch]);
+
+const Latest = useSelector((state) => state.saleBooks);
+console.log("latest", Latest)
 
   return (
     <div className='w-full mx-auto p-4 HomeArrival-cont font-lateef font-light mt-10'>
@@ -14,11 +23,11 @@ function HomeArrival() {
         </div>
             <div className="flex flex-wrap items-center justify-between HomeArrival-items-cont mx-20"> 
        
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
+          
+        {Latest.map((book) => (
+          <ProductItem key={book.id} saleBook={book} />
+        ))}
+       
           
         </div>
         

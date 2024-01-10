@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import "../css/ArrivalItem.css";
 import SingleProduct from "../Pages/SingleProduct";
 
-function ProductItem() {
+function ProductItem({saleBook}) {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const modalRef = useRef(null);
-
   const titleRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -54,15 +54,44 @@ function ProductItem() {
     };
   }, []);
 
+  if (!saleBook) {
+    return null; 
+  }
+
+  let priceSection;
+
+  if (saleBook.discount !== null && saleBook.discount !== 0 && saleBook.discount !== 0.00) {
+    priceSection = (
+      <div className="flex">
+        <h4 className="text-2xl" style={{ textDecoration: 'line-through', color: 'red', marginRight: '8px' }}>
+          ${saleBook.price}
+        </h4>
+        <h4 className="text-2xl" style={{ color: 'green' }}>
+          ${saleBook.discountedPrice}
+        </h4>
+      </div>
+    );
+  } else {
+    priceSection = <h4 className="text-2xl">${saleBook.price}</h4>;
+  }
+
+  let discountSection;
+  if (saleBook.discount !== null && saleBook.discount !== 0 && saleBook.discount !== 0.00) {
+    discountSection = (
+    <div className="absolute top-0 right-0 bg-white my-4 font-sans py-1 px-4 z-10 shadow-xl font-bold" style={{ color: 'green' }}>
+          {saleBook.discount}% off
+    </div> );
+  } else {
+    discountSection = ('')
+  }
+
 
   return (
     <div className="ArrivalItem-cont mb-12 font-lateef font-light w-fit">
       <div className="ArrivalItem-img-container relative w-fit">
-        <div className="absolute top-0 right-0 bg-white text-book my-4 font-sans py-1 px-4 z-10 shadow-xl font-bold">
-          30% off
-        </div>
+      {discountSection}
         <img
-          src="Images/harrypotter1.webp"
+          src={saleBook.book_image}
           alt=""
           className="ArrivalItem-img"
           onClick={openModal}
@@ -76,11 +105,11 @@ function ProductItem() {
             onMouseEnter={isTitleOverflowed ? toggleTooltip : undefined}
             onMouseLeave={isTitleOverflowed ? toggleTooltip : undefined}
           >
-            Harry Bitar: And The Sorcerer's Stone
+            {saleBook.title}
           </h3>
           {isTooltipVisible && (
             <div className="absolute bottom-full left-0 w-full bg-white text-book my-4 font-sans py-1 px-4 z-10 shadow-xl font-bold">
-              Harry Bitar:And The Sorcerer's Stone
+              {saleBook.title}
             </div>
           )}
         </div>
@@ -94,8 +123,8 @@ function ProductItem() {
         </div>
       </div>
       <div className="">
-        <h1 className="text-2xl">jk rowling</h1>
-        <h4 className="text-2xl">$160</h4>
+        <h1 className="text-2xl">{saleBook.authorName}</h1>
+        {priceSection}
       </div>
 
       {isModalOpen && (
@@ -106,13 +135,7 @@ function ProductItem() {
             className="absolute bg-white px-8 rounded shadow-md"
           >
             <div className="flex">
-              <SingleProduct />
-              {/* <button
-              className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
-              onClick={closeModal}
-            >
-              Close
-            </button> */}
+              <SingleProduct saleBook = {saleBook}/>
               <div>
                 <button className="text-4xl pt-4" onClick={closeModal}>
                   X
