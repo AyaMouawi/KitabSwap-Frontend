@@ -60,7 +60,7 @@ function ProductItem({saleBook}) {
 
   let priceSection;
 
-  if (saleBook.discount !== null && saleBook.discount !== 0 && saleBook.discount !== 0.00) {
+  if (saleBook.discount !== "-") {
     priceSection = (
       <div className="flex">
         <h4 className="text-2xl" style={{ textDecoration: 'line-through', color: 'red', marginRight: '8px' }}>
@@ -76,7 +76,7 @@ function ProductItem({saleBook}) {
   }
 
   let discountSection;
-  if (saleBook.discount !== null && saleBook.discount !== 0 && saleBook.discount !== 0.00) {
+  if (saleBook.discount !== "-") {
     discountSection = (
     <div className="absolute top-0 right-0 bg-white my-4 font-sans py-1 px-4 z-10 shadow-xl font-bold" style={{ color: 'green' }}>
           {saleBook.discount}% off

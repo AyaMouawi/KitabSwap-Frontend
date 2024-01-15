@@ -16,8 +16,6 @@ function TeamSection() {
         { header: "Name", accessorKey: "name" },
     
         { header: "Email", accessorKey: "email" },
-        { header: "Password", accessorKey: "password" },
-        { header: "Role", accessorKey: "role" },
         {
             accessorKey: "edit/delete",
             header: "",

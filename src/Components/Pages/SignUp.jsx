@@ -1,17 +1,58 @@
 import React, { useState } from "react";
-
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link} from "react-router-dom";
+import {register} from "../../redux/actions/users";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import "../css/SignUp.css";
 
 
 function SignUp() {
+
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    floor: "",
+    building: "",
+    street: "",
+    city: "",
+    description: "",
+  });
+  const [confirmPassword, setConfirmPassword] = useState("");
  
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetails({
+      ...userDetails,
+      [name]: value,
+    });
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    if (userDetails.password !== confirmPassword) {
+      toast.error("Passwords don't match");
+      return;
+    }
+
+    dispatch(register(userDetails));
   };
 
   return (
@@ -24,7 +65,7 @@ function SignUp() {
       /></Link>
       </div>
       <div className="w-1/2 flex items-center justify-center SignUp-form ">
-        <form className="p-12 py-0 w-full signup-title">
+        <form className="p-12 py-0 w-full signup-title" onSubmit={handleRegister}>
           <h1 className="text-6xl  mb-4 text-center signup-title">Welcome To KitabSwap</h1>
           <h1 className="text-2xl mb-6 italic text-center signup-description">
             Book store and trading point for all book lovers
@@ -38,7 +79,8 @@ function SignUp() {
                 type="text"
                 id="firstName"
                 name="firstName"
-            
+                value={userDetails.firstName}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="First Name"
               />
@@ -50,7 +92,8 @@ function SignUp() {
                 type="text"
                 id="lastName"
                 name="lastName"
-             
+                value={userDetails.lastName}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="Last Name"
               />
@@ -63,7 +106,8 @@ function SignUp() {
                 type="email"
                 id="email"
                 name="email"
-            
+                value={userDetails.email}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="Email"
               />
@@ -73,9 +117,10 @@ function SignUp() {
             <div className="mb-6 flex-1 signup-input-container">
               <input
                 type="number"
-                id="phone"
-                name="phone"
-         
+                id="phoneNumber"
+                name="phoneNumber"
+                value={userDetails.phoneNumber}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="Phone Number"
               />
@@ -88,7 +133,8 @@ function SignUp() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
-           
+                value={userDetails.password}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 pr-10 italic text-2xl"
                 placeholder="Password"
               />
@@ -122,8 +168,10 @@ function SignUp() {
             <div className="mb-4 flex-1 relative signup-input-container">
               <input
                 type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 pr-10 italic text-2xl"
                 placeholder="Confirm Password"
               />
@@ -167,7 +215,8 @@ function SignUp() {
                 type="number"
                 id="floor"
                 name="floor"
-             
+                value={userDetails.floor}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="Floor"
               />
@@ -179,7 +228,8 @@ function SignUp() {
                 type="text"
                 id="building"
                 name="building"
-           
+                value={userDetails.building}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="Building"
               />
@@ -192,7 +242,8 @@ function SignUp() {
                 type="text"
                 id="street"
                 name="street"
-          
+                value={userDetails.street}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="Street"
               />
@@ -203,7 +254,8 @@ function SignUp() {
                 type="text"
                 id="city"
                 name="city"
-             
+                value={userDetails.city}
+                onChange={handleInputChange}
                 className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
                 placeholder="City"
               />
@@ -214,6 +266,8 @@ function SignUp() {
               type="text"
               id="description"
               name="description"
+              value={userDetails.description}
+              onChange={handleInputChange}
               className="w-full p-2 py-3 border border-black bg-gray-100 italic text-2xl signup-input"
               placeholder="Additional Description"
             />

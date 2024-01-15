@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../css/navbar.css";
 
 function NavBar() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -13,6 +14,11 @@ function NavBar() {
   const isCurrentPage = (path) => {
     return location.pathname === path;
   };
+
+  useEffect(() => {
+    const userLoggedIn = localStorage.getItem("token"); 
+    if(userLoggedIn){setLoggedIn(true)}
+  }, []);
 
   return (
     <div className="App">
@@ -27,14 +33,19 @@ function NavBar() {
               <Link to="/Cart">
                 <img src="../Images/Icons/shoppingcart.png" className="h-7"  />
               </Link>
+              {isLoggedIn ? (
               <Link to="/UserDash" className="ml-4">
                 <img src="../Images/Icons/dashboard.png" className="h-7"  />
-              </Link>
+              </Link>):(<></>)}
             </div>
             <div className=" flex items-center ml-4 lg:ml-auto ">
-              <Link to="/SignUp">
+              {isLoggedIn ?(
+                 <img src="../Images/Icons/logout.png" className="h-7" alt="Flowbite Logo" />
+               ):(
+                <Link to="/SignUp">
                 <img src="../Images/Icons/user.png" className="h-7" alt="Flowbite Logo" />
               </Link>
+              )}
             </div>
             </div>
             <button

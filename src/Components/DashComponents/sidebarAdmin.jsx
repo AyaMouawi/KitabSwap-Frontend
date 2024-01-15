@@ -51,12 +51,19 @@ function SidebarAdmin() {
   ];
 
   const handleSectionClick = (section) => {
+    if (section === 'Logout'){
+      localStorage.clear();
+      navigate('/SignIn');
+    }else{
     setSelectedSection(section);
-    navigate(`/AdminDashboard/${section.toLowerCase()}`);
+    navigate(`/AdminDashboard/${section.toLowerCase()}`);}
   };
   useEffect(() => {
     handleSectionClick('Orders');
   }, []);
+
+
+
 
   return (
     <div className="sidebar bg-gray-100 h-screen fixed left-0 top-0 w-52 text-xl">

@@ -1,20 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {login} from "../../redux/actions/users"
 
 
 
 function SignIn() {
-   
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-
+    const [userCredentials, setUserCredentials] = useState({
+      email: '',
+      password: ''
+    });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
- 
+  const handleChange = (e) => {
+    setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
+  };
+  
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(login(userCredentials));
+    
+  };
       
 
   return (
@@ -27,10 +41,12 @@ function SignIn() {
 
 
           <div className="mb-8">
-            <input
+          <input
               type="email"
               id="email"
               name="email"
+              value={userCredentials.email}
+              onChange={handleChange}
               className="w-full p-2 py-4 border border-black bg-gray-100 italic text-2xl"
               placeholder="Email"
             />
@@ -38,11 +54,13 @@ function SignIn() {
 
           <div className="mb-4 relative ">
             <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              className="w-full p-2 py-4 border border-black bg-gray-100 pr-10 italic text-2xl"
-              placeholder="Password"
+               type={showPassword ? "text" : "password"}
+               id="password"
+               name="password"
+               value={userCredentials.password}
+               onChange={handleChange}
+               className="w-full p-2 py-4 border border-black bg-gray-100 pr-10 italic text-2xl"
+               placeholder="Password"
 
             />
             <div
@@ -75,7 +93,7 @@ function SignIn() {
           <div className="text-right mb-4">
             <a href="" className="underline text-xl hover:text-red-700">Forgot Password?</a>
           </div>
-          <button className="bg-book text-white  py-2 px-4 w-full text-3xl mb-4 ">
+          <button className="bg-book text-white  py-2 px-4 w-full text-3xl mb-4 " onClick={handleLogin}>
             LOG IN
           </button>
           <div className="mb-4 text-center">

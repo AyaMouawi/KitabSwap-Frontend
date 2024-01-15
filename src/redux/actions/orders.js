@@ -9,7 +9,7 @@ export const getAllOrders = () => {
       .get(`${process.env.REACT_APP_API_URL}/order/getAll`)
       .then((response) => {
         const orders = response.data.data;
-        console.log("Orders", Orders)
+        console.log("Orderssss", orders)
         dispatch({
           type: "getAllOrders",
           payload: orders,
