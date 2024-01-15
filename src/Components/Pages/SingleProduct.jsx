@@ -4,7 +4,7 @@ function SingleProduct({saleBook}) {
 
   let priceSection;
 
-  if (saleBook.discount !== null && saleBook.discount !== 0 && saleBook.discount !== 0.00) {
+  if (saleBook.discount !== "-") {
     priceSection = (
       <div className="flex">
         <h4 className="italic text-3xl mb-12" style={{ textDecoration: 'line-through', color: 'red', marginRight: '8px' }}>

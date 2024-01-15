@@ -5,7 +5,7 @@ import NavBar from "../FrequentlyUsed/NavBar";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { hourglass } from 'ldrs'
-import { getAllSaleBooks } from "../../redux/actions/saleBooks";
+import { getAllAvailableSaleBooks } from "../../redux/actions/saleBooks";
 import { getAllGenres } from "../../redux/actions/genres";
 import "../css/AllProducts.css";
 
@@ -30,7 +30,7 @@ function AllProducts() {
     const fetchBookData = async () => {
       try {
         setIsLoading(true);
-        await dispatch(getAllSaleBooks());
+        await dispatch(getAllAvailableSaleBooks());
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching saleBooks:", error);

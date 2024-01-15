@@ -1,5 +1,6 @@
-import { useEffect, useState,useMemo } from "react";
-
+import { useEffect, useState} from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "../css/Dashboard.css";
 import ViewCustomer from "./DashModals/ViewCustomer";
 import { customersData } from "./datas";
@@ -7,11 +8,23 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
+import {getAllClients} from '../../redux/actions/users';
+
 function CustomersSection() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+     dispatch(getAllClients());
+  
+  }, [dispatch]);
+
+  const users = useSelector ((state) => state.users)
     /* MATERIAL REACT TABLE STUFF */
-  const data = useMemo(() => customersData, []);
+  const data = users;
   const columns = [
-    { header: "Name", accessorKey: "name" },
+    { header: "Name", accessorKey: "fullName" },
     { header: "Email", accessorKey: "email" },
     { header: "Number of Orders", accessorKey: "orders" },
 

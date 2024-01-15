@@ -15,7 +15,7 @@ function UserDashboard() {
     const [isLoading, setIsLoading] = useState (true);
 
     // GET USER ID FROM LOCAL STORAGE
-    const [userId, setUserId] =  useState(4);
+    const userId = localStorage.getItem("userId");
 
 
     const modalRef = useRef(null);

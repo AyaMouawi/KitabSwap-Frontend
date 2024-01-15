@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllOrders } from "../../redux/actions/orders";
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -10,12 +12,25 @@ import EditOrder from "./DashModals/EditOrder";
 import { ordersData } from "./datas";
 
 function OrdersSection() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+     dispatch(getAllOrders());
+  
+  }, [dispatch]);
+  
+
+  const orderData = useSelector ((state) => state.orders);
+console.log('orders', orderData)
+
 /* MATERIAL REACT TABLE STUFF */
-  const data = useMemo(() => ordersData, []);
+  const data = orderData;
   const columns = [
-    { header: "Name", accessorKey: "name" },
-    { header: "Date", accessorKey: "date" },
-    { header: "Quantity", accessorKey: "qty" },
+    { header: "Name", accessorKey: "userInfo.userName" },
+    { header: "Date", accessorKey: "orderDate" },
+    { header: "Quantity", accessorKey: "totalQuty" },
     { header: "Total", accessorKey: "total" },
     { header: "Status", accessorKey: "status" },
     {

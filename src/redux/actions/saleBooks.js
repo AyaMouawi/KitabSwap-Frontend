@@ -54,4 +54,20 @@ export const getLatestSaleBooks = () => {
   }
 }
 
+export const getAllAvailableSaleBooks = () => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/saleBook/getAll`)
+      .then((response) => {
+        const saleBooks = response.data.data;
+        const available = saleBooks.filter(book => book.status === "available");
+        console.log("saleBooks", available)
+        dispatch({
+          type: "getAllSaleBooks",
+          payload: available,
+        });
+      })
+      .catch((error) => console.log("Failed to fetch data :", error));
+  }
+}
 

@@ -21,7 +21,7 @@ export const getByBookId = (id) => {
 }
 
 export const requestTrade = (data) => {
-  const Auth = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY2xpZW50IiwiaWF0IjoxNzA0OTIxMjYzLCJleHAiOjE3MDQ5MjQ4NjN9.u_yNjwUqNS4sAMIco0Mi2rXtDw7AalBtrIBNdCm1gOk'
+  const Auth = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInJvbGUiOiJjbGllbnQiLCJpYXQiOjE3MDUyMzgzMzAsImV4cCI6MTcwNTI0MTkzMH0.8Tt0j68przkUmvYiMKo5WlX_d-k9KBrsThuhEzznHZE'
   return (dispatch) => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/tradeRequest/RequestTrade`, data, {
@@ -30,7 +30,7 @@ export const requestTrade = (data) => {
         },
       })
       .then((response) => {
-        const tradeRequest = response.data.car;
+        const tradeRequest = response.data.data;
         dispatch({
           type: "requestTrade",
           payload: tradeRequest,

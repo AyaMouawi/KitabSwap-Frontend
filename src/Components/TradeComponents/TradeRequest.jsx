@@ -32,7 +32,7 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userRequested_id = 15;
+    const userRequested_id = localStorage.getItem("userId");
 
     const formDataWithImage = new FormData();
     formDataWithImage.append("image", formData.image);

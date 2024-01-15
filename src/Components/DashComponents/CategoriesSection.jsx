@@ -7,15 +7,29 @@ import "../css/Dashboard.css";
 import AddCategory from "./DashModals/AddCategory";
 import DeleteCategory from "./DashModals/DeleteCategory";
 import EditCategory from "./DashModals/EditCategory";
-import { categoriesData } from "./datas";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {getAllGenres} from "../../redux/actions/genres"
+
 function CategoriesSection() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+    dispatch(getAllGenres());
+ 
+ }, [dispatch]);
+
+ const genres = useSelector ((state) => state.genres)
+
   /* MATERIAL REACT TABLE STUFF */
-  const data = useMemo(() => categoriesData, []);
+  const data = genres;
   const columns = [
-    { header: "Category", accessorKey: "category" },
+    { header: "Category", accessorKey: "genreName" },
     {
       header: "Quantity",
-      accessorKey: "qty",
+      accessorKey: "saleBookCount",
       Cell: ({ renderedCellValue, row }) => (
         <div
           style={{
@@ -24,30 +38,12 @@ function CategoriesSection() {
             gap: "1rem",
           }}
         >
-          {row.original.qty} products
+          {row.original.saleBookCount} products
         </div>
       ),
     },
-    { header: "discounted", accessorKey: "discounted" },
-    {
-      header: "highlight",
-      accessorKey: "highlight",
-      Cell: ({ renderedCellValue, row }) => (
-        <div
-          className="ml-4"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-          }}
-        >
-          <input
-            type="checkbox"
-            defaultChecked={row.original.highlight === 1}
-          />
-        </div>
-      ),
-    },
+    { header: "discounted", accessorKey: "discount" },
+    
     {
       accessorKey: "edit/delete",
       header: "",

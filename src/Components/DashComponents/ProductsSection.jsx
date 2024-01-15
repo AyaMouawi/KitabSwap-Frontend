@@ -1,5 +1,7 @@
-import { useEffect, useState, useRef, useMemo } from "react";
-
+import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getAllSaleBooks } from "../../redux/actions/saleBooks";
 import "../css/Dashboard.css";
 import {
   MaterialReactTable,
@@ -11,18 +13,28 @@ import DeleteProduct from "./DashModals/DeleteProduct";
 import EditProduct from "./DashModals/EditProduct";
 
 function ProductsSection() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+    dispatch(getAllSaleBooks());
+ 
+ }, [dispatch]);
+
+ const saleBooks = useSelector ((state) => state.saleBooks);
   /* MATERIAL REACT TABLE STUFF */
-  const data = useMemo(() => productsData, []);
+  const data =  saleBooks;
   const columns = [
-    { header: "Category", accessorKey: "category" },
-    { header: "Name", accessorKey: "name" },
+    { header: "Category", accessorKey: "genreName" },
+    { header: "Name", accessorKey: "title" },
     {
       header: "Thumbnail",
-      accessorKey: "thumbnail",
+      accessorKey: "book_image",
       Cell: ({ renderedCellValue, row }) => (
         <img
           className="h-28 w-20"
-          src={"../Images/" + row.original.thumbnail}
+          src={row.original.book_image}
         ></img>
       ),
       enableSorting: false,
@@ -30,7 +42,7 @@ function ProductsSection() {
     { header: "Price", accessorKey: "price" },
     {
       header: "Quantity",
-      accessorKey: "qty",
+      accessorKey: "quantity",
       Cell: ({ renderedCellValue, row }) => (
         <div
           style={{
@@ -39,13 +51,13 @@ function ProductsSection() {
             gap: "1rem",
           }}
         >
-          {row.original.qty} products
+          {row.original.quantity} products
         </div>
       ),
     },
     {
       header: "Discounted",
-      accessorKey: "discounted",
+      accessorKey: "discount",
       size: 30,
       muiTableHeadCellProps: {
         align: "center",
