@@ -5,6 +5,7 @@ import tradeBookReducer from "./tradeBookReducer";
 import tradeRequestReducer from "./tradeRequestReducer";
 import userReducer from "./userReducer";
 import orderReducer from "./orderReducer";
+import bannerReducer from "./bannerReducer";
 
 const allReducers = combineReducers ({
     saleBooks : saleBookReducer,
@@ -13,6 +14,7 @@ const allReducers = combineReducers ({
     tradeRequest : tradeRequestReducer,
     users : userReducer,
     orders : orderReducer,
+    banners : bannerReducer,
 });
 
 export default allReducers;

@@ -13,6 +13,8 @@ const userReducer = (state={}, action) => {
                 ...state,
                 registeredUser: action.payload.data, 
               };
+        case 'deleteById':
+                return state.filter((user)=>user.user_id!==action.payload);
     default: return state; 
 }}
 

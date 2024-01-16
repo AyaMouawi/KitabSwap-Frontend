@@ -43,7 +43,7 @@ function NavBar() {
                  <img src="../Images/Icons/logout.png" className="h-7" alt="Flowbite Logo" />
                ):(
                 <Link to="/SignUp">
-                <img src="../Images/Icons/user.png" className="h-7" alt="Flowbite Logo" />
+                <img src="../Images/Icons/user.png" className="ml-4" alt="Flowbite Logo" />
               </Link>
               )}
             </div>

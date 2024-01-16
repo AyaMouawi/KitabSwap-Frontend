@@ -14,6 +14,7 @@ import {getAllGenres} from "../../redux/actions/genres"
 function CategoriesSection() {
 
   const dispatch = useDispatch();
+  const [genreId, setGenreId] = useState ('');
 
   useEffect(() => {
     
@@ -55,17 +56,12 @@ function CategoriesSection() {
             gap: "1rem",
           }}
         >
-          <img
-            className="h-6 w-6"
-            src="../Images/dashboardIcons/edit.png"
-            alt="edit"
-            onClick={() => openEditCategoryModal()}
-          />
+      
           <img
             className="h-6 w-6"
             src="../Images/dashboardIcons/delete.png"
             alt="delete"
-            onClick={() => openDeleteCategoryModal()}
+            onClick={() => {openDeleteCategoryModal(); setGenreId(row.original.genre_id);}}
           />
         </div>
       ),
@@ -162,6 +158,7 @@ function CategoriesSection() {
               </button>
               <DeleteCategory
                 closeDeleteCategoryModal={closeDeleteCategoryModal}
+                genreId = {genreId}
               />
             </div>
           </div>
@@ -176,7 +173,6 @@ function CategoriesSection() {
               >
                 X
               </button>
-              <EditCategory closeEditCategoryModal={closeEditCategoryModal} />
             </div>
           </div>
         )}

@@ -1,4 +1,7 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {getAll} from "../../redux/actions/banner";
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -8,21 +11,31 @@ import EditBanner from "./DashModals/EditBanner";
 import { bannerData } from "./datas";
 
 function BannerSection() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+    dispatch(getAll());
+ 
+ }, [dispatch]);
+
+ const banners = useSelector ((state) => state.banners);
   /* MATERIAL REACT TABLE STUFF */
-  const data = useMemo(() => bannerData, []);
+  const data =  banners;
   const columns = [
-    { header: "Text", accessorKey: "text" },
+    { header: "Text", accessorKey: "content" },
     {
       header: "Thumbnail",
-      accessorKey: "thumbnail",
+      accessorKey: "image",
       Cell: ({ renderedCellValue, row }) => (
         <img
           className="h-28 w-20"
-          src={"../Images/" + row.original.thumbnail}
+          src={row.original.image}
         ></img>
       ),
     },
-    { header: "Button Text", accessorKey: "btnText" },
+    { header: "Button Text", accessorKey: "buttonText" },
     { header: "Link", accessorKey: "link" },
     {
       accessorKey: "edit",
@@ -57,11 +70,10 @@ function BannerSection() {
           }}
         >
           <input
-            className="h-6 w-6"
-            type="radio"
-            alt="edit"
-            checked
-          />
+        className="h-6 w-6"
+        type="radio"
+        checked={row.original.highlight === 1}
+      />
         </div>
       ),
       enableSorting: false,

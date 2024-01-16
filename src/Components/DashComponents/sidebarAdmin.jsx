@@ -34,11 +34,6 @@ function SidebarAdmin() {
       imageSrcHover: '../Images/dashboardIcons/red-users.png',
     },
     {
-      name: 'Team',
-      imageSrc: '../Images/dashboardIcons/team.png',
-      imageSrcHover: '../Images/dashboardIcons/red-team.png',
-    },
-    {
       name: 'Analytics',
       imageSrc: '../Images/dashboardIcons/analytics.png',
       imageSrcHover: '../Images/dashboardIcons/red-analytics.png',

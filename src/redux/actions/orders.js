@@ -41,3 +41,45 @@ export const placeOrder = (userId, orderInfo, shipmentMethod ) => {
       });
   };
 };
+
+export const getById = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/order/getById/${id}`)
+      .then((response) => {
+        const order = response.data.data;
+        console.log('reduxorder', order)
+        dispatch({
+          type: "getById",
+          payload: order,
+        });
+        
+      })
+      .catch((error) =>  ("Failed to fetch data :", error));
+       
+  };
+  
+}
+
+export const deleteById = (id) => {
+  const Auth = localStorage.getItem("token");
+  return (dispatch) => {
+    axios
+    .delete(`${process.env.REACT_APP_API_URL}/order/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Auth}`,
+      },
+    })
+      .then((response) => {
+
+        dispatch({
+          type: "deleteById",
+          payload: id,
+        });
+        toast.success("Order deleted successfully");
+      })
+      .catch((error) =>  ("Failed to fetch data :", error));
+      
+  };
+  
+}

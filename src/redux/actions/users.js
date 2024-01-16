@@ -101,3 +101,26 @@ export const register = (data) => {
       });
   }
 }
+
+export const deleteById = (id) => {
+  const Auth = localStorage.getItem("token");
+  return (dispatch) => {
+    axios
+    .delete(`${process.env.REACT_APP_API_URL}/user/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Auth}`,
+      },
+    })
+      .then((response) => {
+
+        dispatch({
+          type: "deleteById",
+          payload: id,
+        });
+        toast.success("User deleted successfully");
+      })
+      .catch((error) =>  ("Failed to fetch data :", error));
+      
+  };
+  
+}

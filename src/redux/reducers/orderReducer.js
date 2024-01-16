@@ -4,8 +4,12 @@ const orderReducer = (state=[], action) => {
 
         case 'getAllOrders':
             return action.payload; 
-            case 'placeOrder':
+        case 'placeOrder':
             return [...state, action.payload];
+        case 'getById':
+            return action.payload
+        case 'deleteById':
+            return state.filter((order)=>order.orderId!==action.payload);
         default: return state; 
 }}
 
