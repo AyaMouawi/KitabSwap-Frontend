@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { requestTrade } from "../../redux/actions/tradeRequests";
-import { hourglass } from 'ldrs'
+import { hourglass } from 'ldrs';
+
 
 function TradeRequest({ tradeBookId, closeRequestModal }) {
   const dispatch = useDispatch();
@@ -28,9 +29,11 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
       image: imageFile,
     }));
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     const userRequested_id = localStorage.getItem("userId");
 
@@ -42,20 +45,19 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
     formDataWithImage.append("tradebook_id", tradeBookId);
     formDataWithImage.append("userRequested_id", userRequested_id);
 
-    setLoading(true);
 
     try {
-      setLoading(true);
+    
       await dispatch(requestTrade(formDataWithImage));
     } catch (error) {
       console.error("Error in trade request:", error);
-    } finally {
-      setLoading(false);
-      // closeRequestModal();
-    }
+    } 
+
+    
   };
 
-  console.log("s", loading)
+  
+
   return (
     <div className="  flex items-center justify-center">
       <div className="text-center ">
@@ -66,16 +68,13 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
           Trading Request
         </p>
         {loading && (
-          // <l-hourglass
-          //   size="40"
-          //   bg-opacity="0.1"
-          //   speed="1.75"
-          //   color="rgb(183,86,66)"
-          // ></l-hourglass>
-          <div>
-            {/* Display any loading indicator here */}
-            Loading...
-          </div>
+          <l-hourglass
+            size="40"
+            bg-opacity="0.1"
+            speed="1.75"
+            color="rgb(183,86,66)"
+          ></l-hourglass>
+        
         )}
 
         {!loading && (

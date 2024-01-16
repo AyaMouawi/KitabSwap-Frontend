@@ -21,7 +21,7 @@ export const getByBookId = (id) => {
 }
 
 export const requestTrade = (data) => {
-  const Auth = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInJvbGUiOiJjbGllbnQiLCJpYXQiOjE3MDUyMzgzMzAsImV4cCI6MTcwNTI0MTkzMH0.8Tt0j68przkUmvYiMKo5WlX_d-k9KBrsThuhEzznHZE'
+  const Auth = localStorage.getItem("token");
   return (dispatch) => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/tradeRequest/RequestTrade`, data, {

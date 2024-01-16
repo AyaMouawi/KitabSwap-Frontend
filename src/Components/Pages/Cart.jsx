@@ -11,6 +11,8 @@ import "../css/cart.css";
 
 function Cart() {
   const modalRef = useRef(null);
+  const cart = localStorage.getItem("cart");
+const cartDetails = localStorage.getItem("cartDetails");
   // ADDRESS MODAL
   const [isAddressModalOpen, setAddressModalOpen] = useState(false);
 
@@ -39,8 +41,9 @@ function Cart() {
   // DELETE MODAL
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
-  const openDeleteModal = () => {
+  const openDeleteModal = (bookId) => {
     setDeleteModalOpen(true);
+   
   };
 
   const closeDeleteModal = () => {
@@ -91,20 +94,23 @@ function Cart() {
     <div>
     <NavBar />
     <div className="max-w-screen-xl mx-auto p-4 font-lateef ">
-      <div className=" italic">
+      <div className="italic">
         <p href="" className="text-5xl ">
           My Cart
         </p>
       </div>
 
-      <CartTable openModal={openDeleteModal} />
-      <CartDetails
-        openModal={openAddressModal}
-        openConfirmModal={openConfirmModal}
-      />
-
-      {/* <CartEmpty /> */}
-
+      {(!cart || !cartDetails) ? (
+        <CartEmpty />
+      ) : (
+        <>
+          <CartTable openModal={openDeleteModal} />
+          <CartDetails
+            openModal={openAddressModal}
+            openConfirmModal={openConfirmModal}
+          />
+        </>
+      )}
       {isAddressModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-40">
           <div className="fixed inset-0 bg-black opacity-50"></div>
