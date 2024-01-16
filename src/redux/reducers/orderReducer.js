@@ -4,6 +4,8 @@ const orderReducer = (state=[], action) => {
 
         case 'getAllOrders':
             return action.payload; 
+            case 'placeOrder':
+            return [...state, action.payload];
         default: return state; 
 }}
 

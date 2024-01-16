@@ -45,6 +45,7 @@ export const login = (Info) => {
       .post(`${process.env.REACT_APP_API_URL}/user/login`, Info)
       .then((response) => {
         const login = response.data;
+        const shipment = 'delivery';
         console.log('login', login);
         dispatch({
           type: "login",
@@ -57,6 +58,9 @@ export const login = (Info) => {
         localStorage.setItem("userAddress", userAddress);
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
+        localStorage.setItem("cart",[]);
+        localStorage.setItem("cartDetails",[]);
+        localStorage.setItem("shipment", shipment)
 
         toast.success(`Welcome ${userFullName}`);
         if (role === "admin") {

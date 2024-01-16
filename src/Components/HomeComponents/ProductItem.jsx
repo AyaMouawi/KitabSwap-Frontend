@@ -135,7 +135,7 @@ function ProductItem({saleBook}) {
             className="absolute bg-white px-8 rounded shadow-md"
           >
             <div className="flex">
-              <SingleProduct saleBook = {saleBook}/>
+              <SingleProduct saleBook = {saleBook} closeModal= {closeModal}/>
               <div>
                 <button className="text-4xl pt-4" onClick={closeModal}>
                   X
