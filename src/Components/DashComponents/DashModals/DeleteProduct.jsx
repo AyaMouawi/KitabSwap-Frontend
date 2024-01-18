@@ -1,32 +1,32 @@
-function DeleteProduct({ fetchProducts, closeDeleteProductModal, deleteProduct, productID }) {
-    const handleDelete = () => {
-        console.log('Product ID to delete: ', productID);
-        closeDeleteProductModal();
-        deleteProduct(productID);
-        fetchProducts();
-    };
+import { useDispatch } from "react-redux";
+import {deleteById} from "../../../redux/actions/saleBooks";
 
-    return (
+function DeleteProduct({  closeDeleteProductModal, bookId }) {
+    const dispatch = useDispatch();
+    console.log("bookId",bookId)
+
+    const handleConfirmDelete = () => {
+         dispatch(deleteById(bookId));
+         closeDeleteProductModal(); 
+     };
+
+     return (
         <div className="flex items-center justify-center">
-            <div className="text-center">
-                <p className="text-2xl m-12 w-2/3 mx-auto">
-                    Are you sure you want to delete this product?
-                </p>
-                <div className="flex justify-end bg-gray-100 p-6 items-center">
-                    <button className="bg-white text-red-700 font-bold py-1 px-2 border border-red-700 w-32 text-lg inline-block  mr-4"
-                        onClick={closeDeleteProductModal}>
-                        CANCEL
-                    </button>
-                    <button
-                        onClick={handleDelete}
-                        className="bg-red-700 text-white font-bold py-1 px-2 border border-red-700 w-32 text-lg inline-block"
-                    >
-                        CONFIRM
-                    </button>
-                </div>
+          <div className="text-center">
+            <p className="text-3xl m-12 mx-auto px-12">
+             Are you sure you want to delete this book?
+            </p>
+            <div className="flex justify-center p-6 items-center">
+              <button
+                className="bg-white text-book py-1 px-2 border border-book w-32 text-3xl inline-block  mr-4"
+                onClick={handleConfirmDelete}
+              >
+                Delete
+              </button>
             </div>
+            {}
+          </div>
         </div>
-    );
-}
-
+      );
+    }
 export default DeleteProduct;

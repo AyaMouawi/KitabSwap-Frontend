@@ -1,19 +1,57 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllGenres } from "../../../redux/actions/genres";
+import { addBook } from "../../../redux/actions/saleBooks";
+
 
 function AddProduct({ closeAddProductModal }) {
-  const [applyDiscount, setApplyDiscount] = useState(false);
-  const [discountPercentage, setDiscountPercentage] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const [formData, setFormData] = useState({
+    genre_id: "",
+    authorName: "",
+    quantity: "",
+    description: "",
+    price: "",
+    image: null,
+  });
+
+  const genres = useSelector((state) => state.genres);
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      image: e.target.files[0],
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = new FormData();
+    data.append("title", formData.title);
+    data.append("genre_id", formData.genre_id);
+    data.append("authorName", formData.authorName);
+    data.append("quantity", formData.quantity);
+    data.append("description", formData.description);
+    data.append("price", formData.price);
+    data.append("image", formData.image);
+
+    dispatch(addBook(data));
     closeAddProductModal();
   };
 
-  const handleCheckboxChange = (e) => {
-    setApplyDiscount(e.target.checked);
-    if (!e.target.checked) {
-      setDiscountPercentage("");
-    }
-  };
+  useEffect(() => {
+    dispatch(getAllGenres());
+  }, [dispatch]);
+
 
   return (
     <div className="font-lateef w-[32rem] px-12">
@@ -23,112 +61,108 @@ function AddProduct({ closeAddProductModal }) {
       <div className="text-center">
         <form className="py-4" onSubmit={handleSubmit}>
           <div className="flex mb-4">
-  
-            <div className="flex flex-grow mb-4">
-              <select className=" px-4 py-2 mr-4 bg-gray-100 focus:outline-none text-xl text-black w-full">
-                <option value="">Select Genre</option>
-
-                <option className=" capitalize " value={"All"}>All</option>
-                <option className=" capitalize " value={"Fantasy"}>Fantasy</option>
-                <option className=" capitalize " value={"Romance"}>Romance</option>
-                <option className=" capitalize " value={"Mystery"}>Mystery</option>
-                <option className=" capitalize " value={"Tragedy"}>Tragedy</option>
-                <option className=" capitalize " value={"Poetry"}>Poetry</option>
-                <option className=" capitalize " value={"Drama"}>Drama</option>
-                <option className=" capitalize " value={"Horror"}>Horror</option>
-              </select>
-            </div>
             <div className="flex flex-grow mb-4">
               <select
-                // value={role}
-                // onChange={handleRoleChange}
-                className=" px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black w-full"
+                name="genre_id"
+                onChange={handleInputChange}
+                value={formData.genre_id}
+                className="px-4 py-2 mr-4 bg-gray-100 focus:outline-none text-xl text-black w-full"
               >
-                <option value="">Status</option>
-                <option value="available">Available</option>
-                <option value="sold out">Sold out</option>
+                <option value="">Select Genre</option>
+                {genres.map((genre) => (
+                  <option
+                    key={genre.genre_id}
+                    className="capitalize"
+                    value={genre.genre_id}
+                  >
+                    {genre.genreName}
+                  </option>
+                ))}
               </select>
             </div>
+            {/* Add other input fields as needed */}
           </div>
           <div className="mb-4">
-            <div class="">
-              <input className="opacity-0 hidden" type="file" id="file" />
+            <div className="">
+              <input
+                type="file"
+                name="file"
+                id="file"
+                onChange={handleFileChange}
+                className="opacity-0 hidden"
+              />
               <label
-                className="flex  px-4 py-2 bg-gray-100  text-gray-400 text-xl cursor-pointer "
-                for="file"
+                htmlFor="file"
+                className="flex px-4 py-2 bg-gray-100 text-gray-400 text-xl cursor-pointer"
               >
                 Image input fields
               </label>
             </div>
           </div>
           <div className="mb-4">
-            <div class="">
-            <input
-              type="text"
-              name="authorName"
-              placeholder="Author Name"
-              className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
-              required
-            />
+            <div className="">
+              <input
+                type="text"
+                name="authorName"
+                placeholder="Author Name"
+                className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
+                onChange={handleInputChange}
+                value={formData.authorName}
+                required
+              />
             </div>
           </div>
           <div className="mb-4">
-            <div class="">
-            <input
-              type="number"
-              name="quantity"
-              placeholder="Quantity"
-              className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
-              required
-            />
+            <div className="">
+              <input
+                type="text"
+                name="title"
+                placeholder="title"
+                className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
+                onChange={handleInputChange}
+                value={formData.title}
+                required
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <div className="">
+              <input
+                type="number"
+                name="quantity"
+                placeholder="Quantity"
+                className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
+                onChange={handleInputChange}
+                value={formData.quantity}
+                required
+              />
             </div>
           </div>
           <div className="flex mb-4">
             <textarea
               rows={5}
+              name="description"
               placeholder="Description"
-              // value={description}
-              // onChange={(e) => setDescription(e.target.value)}
               className="flex-1 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black resize-none"
+              onChange={handleInputChange}
+              value={formData.description}
             />
           </div>
           <div className="mb-4">
-            <div class="">
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
-              required
-            />
+            <div className="">
+              <input
+                type="number"
+                name="price"
+                placeholder="Price"
+                className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
+                onChange={handleInputChange}
+                value={formData.price}
+                required
+              />
             </div>
           </div>
-          <div className="flex mb-4">
-            <div>
-              <div className="flex items-center mb-2">
-                <input
-                  type="checkbox"
-                  checked={applyDiscount}
-                  onChange={handleCheckboxChange}
-                  className="mr-2"
-                />
-                <p className="text-black text-xl">Apply discount percentage</p>
-              </div>
-              {applyDiscount && (
-                <div className="flex flex-col">
-                  <input
-                    type="text"
-                    placeholder="Discount percentage %"
-                    value={discountPercentage}
-                    className="px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-
           <div className="flex justify-start">
-          <button className="text-book border border-book px-4 py-2 hover:bg-book hover:text-white text-xl">
+            <button className="text-book border border-book px-4 py-2 hover:bg-book hover:text-white text-xl">
               Submit
             </button>
           </div>

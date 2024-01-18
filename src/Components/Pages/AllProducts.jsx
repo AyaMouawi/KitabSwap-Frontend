@@ -61,7 +61,7 @@ function AllProducts() {
     const maxBookPrice = Math.max(...allPrices);
     setMinPrice(minBookPrice);
     setMaxPrice(maxBookPrice);
-    setValue(Number((minBookPrice + maxBookPrice) / 2).toFixed(2));
+    setValue(minBookPrice + (maxBookPrice - minBookPrice) / 2);
   }, [saleBooks]);
 
   

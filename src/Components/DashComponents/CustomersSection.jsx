@@ -13,6 +13,8 @@ import {getAllClients} from '../../redux/actions/users';
 function CustomersSection() {
 
   const dispatch = useDispatch();
+  const [userId, setUserId] = useState('');
+  const[singleUserData , setSingleUserData]= useState(null);
 
   useEffect(() => {
     
@@ -26,7 +28,7 @@ function CustomersSection() {
   const columns = [
     { header: "Name", accessorKey: "fullName" },
     { header: "Email", accessorKey: "email" },
-    { header: "Number of Orders", accessorKey: "orders" },
+    { header: "Number of Orders", accessorKey: "orderCount" },
 
     {
       accessorKey: "viewCustomer",
@@ -38,7 +40,7 @@ function CustomersSection() {
             alignItems: "center",
             gap: "1rem",
           }}
-          onClick={() => openViewCustomerModal()}
+          onClick={() => {openViewCustomerModal(); setSingleUserData(row.original)}}
         >
           <button
             className=" text-book italic"
@@ -100,7 +102,7 @@ function CustomersSection() {
               >
                 X
               </button>
-              <ViewCustomer closeViewCustomerModal={closeViewCustomerModal}/>
+              <ViewCustomer closeViewCustomerModal={closeViewCustomerModal} userData = {singleUserData}/>
             </div>
           </div>
         )}

@@ -1,6 +1,7 @@
-function ConfirmDelete({ closeModal, onConfirm }) {
+function ConfirmDelete({ closeModal, removeItem, bookId}) {
+  
     const handleConfirm = () => {
-      onConfirm();
+      removeItem(bookId);
       closeModal();
     };
   

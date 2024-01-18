@@ -13,6 +13,7 @@ const UserTradeRequests = ({bookId , bookName, postingDate }) => {
   hourglass.register();
   const dispatch = useDispatch();
   const [selectedUserId , setSelectedUserId ] = useState('');
+  const [selectedRequestId, setSelectedRequestId] = useState('');
   const [isLoading, setIsLoading] = useState (true);
 
   useEffect(() => {
@@ -36,8 +37,9 @@ const UserTradeRequests = ({bookId , bookName, postingDate }) => {
     // User Accept MODAL
     const [isUserAcceptModalOpen, setUserAcceptModalOpen] = useState(false);
   
-    const openUserAcceptModal = () => {
+    const openUserAcceptModal = (requestId) => {
       setUserAcceptModalOpen(true);
+      setSelectedRequestId(requestId);
     };
   
     const closeUserAcceptModal = () => {
@@ -62,8 +64,9 @@ const UserTradeRequests = ({bookId , bookName, postingDate }) => {
 // User Decline MODAL
 const [isUserDeclineModalOpen, setUserDeclineModalOpen] = useState(false);
   
-const openUserDeclineModal = () => {
+const openUserDeclineModal = (requestId) => {
   setUserDeclineModalOpen(true);
+  setSelectedRequestId(requestId);
 };
 
 const closeUserDeclineModal = () => {
@@ -134,8 +137,7 @@ useEffect(() => {
           </tr>
         </thead>
         <tbody>
-
-         {tradeRequests.map((request, index) => (
+          {tradeRequests.map((request, index) => (
             <tr key={request.tradeRequest_id} className="border-b border-black text-2xl">
               <td className="py-2 text-center">Request {index + 1}</td>
               <td className="py-2 text-center">{request.requestDate}</td>
@@ -150,18 +152,25 @@ useEffect(() => {
                 <button className="italic" onClick={() => openRequestDetailsModal(request.userRequested_id)}> View Details </button>
               </td>
               <td className="py-2 text-center">
-                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={openUserAcceptModal}>
+                {request.status === 'pending' ? (
+                  <>
+                    <td className="py-2 text-center">
+                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={() => openUserAcceptModal(request.tradeRequest_id)}>
                   Accept
                 </button>
               </td>
               <td className="py-2 text-center">
-                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={openUserDeclineModal}>
+                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={()=> openUserDeclineModal(request.tradeRequest_id)}>
                   Decline
                 </button>
               </td>
+                  </>
+                ) : (
+                  <span className="text-book">{request.status}</span>
+                )}
+              </td>
             </tr>
           ))}
-      
         </tbody>
       </table>
       {isUserAcceptModalOpen && (
@@ -171,7 +180,7 @@ useEffect(() => {
             ref={modalRef}
             className="absolute bg-white p-8 rounded shadow-md"
           >
-            <UserAccept closeAcceptModal={closeUserAcceptModal} />
+            <UserAccept closeAcceptModal={closeUserAcceptModal} requestId={selectedRequestId}/>
           </div>
         </div>
       )}
@@ -182,7 +191,7 @@ useEffect(() => {
             ref={modalRef}
             className="absolute bg-white p-8 rounded shadow-md"
           >
-            <UserDecline closeDeclineModal={closeUserDeclineModal} />
+            <UserDecline closeDeclineModal={closeUserDeclineModal} requestId={selectedRequestId} />
           </div>
         </div>
       )}

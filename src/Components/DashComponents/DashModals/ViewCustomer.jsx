@@ -1,9 +1,15 @@
-import { useState, useEffect } from "react";
+function ViewCustomer({ userData }) {
 
-function ViewCustomer({ closeEditBannerModal }) {
-  const handleSubmit = () => {
-    closeEditBannerModal();
-  };
+
+ console.log("userDetails", userData);
+
+ const fullNameArray = userData.fullName ? userData.fullName.split(" ") : [];
+ const firstName = fullNameArray[0] || "";
+ const lastName = fullNameArray.slice(1).join(" ") || "";
+
+ const addressArray = userData.address ? userData.address.split(",") : [];
+ const city = addressArray[0]?.trim() || "";
+
 
   return (
     <div className="flex items-center justify-center font-lateef w-[40rem]">
@@ -18,48 +24,41 @@ function ViewCustomer({ closeEditBannerModal }) {
              
               className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
               required
-            >John </p>
+            >{firstName} </p>
             <span className="contactUsDescription-span"></span>
             <p
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >Doe </p>
+           >{lastName} </p>
           </div>
           <div className="flex flex-wrap mb-4">
           <p
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >johndoe@gmail.com </p>
+           >{userData.email}</p>
             <span className="contactUsDescription-span"></span>
             <p
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >123456 </p>
+           >{userData.phoneNumber} </p>
           </div>
           <div className="flex flex-wrap mb-4">
           <p
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >Antelias </p>
+           >{city} </p>
             <span className="contactUsDescription-span"></span>
             <p
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >Building xxx, xxxx street, 2nd floor </p>
+           >{userData.address} </p>
           </div>
-          <div className="flex flex-wrap mb-4">
-          <p
-             
-             className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
-             required
-           >1 order </p>
-          
-          </div>
+        
     
         </form>
       </div>

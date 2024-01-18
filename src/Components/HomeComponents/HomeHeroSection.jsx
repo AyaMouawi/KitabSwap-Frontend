@@ -15,9 +15,9 @@ function HomeHeroSection() {
         Book store and trading point for all books lover{" "}
         </p>
 
-        <button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-10">
+        <a href="#about"> <button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-10">
           Know More
-        </button>
+        </button></a>
       </div>
 
       <div className="homeherosection-img w-1/2 mr-14">

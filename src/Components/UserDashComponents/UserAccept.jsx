@@ -1,33 +1,16 @@
 import React from "react";
-// import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { accept } from '../../redux/actions/tradeRequests';
 
-function UserAccept ({closeAcceptModal,onConfirm}) {
+
+function UserAccept ({closeAcceptModal, requestId }) {
+  const dispatch = useDispatch();
+
   const handleConfirm = () => {
-    onConfirm();
+    dispatch(accept(requestId));
     closeAcceptModal();
   };
-  // const token = localStorage.getItem('token');
-  // const cartId = localStorage.getItem('cartId');
- 
-  // const handleConfirm = async () => {
-  //   try {
-  //     const response = await axios.post(`${process.env.REACT_APP_API_URL}/order/create/${cartId}`, {
-  //       shippingMethod: shippingMethod,
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     console.log(response.data);
-  //     closeModal();
-  //     updateCartData(response.data.updatedCart);
-
-  //   } catch (error) {
-  //     console.error("Error creating order:", error.message);
-  //   }
-  // };
+  console.log("traderid",requestId)
 
   return (
     <div className="  flex items-center justify-center">

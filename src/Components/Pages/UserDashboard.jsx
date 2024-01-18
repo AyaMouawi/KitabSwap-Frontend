@@ -12,10 +12,11 @@ function UserDashboard() {
 
     hourglass.register();
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState (true);
+  
 
     // GET USER ID FROM LOCAL STORAGE
     const userId = localStorage.getItem("userId");
+    console.log("userId", userId)
 
 
     const modalRef = useRef(null);
@@ -46,20 +47,14 @@ useEffect(() => {
 }, [isPostTradeModalOpen]);
 
 useEffect(() => {
-  const fetchBookData = async () => {
-    try {
-      setIsLoading(true);
-      await dispatch(getByOwnerId(userId));
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching saleBooks:", error);
-      setIsLoading(false);
-    }
-  };
-  fetchBookData();
+  
+   dispatch(getByOwnerId(userId));
+     
+
 }, [dispatch]);
 
 const ownerBooks = useSelector ((state) => state.tradeBooks);
+
 console.log("ownerbooks", ownerBooks)
 
   return (

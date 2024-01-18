@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../css/navbar.css";
+import LogoutConfirm from './LogoutConfirm';
 
 function NavBar() {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   const toggleMenu = () => {
@@ -19,6 +21,15 @@ function NavBar() {
     const userLoggedIn = localStorage.getItem("token"); 
     if(userLoggedIn){setLoggedIn(true)}
   }, []);
+
+  const openLogoutModal = () => {
+    setShowLogoutModal(true);
+  };
+
+  const closeLogoutModal = () => {
+    setShowLogoutModal(false);
+  };
+
 
   return (
     <div className="App">
@@ -40,10 +51,10 @@ function NavBar() {
             </div>
             <div className=" flex items-center ml-4 lg:ml-auto ">
               {isLoggedIn ?(
-                 <img src="../Images/Icons/logout.png" className="h-7" alt="Flowbite Logo" />
+                 <img onClick={openLogoutModal} src="../Images/Icons/logoutWhite.png" className="h-8" alt="Flowbite Logo" />
                ):(
                 <Link to="/SignUp">
-                <img src="../Images/Icons/user.png" className="h-7" alt="Flowbite Logo" />
+                <img src="../Images/Icons/user.png" className="ml-4" alt="Flowbite Logo" />
               </Link>
               )}
             </div>
@@ -127,6 +138,19 @@ function NavBar() {
           </div>
         </div>
       </nav>
+
+      {showLogoutModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="fixed inset-0 bg-black opacity-50"></div>
+          <div className="bg-white p-6 relative z-10">
+            <button onClick={closeLogoutModal} className="absolute top-0 right-0 m-4 px-2 py-1">X</button>
+            <LogoutConfirm closeLogoutModal={closeLogoutModal} />
+          </div>
+        </div>
+      )
+      }
+
+
     </div>
   );
 }

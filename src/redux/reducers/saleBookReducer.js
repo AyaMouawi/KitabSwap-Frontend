@@ -8,6 +8,10 @@ const saleBookReducer = (state=[], action) => {
             return action.payload;
         case 'getLatestSaleBooks':
             return action.payload;
+        case 'addBook':
+            return [...state, action.payload];
+        case 'deleteById':
+            return state.filter((saleBook)=>saleBook.saleBook_id!==action.payload);
         default: return state; 
 }}
 

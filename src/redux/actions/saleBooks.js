@@ -71,3 +71,50 @@ export const getAllAvailableSaleBooks = () => {
   }
 }
 
+export const deleteById = (id) => {
+  const Auth = localStorage.getItem("token");
+  return (dispatch) => {
+    axios
+    .delete(`${process.env.REACT_APP_API_URL}/saleBook/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${Auth}`,
+      },
+    })
+      .then((response) => {
+        toast.success("Book deleted successfully");
+        dispatch(getAllSaleBooks());
+        dispatch({
+          type: "deleteById",
+          payload: id,
+        });
+        
+      })
+      .catch((error) =>  ("Failed to fetch data :", error));
+      
+  };
+  
+}
+
+
+export const addBook = (data) => {
+  return async (dispatch) => {
+    try {
+      const Auth = localStorage.getItem("token");
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/saleBook/add`, data, {
+        headers: {
+          Authorization: `Bearer ${Auth}`,
+        },
+      });
+
+      const book = response.data.data;
+      dispatch({
+        type: "addBook",
+        payload: book,
+      });
+
+      toast.success("Book added successfully.");
+    } catch (error) {
+      console.error("Failed to add book:", error.response?.data);
+    }
+  };
+};

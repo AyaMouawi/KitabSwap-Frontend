@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { requestTrade } from "../../redux/actions/tradeRequests";
+import { useSelector } from "react-redux";
+import { requestTrade } from "../../redux/actions/test";
 import { hourglass } from 'ldrs';
 
 
 function TradeRequest({ tradeBookId, closeRequestModal }) {
   const dispatch = useDispatch();
+  const addLoading = useSelector(state => state.tests.addLoading);
+ console.log("loading", addLoading)
   const [formData, setFormData] = useState({
     bookName: "",
     location: "",
     description: "",
     image: null,
   });
-  const [loading, setLoading] = useState(false);
+  
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,9 +37,14 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+  
 
     const userRequested_id = localStorage.getItem("userId");
+
+    if (!formData.image) {
+      console.error("Please select an image for the book.");
+      return;
+    }
 
     const formDataWithImage = new FormData();
     formDataWithImage.append("image", formData.image);
@@ -49,6 +58,7 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
     try {
     
       await dispatch(requestTrade(formDataWithImage));
+      closeRequestModal();
     } catch (error) {
       console.error("Error in trade request:", error);
     } 
@@ -67,7 +77,7 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
         <p className="text-3xl text-center  underline text-book mb-8">
           Trading Request
         </p>
-        {loading && (
+        {addLoading && (
           <l-hourglass
             size="40"
             bg-opacity="0.1"
@@ -77,7 +87,7 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
         
         )}
 
-        {!loading && (
+        {!addLoading && (
         <form className="py-4" onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
             <input

@@ -1,68 +1,74 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState } from 'react';
 import {
     MaterialReactTable,
     useMaterialReactTable,
   } from "material-react-table";
-  import { editOrdersData } from '../datas';
-function EditOrder() {
 
-    const data = useMemo(() => editOrdersData, []);
+
+function EditOrder({orderData}) {
+
+  const [status, setStatus] = useState(orderData.status);
+
+      
+    const data = orderData;
     const columns = [
-        {header:"id", accessorKey:"id"},
-      { header: "Category", accessorKey: "category" },
-      { header: "Name", accessorKey: "name" },
+    {header:"id", accessorKey:"bookId"},
+      { header: "Name", accessorKey: "bookInfo.title" },
+      { header: "Quantity", accessorKey: "quantity" },
+      { header: "Price", accessorKey: "totalPrice" },
 
-      { header: "Thumbnail", accessorKey: "thumbnail",
+      { header: "Thumbnail", accessorKey: "bookInfo.bookImage",
       Cell: ({ renderedCellValue, row }) => (
       
         <img className='h-28 w-20'
-         src={"../Images/"+row.original.thumbnail} 
+         src={row.original.bookInfo.bookImage} 
       ></img>
       
       ), },
-      { header: "Price", accessorKey: "price" },
-      { header: "Discounted", accessorKey: "discounted" },
+     
+      
     ];
     const table = useMaterialReactTable({
         columns,
         data,
-        enableTopToolbar:false,
+        enableTopToolbar: false,
         initialState: {
           showGlobalFilter: true,
           pagination: { pageSize: 2 },
-          columnVisibility: { id: false }
+          columnVisibility: { id: false },
         },
-
         muiPaginationProps: {
           showRowsPerPage: false,
           shape: "rounded",
         },
         paginationDisplayMode: "pages",
-
         enableColumnActions: false,
-        enableSorting:false,
+        enableSorting: false,
       });
+
+    
+     
+
     return (
         <div className='font-lateef'>
             <p className="text-red-700 text-3xl text-center underline my-5">Edit Order</p>
             <div className="text-center">
                 <form className="py-4">
                     <div className="flex mb-4">
-                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" defaultValue={"Customer Full Name"} />
+                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.userInfo?.userName} />
                          
                         
                         <span className="mx-4"></span>
                      
-                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" defaultValue={"Date"} />
-                            <select
-                                // value={status}
-                                // onChange={(e) => setStatus(e.target.value)}
-                                className=" px-4 py-2 bg-gray-100 focus:outline-none text-lg text-black ml-2"
-                            >
-                                <option value="">Status</option>
-                                <option value="pending">Pending</option>
-                                <option value="delivered">Delivered</option>
-                            </select>
+                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.orderDate} />
+                        <select
+                            value={status} 
+                            onChange={(e) => setStatus(e.target.value)} 
+                            className="px-4 py-2 bg-gray-100 focus:outline-none text-lg text-black ml-2"
+                        >
+                            <option value="pending">Pending</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
                        
                     </div>
                     <div className="flex mb-4">
@@ -72,9 +78,9 @@ function EditOrder() {
                     </div>
          
             <div className="flex mb-4">
-            <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" defaultValue={"Total Price"} />
+            <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.total} />
                 <span className="mx-4"></span>
-                <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" defaultValue={"Shipment Method"} />
+                <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left"  disabled defaultValue={orderData.shipmentMethod} />
             </div>
 
             <div className="flex justify-end">

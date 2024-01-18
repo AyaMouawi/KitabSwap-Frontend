@@ -45,3 +45,55 @@ export const requestTrade = (data) => {
       });
   };
 };
+
+
+export const decline = (id) => {
+  const token = localStorage.getItem('token');
+  return (dispatch) => {
+    axios
+      .put(
+        `${process.env.REACT_APP_API_URL}/tradeRequest/decline/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        const tradeRequest = response.data.data;
+        toast.success("Request declined successfully. Check your email");
+        dispatch({
+          type: "decline",
+          payload: tradeRequest,
+        });
+      })
+      .catch((error) => console.log("Failed to fetch data :", error));
+  };
+};
+
+export const accept = (id) => {
+  const token = localStorage.getItem('token');
+  return (dispatch) => {
+    axios
+      .put(
+        `${process.env.REACT_APP_API_URL}/tradeRequest/accept/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        const tradeRequest = response.data.data;
+        toast.success("Request accepted successfully. Check your email");
+        dispatch(getByBookId());
+        dispatch({
+          type: "accept",
+          payload: tradeRequest,
+        });
+      })
+      .catch((error) => console.log("Failed to fetch data :", error));
+  };
+};

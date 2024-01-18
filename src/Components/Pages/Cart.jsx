@@ -7,12 +7,24 @@ import ConfirmDelete from "../CartComponents/ConfirmDelete";
 import NavBar from "../FrequentlyUsed/NavBar";
 import Footer from "../FrequentlyUsed/Footer";
 import ConfirmCheckout from "../CartComponents/ConfirmCheckout";
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../css/cart.css";
 
 function Cart() {
   const modalRef = useRef(null);
-  const cart = localStorage.getItem("cart");
-const cartDetails = localStorage.getItem("cartDetails");
+  const [cartKey, setCartKey] = useState(0);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  const [cartDetails, setCartDetails]= useState(() => {
+    const storedDetails = localStorage.getItem("cartDetails");
+    return storedDetails ? JSON.parse(storedDetails) : [];
+  })
+ 
+  const [bookId, setBookId] = useState('');
   // ADDRESS MODAL
   const [isAddressModalOpen, setAddressModalOpen] = useState(false);
 
@@ -42,9 +54,12 @@ const cartDetails = localStorage.getItem("cartDetails");
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const openDeleteModal = (bookId) => {
+    setBookId(bookId)
     setDeleteModalOpen(true);
    
   };
+
+  console.log("bookid", bookId)
 
   const closeDeleteModal = () => {
     setDeleteModalOpen(false);
@@ -89,9 +104,26 @@ const cartDetails = localStorage.getItem("cartDetails");
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isConfirmModalOpen]);
+  const updateCartKey = () => {
+    setCartKey((prevKey) => prevKey + 1);
+  };
 
+const removeItem = (bookId) => {
+  const updatedCart = cart.filter((item) => item.bookId !== bookId);
+  const updatedCartDetails = cartDetails.filter((item) => item.saleBook_id !== bookId);
+
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
+  localStorage.setItem("cartDetails", JSON.stringify(updatedCartDetails));
+
+  setCart(updatedCart);
+  setCartDetails(updatedCartDetails);
+
+  toast.success("Item removed from the cart.");
+  setCartKey((prevKey) => prevKey + 1);
+};
+  
   return (
-    <div>
+    <div key={cartKey}>
     <NavBar />
     <div className="max-w-screen-xl mx-auto p-4 font-lateef ">
       <div className="italic">
@@ -100,14 +132,15 @@ const cartDetails = localStorage.getItem("cartDetails");
         </p>
       </div>
 
-      {(!cart || !cartDetails) ? (
+      {(!cart || !cartDetails || cart.length == 0 || cartDetails.length == 0 ) ? (
         <CartEmpty />
       ) : (
         <>
-          <CartTable openModal={openDeleteModal} />
+          <CartTable openModal={openDeleteModal}  updateCartKey={updateCartKey}/>
           <CartDetails
             openModal={openAddressModal}
             openConfirmModal={openConfirmModal}
+           
           />
         </>
       )}
@@ -130,7 +163,7 @@ const cartDetails = localStorage.getItem("cartDetails");
             ref={modalRef}
             className="absolute bg-white p-8 rounded shadow-md"
           >
-            <ConfirmDelete closeModal={closeDeleteModal} />
+            <ConfirmDelete closeModal={closeDeleteModal} removeItem={removeItem} bookId={bookId} />
           </div>
         </div>
       )}
@@ -141,7 +174,7 @@ const cartDetails = localStorage.getItem("cartDetails");
             ref={modalRef}
             className="absolute bg-white p-8 rounded shadow-md"
           >
-            <ConfirmCheckout closeModal={closeConfirmModal} />
+            <ConfirmCheckout  closeModal={closeConfirmModal} />
           </div>
         </div>
       )}

@@ -5,11 +5,10 @@ import AnalyticsTable from "./AnalyticsComponents/AnalyticsTable";
 import Column from "./AnalyticsComponents/Column";
 import Graph from "./AnalyticsComponents/Graph";
 import Pie from "./AnalyticsComponents/Pie";
-import PieShipment from "./AnalyticsComponents/PieShipment";
 function AnalyticsSection() {
 
     return (
-        <div className="mx-40">
+        <div className="mx-40 scale-85">
         <div className="flex mb-8 w-full justify-between">
           <div className="w-1/3 grid place-items-center">
             <AnalyticsTable />
@@ -29,10 +28,7 @@ function AnalyticsSection() {
             <Graph />
           </div>
         </div>
-        <div className="mt-10 w-1/3">
-       
-            <PieShipment />
-          </div>
+        
       </div>
     );
 }

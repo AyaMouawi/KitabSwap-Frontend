@@ -14,6 +14,8 @@ import { ordersData } from "./datas";
 function OrdersSection() {
 
   const dispatch = useDispatch();
+  const [orderSingleData, setOrderSingleData] = useState(null);
+  const [orderId, setOrderId]= useState('');
 
   useEffect(() => {
     
@@ -48,13 +50,18 @@ console.log('orders', orderData)
             className="h-6 w-6"
             src="../Images/dashboardIcons/edit.png"
             alt="edit"
-            onClick={() => openEditOrderModal()}
+            onClick={() => {
+              openEditOrderModal();
+              setOrderSingleData(row.original);
+              
+            }
+            }
           />
           <img
             className="h-6 w-6"
             src="../Images/dashboardIcons/delete.png"
             alt="delete"
-            onClick={() => openDeleteOrderModal()}
+            onClick={() => {openDeleteOrderModal(); setOrderId(row.original.orderId);}}
           />
         </div>
       ),
@@ -130,63 +137,7 @@ console.log('orders', orderData)
 
   return (
     <div className="font-lateef">
-      <div className="flex justify-end items-center mr-24">
-        <div className="ml-8 flex items-center">
-          <div
-            className="relative inline-block text-left scale-95 z-20"
-            ref={dropdownRef}
-          >
-            <button
-              id="dropdownDefaultButton"
-              onClick={toggleDropdown}
-              className="text-black bg-white hover:bg-white  focus:outline-none border border-black font-medium  text-xl px-6 py-2 text-center inline-flex items-center   "
-              type="button"
-            >
-              Filter By
-              <svg
-                className={`w-4 h-2.5 ms-3 transition-transform ${
-                  isDropdownOpen ? "transform rotate-180" : ""
-                }`}
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
-            </button>
-
-            {isDropdownOpen && (
-              <div className="absolute  bg-white divide-y    w-44 ">
-                <ul className="py-2 text-xl text-black ">
-                  <li>
-                    <button
-                      className="block px-4 py-2   hover:text-book"
-                      onClick={toggleDropdown}
-                    >
-                      Pending
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="block px-4 py-2   hover:text-book"
-                      onClick={toggleDropdown}
-                    >
-                      Delivered
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      
       <div className="overflow-x-auto mx-20">
         <MaterialReactTable table={table} />
 
@@ -200,7 +151,7 @@ console.log('orders', orderData)
               >
                 X
               </button>
-              <DeleteOrder closeDeleteOrderModal={closeDeleteOrderModal} />
+              <DeleteOrder closeDeleteOrderModal={closeDeleteOrderModal} orderId= {orderId}/>
             </div>
           </div>
         )}
@@ -214,7 +165,7 @@ console.log('orders', orderData)
               >
                 X
               </button>
-              <EditOrder closeEditOrderModal={closeEditOrderModal} />
+              <EditOrder closeEditOrderModal={closeEditOrderModal} orderData= {orderSingleData} />
             </div>
           </div>
         )}

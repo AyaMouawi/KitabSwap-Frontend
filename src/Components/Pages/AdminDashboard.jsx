@@ -6,7 +6,6 @@ import CategoriesSection from "../DashComponents/CategoriesSection";
 import ProductsSection from "../DashComponents/ProductsSection";
 import BannerSection from "../DashComponents/BannerSection";
 import CustomersSection from "../DashComponents/CustomersSection";
-import TeamSection from "../DashComponents/TeamSection";
 import AnalyticsSection from "../DashComponents/AnalyticsSection";
 
 function AdminDashboard() {
@@ -22,7 +21,6 @@ function AdminDashboard() {
           <Route path="products" element={<ProductsSection />} />
           <Route path="banner" element={<BannerSection />} />
           <Route path="customers" element={<CustomersSection />} />
-          <Route path="team" element={<TeamSection />} />
           <Route path="analytics" element={<AnalyticsSection />} />
         </Routes>
       </div>

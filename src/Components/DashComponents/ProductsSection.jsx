@@ -7,7 +7,6 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import { productsData } from "./datas";
 import AddProduct from "./DashModals/AddProduct";
 import DeleteProduct from "./DashModals/DeleteProduct";
 import EditProduct from "./DashModals/EditProduct";
@@ -15,6 +14,8 @@ import EditProduct from "./DashModals/EditProduct";
 function ProductsSection() {
 
   const dispatch = useDispatch();
+  const [bookId, setBookId] = useState('');
+  console.log('theBookID', bookId)
 
   useEffect(() => {
     
@@ -89,13 +90,13 @@ function ProductsSection() {
             className="h-6 w-6"
             src="../Images/dashboardIcons/edit.png"
             alt="edit"
-            onClick={() => openEditProductModal()}
+            onClick={() => {openEditProductModal(); setBookId(row.original.saleBook_id)}}
           />
           <img
             className="h-6 w-6"
             src="../Images/dashboardIcons/delete.png"
             alt="delete"
-            onClick={() => openDeleteProductModal()}
+            onClick={() => {openDeleteProductModal(); setBookId(row.original.saleBook_id)}}
           />
         </div>
       ),
@@ -163,165 +164,10 @@ function ProductsSection() {
     setShowEditProductModal(false);
   };
   /* DROPDOWN STUFF */
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const closeDropdown = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", closeDropdown);
-
-    return () => {
-      document.removeEventListener("click", closeDropdown);
-    };
-  }, []);
-
+  
   return (
     <div className="font-lateef">
-      <div className="flex justify-end items-center mr-24">
-        <div className="ml-8 flex items-center">
-          <div
-            className="relative inline-block text-left scale-95 z-20"
-            ref={dropdownRef}
-          >
-            <button
-              id="dropdownDefaultButton"
-              onClick={toggleDropdown}
-              className="text-black bg-white hover:bg-white  focus:outline-none border border-black font-medium  text-xl px-6 py-2 text-center inline-flex items-center   "
-              type="button"
-            >
-              Filter By
-              <svg
-                className={`w-4 h-2.5 ms-3 transition-transform ${
-                  isDropdownOpen ? "transform rotate-180" : ""
-                }`}
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
-            </button>
-
-            {isDropdownOpen && (
-              <div className="absolute  bg-white divide-y    w-44 ">
-                <ul className="py-2 text-xl text-black ">
-                  <li>
-                    <button
-                      className="block px-4 py-2   hover:text-book"
-                      onClick={toggleDropdown}
-                    >
-                      Available
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="block px-4 py-2   hover:text-book"
-                      onClick={toggleDropdown}
-                    >
-                      Sold Out
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="block px-4 py-2   hover:text-book"
-                      onClick={toggleDropdown}
-                    >
-                      Discounted
-                    </button>
-                  </li>
-                  <li>
-                    <div className="block px-4 py-2  ">
-                      Genre
-                      <form>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="All"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">All</span>
-                        </label>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="Fantasy"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">Fantasy</span>
-                        </label>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="Romance"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">Romance</span>
-                        </label>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="Mystery"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">Mystery</span>
-                        </label>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="Tragedy"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">Tragedy</span>
-                        </label>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="Poetry"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">Poetry</span>
-                        </label>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="Drama"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">Drama</span>
-                        </label>
-                        <label class="ml-6 flex items-center hover:text-book">
-                          <input
-                            type="checkbox"
-                            name="Horror"
-                            class="h-4 w-4 mr-2"
-                          />
-                          <span class="flex-grow">Horror</span>
-                        </label>
-                      </form>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+         
       <div className="overflow-x-auto mx-20">
         <MaterialReactTable table={table} />
         {showDeleteProductModal && (
@@ -336,6 +182,7 @@ function ProductsSection() {
               </button>
               <DeleteProduct
                 closeDeleteProductModal={closeDeleteProductModal}
+                bookId = {bookId}
               />
             </div>
           </div>
