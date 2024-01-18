@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/wishlistTable.css";
+import { getAllAvailableSaleBooks } from "../../redux/actions/saleBooks";
 
-function CartTable({ openModal }) {
+function CartTable({ openModal,updateCartKey }) {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+     dispatch(getAllAvailableSaleBooks());
+  }, [dispatch]);
+
+  const saleBooks = useSelector((state) => state.saleBooks);
+
+  console.log("cartSaleBooks", saleBooks)
+
   const [cartDetails, setCartDetails] = useState(() => {
     const cartDetailsString = localStorage.getItem("cartDetails");
     return cartDetailsString ? JSON.parse(cartDetailsString) : [];
@@ -44,10 +58,10 @@ function CartTable({ openModal }) {
       toast.error("Quantity must be greater than 0");
       return;
     }
-
+  
     if (newQuantity <= cartDetails[index].quantity) {
-      setCart((prevCart) =>
-        prevCart.map((item, i) =>
+      setCart((prevCart) => {
+        const updatedCart = prevCart.map((item, i) =>
           i === index
             ? {
                 ...item,
@@ -58,16 +72,29 @@ function CartTable({ openModal }) {
                 ).toFixed(2),
               }
             : item
-        )
-      );
-
-      const updatedCartDetails = [...cartDetails];
-      updatedCartDetails[index].quantity -= newQuantity;
-      localStorage.setItem("cartDetails", JSON.stringify(updatedCartDetails));
+        );
+  
+        const updatedCartDetails = [...cartDetails];
+        updatedCartDetails[index].quantity -= newQuantity;
+  
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        localStorage.setItem("cartDetails", JSON.stringify(updatedCartDetails));
+  
+        updateCartKey(); 
+  
+        return updatedCart; 
+      });
     } else {
       toast.error("Not enough quantity in stock");
     }
   };
+
+  const filteredSaleBooks = saleBooks.filter((book) =>
+  cart.some((cartItem) => cartItem.bookId === book.saleBook_id)
+);
+
+console.log("cartSaleBooksfiltered", filteredSaleBooks)
+
 
   return (
     <div className="mt-8 wishlistTable-table">

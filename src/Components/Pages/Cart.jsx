@@ -13,6 +13,7 @@ import "../css/cart.css";
 
 function Cart() {
   const modalRef = useRef(null);
+  const [cartKey, setCartKey] = useState(0);
   const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
@@ -103,6 +104,9 @@ function Cart() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isConfirmModalOpen]);
+  const updateCartKey = () => {
+    setCartKey((prevKey) => prevKey + 1);
+  };
 
 const removeItem = (bookId) => {
   const updatedCart = cart.filter((item) => item.bookId !== bookId);
@@ -115,10 +119,11 @@ const removeItem = (bookId) => {
   setCartDetails(updatedCartDetails);
 
   toast.success("Item removed from the cart.");
+  setCartKey((prevKey) => prevKey + 1);
 };
   
   return (
-    <div>
+    <div key={cartKey}>
     <NavBar />
     <div className="max-w-screen-xl mx-auto p-4 font-lateef ">
       <div className="italic">
@@ -131,10 +136,11 @@ const removeItem = (bookId) => {
         <CartEmpty />
       ) : (
         <>
-          <CartTable openModal={openDeleteModal} />
+          <CartTable openModal={openDeleteModal}  updateCartKey={updateCartKey}/>
           <CartDetails
             openModal={openAddressModal}
             openConfirmModal={openConfirmModal}
+           
           />
         </>
       )}
