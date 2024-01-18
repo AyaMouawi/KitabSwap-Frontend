@@ -11,7 +11,7 @@ function Logout({ closeLogoutModal }) {
 
     return (
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center font-lateef">
         <div className="text-center">
             <p className="text-3xl m-12 mx-auto px-12">
             Are you sure you want to log out?

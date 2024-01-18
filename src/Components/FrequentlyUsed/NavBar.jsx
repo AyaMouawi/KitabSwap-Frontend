@@ -51,7 +51,7 @@ function NavBar() {
             </div>
             <div className=" flex items-center ml-4 lg:ml-auto ">
               {isLoggedIn ?(
-                 <img onClick={openLogoutModal} src="../Images/Icons/logout.png" className="h-7" alt="Flowbite Logo" />
+                 <img onClick={openLogoutModal} src="../Images/Icons/logoutWhite.png" className="h-8" alt="Flowbite Logo" />
                ):(
                 <Link to="/SignUp">
                 <img src="../Images/Icons/user.png" className="ml-4" alt="Flowbite Logo" />
