@@ -1,26 +1,13 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import {getById} from "../../../redux/actions/users";
+function ViewCustomer({ userData }) {
 
-function ViewCustomer({ userId }) {
 
-  const dispatch = useDispatch();
+ console.log("userDetails", userData);
 
-  useEffect(() => {
-    
-    dispatch(getById(userId));
- 
- }, [dispatch]);
-
- const user = useSelector ((state) => state.users);
- console.log("userDetails", user);
-
- const fullNameArray = user.fullName ? user.fullName.split(" ") : [];
+ const fullNameArray = userData.fullName ? userData.fullName.split(" ") : [];
  const firstName = fullNameArray[0] || "";
  const lastName = fullNameArray.slice(1).join(" ") || "";
 
- const addressArray = user.address ? user.address.split(",") : [];
+ const addressArray = userData.address ? userData.address.split(",") : [];
  const city = addressArray[0]?.trim() || "";
 
 
@@ -50,13 +37,13 @@ function ViewCustomer({ userId }) {
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >{user.email}</p>
+           >{userData.email}</p>
             <span className="contactUsDescription-span"></span>
             <p
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >{user.phoneNumber} </p>
+           >{userData.phoneNumber} </p>
           </div>
           <div className="flex flex-wrap mb-4">
           <p
@@ -69,7 +56,7 @@ function ViewCustomer({ userId }) {
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
-           >{user.address} </p>
+           >{userData.address} </p>
           </div>
         
     

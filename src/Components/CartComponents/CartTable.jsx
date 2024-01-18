@@ -1,20 +1,39 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/wishlistTable.css";
 
 function CartTable({ openModal }) {
-  const cartDetailsString = localStorage.getItem("cartDetails");
-  const cartDetails = cartDetailsString ? JSON.parse(cartDetailsString) : [];
+  const [cartDetails, setCartDetails] = useState(() => {
+    const cartDetailsString = localStorage.getItem("cartDetails");
+    return cartDetailsString ? JSON.parse(cartDetailsString) : [];
+  });
 
   const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem("cart");
-    return storedCart ? JSON.parse(storedCart) : cartDetails.map((item) => ({
-      bookId: item.saleBook_id,
-      quantity: 1,
-      totalPrice: item.discountedPrice || item.originalPrice,
-    }));
+    return storedCart
+      ? JSON.parse(storedCart)
+      : cartDetails.map((item) => ({
+          bookId: item.saleBook_id,
+          quantity: 1,
+          totalPrice: item.discountedPrice || item.originalPrice,
+        }));
   });
+
+  useEffect(() => {
+    
+    const handleStorageChange = () => {
+      const cartDetailsString = localStorage.getItem("cartDetails");
+      setCartDetails(cartDetailsString ? JSON.parse(cartDetailsString) : []);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -53,9 +72,9 @@ function CartTable({ openModal }) {
   return (
     <div className="mt-8 wishlistTable-table">
       <div className="flex italic justify-end mb-8">
-        <a href="" className="text-3xl hover:text-book">
+       <Link to={"/Shop"}> <a href="" className="text-3xl hover:text-book">
           Continue Shopping <span className="ml-2 text-3xl">&#8594;</span>
-        </a>
+        </a></Link>
         <span className="w-24"></span>
       </div>
       <table className="min-w-full bg-white">
@@ -75,31 +94,31 @@ function CartTable({ openModal }) {
             <tr key={item.bookId}>
               <td className="p-4 text-center">
                 <img
-                  src={cartDetails[index].book_image}
+                  src={cartDetails[index]?.book_image}
                   alt="Product"
                   className="w-32 h-52 object-cover mx-auto"
                 />
               </td>
-              <td className="p-4 text-center text-2xl">{cartDetails[index].title}</td>
+              <td className="p-4 text-center text-2xl">{cartDetails[index]?.title}</td>
               <td className="p-4 text-center text-2xl">
-                {cartDetails[index].discountedPrice !== null ? (
+                {cartDetails[index]?.discountedPrice !== null ? (
                   <>
-                    <p className="line-through text-red-500">${cartDetails[index].originalPrice}</p>
-                    <p className="text-green-500">${cartDetails[index].discountedPrice}</p>
+                    <p className="line-through text-red-500">${cartDetails[index]?.originalPrice}</p>
+                    <p className="text-green-500">${cartDetails[index]?.discountedPrice}</p>
                   </>
                 ) : (
-                  <p>${cartDetails[index].originalPrice}</p>
+                  <p>${cartDetails[index]?.originalPrice}</p>
                 )}
               </td>
               <td className="p-4 text-center text-2xl">
-                {cartDetails[index].discount !== "-" ? <p>{cartDetails[index].discount}%</p> : <p>-</p>}
+                {cartDetails[index]?.discount !== "-" ? <p>{cartDetails[index]?.discount}%</p> : <p>-</p>}
               </td>
               <td className="p-4 text-center text-2xl">
                 <input
                   type="number"
                   value={item.quantity}
                   min={1}
-                  max={cartDetails[index].quantity}
+                  max={cartDetails[index]?.quantity}
                   onChange={(e) => handleQuantityChange(index, parseInt(e.target.value))}
                   className="w-8 border-none text-center"
                 />

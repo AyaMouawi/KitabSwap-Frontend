@@ -1,12 +1,16 @@
 import React from "react";
+import { useDispatch } from 'react-redux';
+import { decline } from '../../redux/actions/tradeRequests';
 
-function UserDecline ({closeDeclineModal,onConfirm}) {
+function UserDecline ({closeDeclineModal, requestId}) {
+  const dispatch = useDispatch();
+
   const handleConfirm = () => {
-    onConfirm();
+    dispatch(decline(requestId));
     closeDeclineModal();
   };
  
-
+console.log("traderid",requestId)
   return (
     <div className="  flex items-center justify-center">
       

@@ -1,0 +1,5 @@
+export const ADD_REQUEST_REQUEST = "ADD_REQUEST_REQUEST";
+export const ADD_REQUEST_SUCCESS = "ADD_REQUEST_SUCESS";
+export const ADD_REQUEST_FAIL = "ADD_REQUEST_FAIL";
+
+export const CLEAR = "CLEAR";

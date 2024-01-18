@@ -14,6 +14,7 @@ function CustomersSection() {
 
   const dispatch = useDispatch();
   const [userId, setUserId] = useState('');
+  const[singleUserData , setSingleUserData]= useState(null);
 
   useEffect(() => {
     
@@ -39,7 +40,7 @@ function CustomersSection() {
             alignItems: "center",
             gap: "1rem",
           }}
-          onClick={() => {openViewCustomerModal(); setUserId(row.original.user_id)}}
+          onClick={() => {openViewCustomerModal(); setSingleUserData(row.original)}}
         >
           <button
             className=" text-book italic"
@@ -101,7 +102,7 @@ function CustomersSection() {
               >
                 X
               </button>
-              <ViewCustomer closeViewCustomerModal={closeViewCustomerModal} userId = {userId}/>
+              <ViewCustomer closeViewCustomerModal={closeViewCustomerModal} userData = {singleUserData}/>
             </div>
           </div>
         )}

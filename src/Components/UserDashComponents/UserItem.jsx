@@ -6,7 +6,6 @@ function UserItem({tradeBook}) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const [userId, setUserId] =  useState(7);
   const modalRef = useRef(null);
 
   const titleRef = useRef(null);

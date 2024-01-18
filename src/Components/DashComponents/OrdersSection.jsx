@@ -14,7 +14,8 @@ import { ordersData } from "./datas";
 function OrdersSection() {
 
   const dispatch = useDispatch();
-  const [orderId, setOrderId] = useState('');
+  const [orderSingleData, setOrderSingleData] = useState(null);
+  const [orderId, setOrderId]= useState('');
 
   useEffect(() => {
     
@@ -51,7 +52,9 @@ console.log('orders', orderData)
             alt="edit"
             onClick={() => {
               openEditOrderModal();
-              setOrderId(row.original.orderId);}
+              setOrderSingleData(row.original);
+              
+            }
             }
           />
           <img
@@ -162,7 +165,7 @@ console.log('orders', orderData)
               >
                 X
               </button>
-              <EditOrder closeEditOrderModal={closeEditOrderModal} orderId= {orderId} />
+              <EditOrder closeEditOrderModal={closeEditOrderModal} orderData= {orderSingleData} />
             </div>
           </div>
         )}

@@ -1,4 +1,5 @@
 import "../css/footer.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -6,20 +7,20 @@ function Footer() {
       <div className="Footer-Description w-full md:w-1/3 text-center md:text-left">
         <img src="Images/Icons/brownlogo.png" alt="" className="h-8 navbar-logo-image" />
         <p className="text-sm md:text-2xl mb-4 italic pt-5">
-          Small description to describe kitabswap’s concept... Small description to describe kitabswap’s concept...
+          Where every book has a story, and every story finds a new home.
         </p>
         <p className="text-sm md:text-lg italic footer-full-screen">© Copyright kitabswap 2024</p>
       </div>
       <div className="Footer-Links w-full md:w-1/3 text-center md:text-center">
         <ul className="space-y-4">
           <li>
-            <a href="" className="text-xl md:text-xl md:hover:text-red-700">Shop</a>
+            <Link to={"/Shop"}><a href="" className="text-xl md:text-xl md:hover:text-red-700">Shop</a></Link>
           </li>
           <li>
-            <a href="" className="text-xl md:text-xl md:hover:text-red-700">Trade</a>
+          <Link to={"/Trade"}><a href="" className="text-xl md:text-xl md:hover:text-red-700">Trade</a></Link>
           </li>
           <li>
-            <a href="" className="text-xl md:text-xl md:hover:text-red-700">Contact</a>
+          <Link to={"/ContactUs"}><a href="" className="text-xl md:text-xl md:hover:text-red-700">Contact</a></Link>
           </li>
         </ul>
       </div>

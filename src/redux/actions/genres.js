@@ -29,12 +29,15 @@ export const deleteById = (id) => {
       },
     })
       .then((response) => {
-
+        toast.success("Genre deleted successfully");
+        dispatch(getAllGenres());
         dispatch({
           type: "deleteById",
           payload: id,
         });
-        toast.success("Genre deleted successfully");
+
+       
+        
       })
       .catch((error) =>  ("Failed to fetch data :", error));
       

@@ -1,34 +1,15 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import {getById} from "../../../redux/actions/orders";
+import { useState } from 'react';
 import {
     MaterialReactTable,
     useMaterialReactTable,
   } from "material-react-table";
 
 
-function EditOrder(orderId) {
+function EditOrder({orderData}) {
 
- 
-    const dispatch = useDispatch();
-    
-    console.log('id', orderId.orderId)
+  const [status, setStatus] = useState(orderData.status);
 
-    
-    useEffect(() => {
-    dispatch(getById(orderId.orderId));     
-      }, [dispatch]);
-
-      const order = useSelector((state) => state.orders);
-      console.log('order', order)
-
-      const [status, setStatus] = useState(order.status);
-
-      const orderData = order?.orderDetails || [];
-      console.log("orderData",orderData)
       
-
     const data = orderData;
     const columns = [
     {header:"id", accessorKey:"bookId"},
@@ -74,12 +55,12 @@ function EditOrder(orderId) {
             <div className="text-center">
                 <form className="py-4">
                     <div className="flex mb-4">
-                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={order.userInfo?.userName} />
+                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.userInfo?.userName} />
                          
                         
                         <span className="mx-4"></span>
                      
-                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={order.orderDate} />
+                        <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.orderDate} />
                         <select
                             value={status} 
                             onChange={(e) => setStatus(e.target.value)} 
@@ -97,9 +78,9 @@ function EditOrder(orderId) {
                     </div>
          
             <div className="flex mb-4">
-            <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={order.total} />
+            <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.total} />
                 <span className="mx-4"></span>
-                <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left"  disabled defaultValue={order.shipmentMethod} />
+                <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left"  disabled defaultValue={orderData.shipmentMethod} />
             </div>
 
             <div className="flex justify-end">

@@ -71,12 +71,13 @@ export const deleteById = (id) => {
       },
     })
       .then((response) => {
-
+        toast.success("Order deleted successfully");
+        dispatch(getAllOrders());
         dispatch({
           type: "deleteById",
           payload: id,
         });
-        toast.success("Order deleted successfully");
+        
       })
       .catch((error) =>  ("Failed to fetch data :", error));
       

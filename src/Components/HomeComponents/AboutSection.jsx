@@ -1,8 +1,8 @@
-
+import { Link } from "react-router-dom";
 
 function AboutSection() {
   return (
-    <div className="flex items-center px-32 font-lateef mt-8 ml-8">
+    <div id="about" className="flex items-center px-32 font-lateef mt-8 ml-8">
       <div className="homeherosection-img w-1/2 mt-12 ">
         <img
           src="../Images/AboutPic.png"
@@ -17,12 +17,12 @@ function AboutSection() {
           <span className="font-love-light text-5xl"> KitabSwap </span> be the doorway to endless adventures right at your doorstep.
         </h1>
         <div className="flex ">
-          <button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-5">
+          <Link to={"/Shop"}><button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-5">
             Start Shopping
-          </button>
-          <button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-5 ml-8">
+          </button></Link>
+          <Link to={"/Trade"}><button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-5 ml-8">
             Start Trading
-          </button>
+          </button> </Link>
         </div>
       </div>
     </div>

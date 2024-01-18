@@ -4,8 +4,12 @@ const bannerReducer = (state=[], action) => {
 
         case 'getAll':
             return action.payload; 
+        case 'UnHighlight':
+            return action.payload;
+        case 'Highlight':
+            return action.payload;
         case 'getHighlighted':
-                return action.payload; 
+            return action.payload; 
         default: return state; 
 }}
 
