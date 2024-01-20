@@ -7,6 +7,8 @@ import { getByBookId } from "../../redux/actions/tradeRequests";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { hourglass } from 'ldrs'
+import "../css/UserDashboardReq.css"
+
 
 const UserTradeRequests = ({bookId , bookName, postingDate }) => {
 
@@ -123,7 +125,7 @@ useEffect(() => {
           Posting Date: {postingDate}
         </p>
       </div>
-      <table className="w-full border-t border-b border-black">
+      <table className="w-full border-t border-b border-black userdashtable">
         <thead>
           <tr className="border-b border-black text-2xl">
             <th className="py-2  text-center">Request</th>
@@ -154,7 +156,7 @@ useEffect(() => {
               <td className="py-2 text-center">
                 {request.status === 'pending' ? (
                   <>
-                    <td className="py-2 text-center">
+                    <td className="py-2 text-center mb-0">
                 <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={() => openUserAcceptModal(request.tradeRequest_id)}>
                   Accept
                 </button>

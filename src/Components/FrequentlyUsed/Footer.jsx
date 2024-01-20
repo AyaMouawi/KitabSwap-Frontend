@@ -6,7 +6,7 @@ function Footer() {
     <div className="footer-container flex flex-col md:flex-row justify-between items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 pt-8 md:pt-16 pb-4 px-4 md:px-10">
       <div className="Footer-Description w-full md:w-1/3 text-center md:text-left">
         <img src="Images/Icons/brownlogo.png" alt="" className="h-8 navbar-logo-image" />
-        <p className="text-sm md:text-2xl mb-4 italic pt-5">
+        <p className="text-2xl md:text-2xl mb-4 italic pt-5">
           Where every book has a story, and every story finds a new home.
         </p>
         <p className="text-sm md:text-lg italic footer-full-screen">© Copyright kitabswap 2024</p>
@@ -14,13 +14,13 @@ function Footer() {
       <div className="Footer-Links w-full md:w-1/3 text-center md:text-center">
         <ul className="space-y-4">
           <li>
-            <Link to={"/Shop"}><a href="" className="text-xl md:text-xl md:hover:text-red-700">Shop</a></Link>
+            <Link to={"/Shop"}><a href="" className="text-2xl md:text-xl md:hover:text-red-700">Shop</a></Link>
           </li>
           <li>
-          <Link to={"/Trade"}><a href="" className="text-xl md:text-xl md:hover:text-red-700">Trade</a></Link>
+          <Link to={"/Trade"}><a href="" className="text-2xl md:text-xl md:hover:text-red-700">Trade</a></Link>
           </li>
           <li>
-          <Link to={"/ContactUs"}><a href="" className="text-xl md:text-xl md:hover:text-red-700">Contact</a></Link>
+          <Link to={"/ContactUs"}><a href="" className="text-2xl md:text-xl md:hover:text-red-700">Contact</a></Link>
           </li>
         </ul>
       </div>

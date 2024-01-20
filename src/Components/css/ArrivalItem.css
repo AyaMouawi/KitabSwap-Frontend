@@ -4,3 +4,30 @@
     width: 15rem;
     height: 20rem;
 }
+
+  .productItem-x-responsive{
+    display: none;
+  }
+@media screen and (max-width: 500px) {
+
+    .productItem-modal-cont{
+        height: 100vh;
+        display:block;
+       
+    }
+   .productItem-modal{
+    box-shadow: none;
+   }
+   .productItem-shadow{
+    background-color: white;
+   }
+   .ArrivalItem-cont{
+    margin-bottom: 1rem;
+   }
+   .productItem-x{
+    display: none;
+  }
+  .productItem-x-responsive{
+    display: flex;
+  }
+}

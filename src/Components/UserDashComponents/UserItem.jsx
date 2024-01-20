@@ -95,7 +95,7 @@ function UserItem({tradeBook}) {
         <div className="fixed inset-0 flex items-center justify-center z-40 ">
           <div
             ref={modalRef}
-            className="absolute bg-white shadow-md w-screen p-8 h-screen"
+            className="absolute bg-white shadow-md w-screen p-8 h-screen overflow-y-scroll"
           >
             <div className="flex">
               <UserTradeRequests bookId={tradeBook.tradeBook_id} bookName = {tradeBook.title} postingDate = {tradeBook.postDate}/>

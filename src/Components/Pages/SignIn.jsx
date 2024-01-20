@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {login} from "../../redux/actions/users"
-
+import "../css/SignIn.css";
 
 
 function SignIn() {
@@ -104,7 +104,7 @@ function SignIn() {
       </div>
      
 
-      <div className="w-1/2 flex items-center justify-center">
+      <div className="w-1/2 md:flex items-center justify-center hidden">
       <Link to="/"><img
         src="Images/AboutPicSign.png"
         alt="Background"
