@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function EditProduct({ closeEditProductModal }) {
+function EditProduct({ closeEditProductModal, bookData }) {
   const [applyDiscount, setApplyDiscount] = useState(false);
   const [discountPercentage, setDiscountPercentage] = useState("");
 
@@ -15,10 +15,12 @@ function EditProduct({ closeEditProductModal }) {
     }
   };
 
+  console.log("bookData", bookData)
+
   return (
     <div className="font-lateef w-[32rem] px-12">
       <p className="text-book text-3xl text-center underline my-5">
-        Add Product
+        Edit Product
       </p>
       <div className="text-center">
         <form className="py-4" onSubmit={handleSubmit}>
