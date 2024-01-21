@@ -46,8 +46,10 @@ export const postTrade = (data) => {
           Authorization: `Bearer ${Auth}`, 
         },
       })
+       
       .then((response) => {
         const tradeBook = response.data.data;
+        dispatch(getAllTradeBooks());
         dispatch({
           type: "postTrade",
           payload: tradeBook,

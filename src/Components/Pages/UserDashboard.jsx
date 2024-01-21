@@ -55,6 +55,10 @@ useEffect(() => {
 
 const ownerBooks = useSelector ((state) => state.tradeBooks);
 
+const filteredOwnerBooks = ownerBooks.filter((book) => book.owner_id === parseInt(userId));
+
+console.log("filteredOwnerBooks", filteredOwnerBooks);
+
 console.log("ownerbooks", ownerBooks)
 
   return (
@@ -68,7 +72,7 @@ console.log("ownerbooks", ownerBooks)
         </div>
         <div className="flex flex-wrap items-center justify-between HomeArrival-items-cont mx-24"> 
        
-        {ownerBooks.map((book, index) => (
+        {filteredOwnerBooks.map((book, index) => (
             <UserItem key={index} tradeBook={book} />
           ))}
           

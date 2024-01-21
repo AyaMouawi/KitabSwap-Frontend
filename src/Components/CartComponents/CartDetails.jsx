@@ -4,6 +4,7 @@ import "../css/CartDetails.css";
 function CartDetails({ openModal, openConfirmModal }) {
   const [cart, setCart] = useState([]);
   const [selectedShipping, setSelectedShipping] = useState("pickup");
+  const location = localStorage.getItem('userAddress');
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -75,7 +76,7 @@ function CartDetails({ openModal, openConfirmModal }) {
                 />
                 delivery at home (under 5-7 days) - 3 ${" "}
                 <p className="text-xl ml-8 italic">
-                  Maktabi building, Clemenceau, Hamra{" "}
+                  {location}{" "}
                   <a onClick={openModal} className="underline ml-4 not-italic">
                     edit address
                   </a>

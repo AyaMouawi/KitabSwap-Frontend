@@ -84,3 +84,27 @@ export const deleteById = (id) => {
   };
   
 }
+
+export const editById = (id) => {
+  const Auth = localStorage.getItem("token");
+
+  return (dispatch) => {
+    axios
+      .put(`${process.env.REACT_APP_API_URL}/order/update/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${Auth}`,
+        },
+      })
+      .then((response) => {
+        toast.success("Status set to delivered successfully");
+        dispatch(getAllOrders());
+        dispatch({
+          type: "editById",
+          payload: id,
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+      });
+  };
+};

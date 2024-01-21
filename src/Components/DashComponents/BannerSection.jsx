@@ -13,6 +13,7 @@ import { bannerData } from "./datas";
 function BannerSection() {
 
   const dispatch = useDispatch();
+  const [bannerData , setBannerData] = useState('');
 
   useEffect(() => {
     
@@ -52,7 +53,7 @@ function BannerSection() {
             className="h-6 w-6"
             src="../Images/dashboardIcons/edit.png"
             alt="edit"
-            onClick={() => openEditBannerModal()}
+            onClick={() => {openEditBannerModal(); setBannerData(row.original)}}
           />
         </div>
       ),
@@ -113,7 +114,7 @@ function BannerSection() {
             >
               X
             </button>
-            <EditBanner closeEditBannerModal={closeEditBannerModal} />
+            <EditBanner closeEditBannerModal={closeEditBannerModal} bannerData={bannerData}/>
           </div>
         </div>
       )}
