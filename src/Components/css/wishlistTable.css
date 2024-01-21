@@ -1,4 +1,7 @@
 
+  .cartTable-responsive-span{
+    display: none;
+  }
   @media screen and (max-width: 500px) {
     .wishlistTable-table th,
     .wishlistTable-table td {
@@ -29,5 +32,12 @@
         margin: 0 auto;
         
       }
+      .cartTable-responsive-span{
+        display: initial
+      }
+      .cartTable-td{
+        display: flex;
+      }
+
   }
   

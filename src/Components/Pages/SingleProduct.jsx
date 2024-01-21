@@ -70,15 +70,15 @@ function SingleProduct({saleBook, closeModal}) {
   };
   
   return (
-    <div className="max-w-screen-xl flex flex-wrap mx-auto p-4 justify-center gap-44 bg-white h-fit mb-4">
-      <div className="h-fit">
+    <div className="max-w-screen-xl flex flex-wrap mx-auto p-4 justify-center gap-44 bg-white h-fit mb-4 SingleProduct-cont">
+      <div className="h-fit SingleProduct-cont-mini">
         <div className="mr-11 italic mb-16   text-center flex ">
           <p className="text-5xl">All products / {saleBook.genreName}</p>
         </div>
         <img src={saleBook.book_image} alt="" className="w-[25rem] h-[35rem]" />
       </div>
    
-      <div className="font-lateef mt-24 flex flex-col">
+      <div className="font-lateef mt-24 flex flex-col SingleProductData-cont">
       <div className="mb-5">
         <p className="text-6xl font-bold mb-4">{saleBook.title}</p>
         <p className="text-4xl font-love-light">{saleBook.authorName}</p>

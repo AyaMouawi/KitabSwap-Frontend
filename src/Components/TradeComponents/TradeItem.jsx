@@ -110,14 +110,21 @@ function TradeItem({tradeBook}) {
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-40 overflow-y-auto">
-          <div className="fixed inset-0 bg-black opacity-50"></div>
+          
+          <div className="fixed inset-0 bg-black opacity-50 productItem-shadow"></div>
+        
           <div
             ref={modalRef}
-            className="absolute bg-white px-8 rounded shadow-md"
+            className="absolute bg-white px-8 rounded shadow-md productItem-modal"
           >
-            <div className="flex">
+            <div className="flex productItem-modal-cont">
+            <div className="productItem-x-responsive justify-end">
+                <button className="text-4xl pt-4 " onClick={closeModal}>
+                  X
+                </button>
+              </div>
               <SingleTradeItem tradeBook = {tradeBook}/>
-              <div>
+              <div className="productItem-x">
                 <button className="text-4xl pt-4" onClick={closeModal}>
                   X
                 </button>

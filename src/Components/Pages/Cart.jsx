@@ -87,7 +87,9 @@ function Cart() {
   };
 
   const closeConfirmModal = () => {
+    
     setConfirmModalOpen(false);
+    updateCartKey()
   };
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -126,7 +128,7 @@ const removeItem = (bookId) => {
     <div key={cartKey}>
     <NavBar />
     <div className="max-w-screen-xl mx-auto p-4 font-lateef ">
-      <div className="italic">
+      <div className="italic text-center md:text-left">
         <p href="" className="text-5xl ">
           My Cart
         </p>
@@ -174,7 +176,7 @@ const removeItem = (bookId) => {
             ref={modalRef}
             className="absolute bg-white p-8 rounded shadow-md"
           >
-            <ConfirmCheckout  closeModal={closeConfirmModal} />
+            <ConfirmCheckout  closeModal={closeConfirmModal} updateCartKey={updateCartKey} />
           </div>
         </div>
       )}

@@ -5,7 +5,7 @@ import { Link} from "react-router-dom";
 import {register} from "../../redux/actions/users";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import "../css/SignUp.css";
+ import "../css/SignUp.css";
 
 
 function SignUp() {
@@ -57,7 +57,7 @@ function SignUp() {
 
   return (
     <div className="flex h-screen SignUp-container scale-95 font-lateef">
-      <div className="w-1/2 flex items-center justify-center">
+      <div className="w-1/2 md:flex items-center justify-center hidden">
       <Link to="/"><img
         src="Images/AboutPicSign.png"
         alt="Background"

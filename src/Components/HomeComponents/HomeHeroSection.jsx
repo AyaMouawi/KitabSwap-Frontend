@@ -7,7 +7,7 @@ function HomeHeroSection() {
       <div className="flex flex-col  homeherosection-title-cont w-fit">
    
         <h1 className="text-5xl mb-10 homeherosection-title w-[35rem] text-justify">
-          Where every <span className="font-love-light text-7xl"> book </span>{" "}
+          Where every <span className="font-love-light text-7xl homeherosection-book"> book </span>{" "}
           has a story, and every story finds a new home
         </h1>
 

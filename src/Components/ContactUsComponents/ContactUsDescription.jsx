@@ -30,8 +30,8 @@ function ContactUsDescription() {
 
 
   return (
-    <div className="  mx-40  contactUsDescription-cont mt-16">
-      <p className="text-3xl text-center text-book underline HomeArrival-title">
+    <div className="  mx-40  contactUsDescription-cont mt-16 font-lateef">
+      <p className="text-4xl text-center text-book underline HomeArrival-title">
         Get In Touch
       </p>
       <div className="text-center">
@@ -44,7 +44,7 @@ function ContactUsDescription() {
               onChange={handleInputChange}
               placeholder="Name"
               
-              className="px-4 py-2 bg-gray-100  focus:outline-none text-lg  contactUs-input"
+              className="px-4 py-2 bg-gray-100  focus:outline-none text-xl  contactUs-input"
               required
             />
  
@@ -55,12 +55,12 @@ function ContactUsDescription() {
               value={formData.email}
               onChange={handleInputChange}
               placeholder="E-mail"
-              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-lg text-black contactUs-input"
+              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black contactUs-input"
               required
             />
           </div>
           <textarea
-            className="w-full px-4 py-2 h-32 bg-gray-100 focus:outline-none  text-lg text-black"
+            className="w-full px-4 py-2 h-32 bg-gray-100 focus:outline-none  text-xl text-black"
             placeholder="Your message..."
             value={formData.message}
             onChange={handleInputChange}

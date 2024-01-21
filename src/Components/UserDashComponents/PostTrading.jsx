@@ -40,10 +40,10 @@ function PostTrading({ closeModal }) {
     data.append("authorName", authorName);
     data.append("genre_id", genre); // Assuming genre_id is the correct field name
     data.append("location", location);
-    data.append("image", file); // Change "file" to "image"
+    data.append("image", file); 
     data.append("description", description);
 
-    // Get owner_id from localStorage
+ 
     const owner_id = localStorage.getItem("userId");
     if (owner_id) {
       data.append("owner_id", owner_id);
@@ -51,7 +51,6 @@ function PostTrading({ closeModal }) {
 
     dispatch(postTrade(data));
 
-    // Optionally, you can clear the form fields after submission
     setFormData({
       bookname: "",
       authorName: "",
@@ -61,7 +60,7 @@ function PostTrading({ closeModal }) {
       description: "",
     });
 
-    closeModal(); // Close the modal after submission
+    closeModal();
   };
 
   useEffect(() => {
@@ -88,6 +87,7 @@ function PostTrading({ closeModal }) {
               className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
               required
             />
+             <span className="contactUsDescription-span"></span>
             <input
               type="text"
               name="authorName"
@@ -113,6 +113,7 @@ function PostTrading({ closeModal }) {
                 </option>
               ))}
             </select>
+            <span className="contactUsDescription-span"></span>
             <input
               type="text"
               name="location"
@@ -122,7 +123,9 @@ function PostTrading({ closeModal }) {
               className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
               required
             />
+            
           </div>
+          
           <div className="flex flex-wrap mb-4">
             <div className="contactUs-input">
               <input

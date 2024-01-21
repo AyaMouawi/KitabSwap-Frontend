@@ -7,6 +7,8 @@ import { getByBookId } from "../../redux/actions/tradeRequests";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { hourglass } from 'ldrs'
+import "../css/UserDashboardReq.css"
+
 
 const UserTradeRequests = ({bookId , bookName, postingDate }) => {
 
@@ -130,6 +132,7 @@ console.log("filtered", filteredTradeRequests)
         </p>
       </div>
 
+
       {filteredTradeRequests.length === 0 ? (
             <tr>
               <td colSpan="8" className="py-2 text-center">
@@ -138,6 +141,7 @@ console.log("filtered", filteredTradeRequests)
             </tr>
           ) :(
       <table className="w-full border-t border-b border-black">
+
         <thead>
           <tr className="border-b border-black text-2xl">
             <th className="py-2  text-center">Request</th>
@@ -168,7 +172,7 @@ console.log("filtered", filteredTradeRequests)
               <td className="py-2 text-center">
                 {request.status === 'pending' ? (
                   <>
-                    <td className="py-2 text-center">
+                    <td className="py-2 text-center mb-0">
                 <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={() => openUserAcceptModal(request.tradeRequest_id)}>
                   Accept
                 </button>

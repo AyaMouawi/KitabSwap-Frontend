@@ -98,7 +98,7 @@ console.log("cartSaleBooksfiltered", filteredSaleBooks)
 
   return (
     <div className="mt-8 wishlistTable-table">
-      <div className="flex italic justify-end mb-8">
+      <div className="md:flex italic md:justify-end mb-8 text-center">
        <Link to={"/Shop"}> <a href="" className="text-3xl hover:text-book">
           Continue Shopping <span className="ml-2 text-3xl">&#8594;</span>
         </a></Link>
@@ -119,15 +119,15 @@ console.log("cartSaleBooksfiltered", filteredSaleBooks)
         <tbody>
           {cart.map((item, index) => (
             <tr key={item.bookId}>
-              <td className="p-4 text-center">
+              <td className="p-4 text-center cartTable-td">
                 <img
                   src={cartDetails[index]?.book_image}
                   alt="Product"
                   className="w-32 h-52 object-cover mx-auto"
                 />
               </td>
-              <td className="p-4 text-center text-2xl">{cartDetails[index]?.title}</td>
-              <td className="p-4 text-center text-2xl">
+              <td className="p-4 text-center text-2xl cartTable-td">{cartDetails[index]?.title}</td>
+              <td className="p-4 text-center text-2xl cartTable-td">
                 {cartDetails[index]?.discountedPrice !== null ? (
                   <>
                     <p className="line-through text-red-500">${cartDetails[index]?.originalPrice}</p>
@@ -137,10 +137,10 @@ console.log("cartSaleBooksfiltered", filteredSaleBooks)
                   <p>${cartDetails[index]?.originalPrice}</p>
                 )}
               </td>
-              <td className="p-4 text-center text-2xl">
+              <td className="p-4 text-center text-2xl cartTable-td">
                 {cartDetails[index]?.discount !== "-" ? <p>{cartDetails[index]?.discount}%</p> : <p>-</p>}
               </td>
-              <td className="p-4 text-center text-2xl">
+              <td className="p-4 text-center text-2xl cartTable-td">
                 <input
                   type="number"
                   value={item.quantity}
@@ -150,8 +150,8 @@ console.log("cartSaleBooksfiltered", filteredSaleBooks)
                   className="w-8 border-none text-center"
                 />
               </td>
-              <td className="p-4 text-center text-2xl">${item.totalPrice}</td>
-              <td className="p-4 text-2xl text-center">
+              <td className="p-4 text-center text-2xl cartTable-td">${item.totalPrice}</td>
+              <td className="p-4 text-2xl text-center cartTable-td">
                 <button onClick={() => openModal(item.bookId)}>x</button>
               </td>
             </tr>

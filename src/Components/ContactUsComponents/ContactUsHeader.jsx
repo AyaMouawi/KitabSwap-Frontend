@@ -63,6 +63,12 @@ function ContactUsHeader() {
              /* added contactusheader-img */
             className="w-full ContactUsHeader-img"
           />
+           <img
+            src="../Images/ContactPicRes.png"
+            alt="Hero Image"
+          
+            className="w-full ContactUsHeader-img-resp"
+          />
         </div>
       </div>
     </div>

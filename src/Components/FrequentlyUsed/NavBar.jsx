@@ -33,7 +33,7 @@ function NavBar() {
 
   return (
     <div className="App">
-      <nav className="bg-white border-gray-200 navbar-container font-lateef font-light shadow-2xl relative z-10">
+      <nav className="bg-white border-gray-200 navbar-container font-lateef font-light shadow-2xl relative z-40">
         <div className="flex flex-wrap items-center justify-between p-2">
           <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="../Images/Icons/logo.png" className="w-44 lg:w-56 md:w-56 sm:w-8"  />

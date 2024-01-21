@@ -1,0 +1,29 @@
+@media (max-width: 767px) {
+    .userdashtable {
+      border-collapse: collapse;
+      width: 100%;
+    }
+  
+    .userdashtable th,
+    .userdashtable td {
+      padding: 8px;
+      text-align: center;
+  
+    }
+
+    .userdashtable th {
+      display: none;
+    }
+
+    .userdashtable td {
+      display: flex;
+      justify-content: center;
+      border: none;
+      width: auto;
+    }
+    .userdashtable td img{
+       width: 10rem;
+      }
+ 
+  
+  }
