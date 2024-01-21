@@ -115,6 +115,12 @@ useEffect(() => {
   };
 }, [isRequestDetailsModalOpen]);
 
+const filteredTradeRequests = tradeRequests.filter(
+  (request) => request.tradebook_id === bookId
+);
+
+console.log("filtered", filteredTradeRequests)
+
   return (
     <div className="w-screen p-6">
       <div className="mb-20">
@@ -123,6 +129,14 @@ useEffect(() => {
           Posting Date: {postingDate}
         </p>
       </div>
+
+      {filteredTradeRequests.length === 0 ? (
+            <tr>
+              <td colSpan="8" className="py-2 text-center">
+                No trade requests available.
+              </td>
+            </tr>
+          ) :(
       <table className="w-full border-t border-b border-black">
         <thead>
           <tr className="border-b border-black text-2xl">
@@ -137,7 +151,7 @@ useEffect(() => {
           </tr>
         </thead>
         <tbody>
-          {tradeRequests.map((request, index) => (
+          {filteredTradeRequests.map((request, index) => (
             <tr key={request.tradeRequest_id} className="border-b border-black text-2xl">
               <td className="py-2 text-center">Request {index + 1}</td>
               <td className="py-2 text-center">{request.requestDate}</td>
@@ -172,7 +186,7 @@ useEffect(() => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table>)}
       {isUserAcceptModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-40">
           <div className="fixed inset-0 bg-black opacity-50"></div>
