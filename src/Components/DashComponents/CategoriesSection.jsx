@@ -43,8 +43,6 @@ function CategoriesSection() {
         </div>
       ),
     },
-    { header: "discounted", accessorKey: "discount" },
-    
     {
       accessorKey: "edit/delete",
       header: "",

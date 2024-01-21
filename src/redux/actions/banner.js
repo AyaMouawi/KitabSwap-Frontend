@@ -87,3 +87,26 @@ export const UnHighlight = (id) => {
       .catch((error) => console.log("Failed to fetch data :", error));
   };
 };
+
+
+export const updateBanner = (Id, data) => {
+  return (dispatch) => {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    axios
+      .put(`${process.env.REACT_APP_API_URL}/banner/update/${Id}`, data, { headers })
+      .then((response) => {
+        const banner = response.data;
+        toast.success("Banner edited successfully.");
+        dispatch(getAll());
+        dispatch({
+          type: "updateBanner",
+          payload: { Id, banner },
+        });
+      })
+      .catch((error) => console.log("Failed to update the banner :", error));
+  };
+};
