@@ -15,6 +15,7 @@ function ProductsSection() {
 
   const dispatch = useDispatch();
   const [bookId, setBookId] = useState('');
+  const [bookData, setBookData] = useState('');
   console.log('theBookID', bookId)
 
   useEffect(() => {
@@ -90,7 +91,7 @@ function ProductsSection() {
             className="h-6 w-6"
             src="../Images/dashboardIcons/edit.png"
             alt="edit"
-            onClick={() => {openEditProductModal(); setBookId(row.original.saleBook_id)}}
+            onClick={() => {openEditProductModal(); setBookId(row.original.saleBook_id); setBookData(row.original)}}
           />
           <img
             className="h-6 w-6"
@@ -197,7 +198,7 @@ function ProductsSection() {
               >
                 X
               </button>
-              <EditProduct closeEditProductModal={closeEditProductModal} />
+              <EditProduct closeEditProductModal={closeEditProductModal} bookData={bookData}/>
             </div>
           </div>
         )}
