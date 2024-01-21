@@ -10,6 +10,8 @@ const bannerReducer = (state=[], action) => {
             return action.payload;
         case 'getHighlighted':
             return action.payload; 
+        case 'updateBanner':
+            return state.map((banner)=>banner.banner_id===action.payload.Id?action.payload.banner:banner);
         default: return state; 
 }}
 

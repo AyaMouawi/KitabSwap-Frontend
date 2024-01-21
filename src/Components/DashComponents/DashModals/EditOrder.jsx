@@ -1,19 +1,31 @@
 import { useState } from 'react';
+import { useDispatch } from "react-redux";
 import {
     MaterialReactTable,
     useMaterialReactTable,
   } from "material-react-table";
+import { editById } from '../../../redux/actions/orders';
 
 
-function EditOrder({orderData}) {
+function EditOrder({orderData,closeEditOrderModal}) {
 
   const [status, setStatus] = useState(orderData.status);
+  const dispatch = useDispatch();
+
+  const orderInfo = orderData.orderDetails;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(editById(orderData.orderId));
+    closeEditOrderModal();
+    setStatus('delivered');
+  };
 
       
-    const data = orderData;
+    const data = orderInfo;
     const columns = [
     {header:"id", accessorKey:"bookId"},
-      { header: "Name", accessorKey: "bookInfo.title" },
+      { header: "Name", accessorKey: "bookName" },
       { header: "Quantity", accessorKey: "quantity" },
       { header: "Price", accessorKey: "totalPrice" },
 
@@ -21,7 +33,7 @@ function EditOrder({orderData}) {
       Cell: ({ renderedCellValue, row }) => (
       
         <img className='h-28 w-20'
-         src={row.original.bookInfo.bookImage} 
+         src={row.original.bookImage} 
       ></img>
       
       ), },
@@ -53,7 +65,7 @@ function EditOrder({orderData}) {
         <div className='font-lateef'>
             <p className="text-red-700 text-3xl text-center underline my-5">Edit Order</p>
             <div className="text-center">
-                <form className="py-4">
+                <form className="py-4"  onClick={handleSubmit}>
                     <div className="flex mb-4">
                         <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.userInfo?.userName} />
                          
@@ -61,14 +73,11 @@ function EditOrder({orderData}) {
                         <span className="mx-4"></span>
                      
                         <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.orderDate} />
-                        <select
-                            value={status} 
-                            onChange={(e) => setStatus(e.target.value)} 
-                            className="px-4 py-2 bg-gray-100 focus:outline-none text-lg text-black ml-2"
-                        >
-                            <option value="pending">Pending</option>
-                            <option value="delivered">Delivered</option>
-                        </select>
+                        <input
+                          className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left"
+                          disabled
+                          value={status}
+                        />
                        
                     </div>
                     <div className="flex mb-4">
@@ -85,8 +94,9 @@ function EditOrder({orderData}) {
 
             <div className="flex justify-end">
                 <button
+                   
                     className="text-book border border-book px-4 py-2 hover:bg-book hover:text-white text-xl">
-                    Submit
+                    Set to delivered
                 </button>
             </div>
         </form>
