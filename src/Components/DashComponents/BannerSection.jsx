@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {getAll} from "../../redux/actions/banner";
+import { Highlight } from "../../redux/actions/banner";
 import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
 import "../css/Dashboard.css";
 import EditBanner from "./DashModals/EditBanner";
-import { bannerData } from "./datas";
+
 
 function BannerSection() {
 
@@ -20,6 +21,8 @@ function BannerSection() {
     dispatch(getAll());
  
  }, [dispatch]);
+
+ 
 
  const banners = useSelector ((state) => state.banners);
   /* MATERIAL REACT TABLE STUFF */
@@ -74,12 +77,18 @@ function BannerSection() {
         className="h-6 w-6"
         type="radio"
         checked={row.original.highlight === 1}
+        onChange={() => handleRadioChange(row.original.banner_id)}
       />
         </div>
       ),
       enableSorting: false,
     },
   ];
+  const handleRadioChange = (banner) => {
+console.log("banner",banner)
+    dispatch(Highlight(banner));
+    
+  };
   const table = useMaterialReactTable({
     columns,
     data,

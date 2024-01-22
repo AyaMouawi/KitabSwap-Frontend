@@ -232,6 +232,7 @@ function AllProducts() {
   const showModal = () => setMobileFiltersOpen(true);
   const hideModal = () => setMobileFiltersOpen(false);
   const showHideClassName = mobileFiltersOpen ? true : false;
+  
   return (
     <>
       <NavBar />

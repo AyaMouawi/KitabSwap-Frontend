@@ -194,8 +194,8 @@ function ProductsSection() {
         )}
         {showEditProductModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="fixed inset-0 bg-black opacity-50"></div>
-            <div className="bg-white p-6 relative z-10">
+            <div className="fixed inset-0 bg-black opacity-50 "></div>
+            <div className="bg-white p-6 relative z-10 overflow-y-scroll h-screen">
               <button
                 onClick={closeEditProductModal}
                 className="absolute top-0 right-0 m-4 px-2 py-1 text-xl"

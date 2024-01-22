@@ -66,11 +66,11 @@ function EditOrder({orderData,closeEditOrderModal}) {
             <p className="text-red-700 text-3xl text-center underline my-5">Edit Order</p>
             <div className="text-center">
                 <form className="py-4"  onClick={handleSubmit}>
-                    <div className="flex mb-4">
+                    <div className="flex mb-4 justify-start gap-3">
                         <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.userInfo?.userName} />
                          
                         
-                        <span className="mx-4"></span>
+    
                      
                         <input className="flex-1 px-4 py-2 bg-gray-100 text-xl text-black text-left" disabled defaultValue={orderData.orderDate} />
                         <input

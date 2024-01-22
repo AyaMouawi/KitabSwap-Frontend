@@ -8,10 +8,25 @@ import NavBar from "../FrequentlyUsed/NavBar";
 import Footer from "../FrequentlyUsed/Footer";
 import ConfirmCheckout from "../CartComponents/ConfirmCheckout";
 import { toast} from 'react-toastify';
+import { useSelector, useDispatch } from "react-redux";
 import 'react-toastify/dist/ReactToastify.css';
 import "../css/cart.css";
+import { getAddress } from "../../redux/actions/users";
+
 
 function Cart() {
+
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    dispatch(getAddress(userId));
+  }, [dispatch]);
+
+  
+
+  const address = useSelector((state) => state.users);
+
   const modalRef = useRef(null);
   const [cartKey, setCartKey] = useState(0);
   const [cart, setCart] = useState(() => {
@@ -123,6 +138,8 @@ const removeItem = (bookId) => {
   toast.success("Item removed from the cart.");
   setCartKey((prevKey) => prevKey + 1);
 };
+
+
   
   return (
     <div key={cartKey}>
@@ -134,7 +151,7 @@ const removeItem = (bookId) => {
         </p>
       </div>
 
-      {(!cart || !cartDetails || cart.length == 0 || cartDetails.length == 0 ) ? (
+      { !localStorage.getItem("cartDetails") ? (
         <CartEmpty />
       ) : (
         <>
@@ -153,7 +170,7 @@ const removeItem = (bookId) => {
             ref={modalRef}
             className="absolute bg-white p-8 rounded shadow-md"
           >
-            <CartAddress closeModal={closeAddressModal} />
+            <CartAddress closeModal={closeAddressModal} address = {address}/>
           </div>
         </div>
       )}

@@ -7,6 +7,7 @@ import { hourglass } from 'ldrs';
 
 function TradeRequest({ tradeBookId, closeRequestModal }) {
   const dispatch = useDispatch();
+  hourglass.register();
   const addLoading = useSelector(state => state.tests.addLoading);
  console.log("loading", addLoading)
   const [formData, setFormData] = useState({
@@ -66,7 +67,7 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
     
   };
 
-  
+  console.log("loading", addLoading)
 
   return (
     <div className="  flex items-center justify-center">

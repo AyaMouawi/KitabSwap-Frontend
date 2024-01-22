@@ -58,8 +58,6 @@ export const login = (Info) => {
         localStorage.setItem("userAddress", userAddress);
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
-        localStorage.setItem("cart",[]);
-        localStorage.setItem("cartDetails",[]);
         localStorage.setItem("shipment", shipment)
 
         toast.success(`Welcome ${userFullName}`);
@@ -124,3 +122,42 @@ export const deleteById = (id) => {
   };
   
 }
+
+export const getAddress = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/user/getAddress/${id}`)
+      .then((response) => {
+        const user = response.data.data;
+        dispatch({
+          type: "getAddress",
+          payload: user,
+        });
+      })
+      .catch((error) => console.log("Failed to fetch data :", error));
+    
+  };
+  
+}
+
+export const updateAddress = (Id, data) => {
+  return (dispatch) => {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    axios
+      .put(`${process.env.REACT_APP_API_URL}/user/updateAddress/${Id}`, data, { headers })
+      .then((response) => {
+        const user = response.data;
+        toast.success("Address edited successfully.");
+        dispatch(getAddress());
+        dispatch({
+          type: "updateAddress",
+          payload: { Id, user },
+        });
+      })
+      .catch((error) => console.log("Failed to update your Address :", error));
+  };
+};

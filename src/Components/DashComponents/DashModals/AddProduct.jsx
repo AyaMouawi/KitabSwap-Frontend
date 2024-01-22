@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllGenres } from "../../../redux/actions/genres";
-import { addBook } from "../../../redux/actions/saleBooks";
-
+import { addBook } from "../../../redux/actions/AddBook";
+import { hourglass } from 'ldrs';
 
 function AddProduct({ closeAddProductModal }) {
   const dispatch = useDispatch();
-
+  hourglass.register();
+  const genres = useSelector((state) => state.genres);
+  const addLoading = useSelector(state => state.addBook.addLoading );
+console.log("loading", addLoading)
   const [formData, setFormData] = useState({
     genre_id: "",
     authorName: "",
     quantity: "",
     description: "",
+    title: "",
     price: "",
     image: null,
   });
-
-  const genres = useSelector((state) => state.genres);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -32,32 +34,45 @@ function AddProduct({ closeAddProductModal }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const data = new FormData();
-    data.append("title", formData.title);
     data.append("genre_id", formData.genre_id);
     data.append("authorName", formData.authorName);
+    data.append("title", formData.title);
     data.append("quantity", formData.quantity);
     data.append("description", formData.description);
     data.append("price", formData.price);
     data.append("image", formData.image);
-
-    dispatch(addBook(data));
-    closeAddProductModal();
+  
+    try {
+      await dispatch(addBook(data));
+      closeAddProductModal();
+    } catch (error) {
+      console.error("Error in adding book:", error);
+    }
   };
-
+  
   useEffect(() => {
     dispatch(getAllGenres());
   }, [dispatch]);
-
 
   return (
     <div className="font-lateef w-[32rem] px-12">
       <p className="text-book text-3xl text-center underline my-5">
         Add Product
       </p>
+      {addLoading &&  (
+      <div className="text-center">
+        <l-hourglass
+          size="40"
+          bg-opacity="0.1"
+          speed="1.75"
+         color="rgb(183,86,66)"
+        ></l-hourglass></div>
+        )}
+     {!addLoading && (
       <div className="text-center">
         <form className="py-4" onSubmit={handleSubmit}>
           <div className="flex mb-4">
@@ -80,7 +95,6 @@ function AddProduct({ closeAddProductModal }) {
                 ))}
               </select>
             </div>
-            {/* Add other input fields as needed */}
           </div>
           <div className="mb-4">
             <div className="">
@@ -168,6 +182,7 @@ function AddProduct({ closeAddProductModal }) {
           </div>
         </form>
       </div>
+      )}
     </div>
   );
 }

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-const ApexChart = () => {
+const ApexChart = ({ data }) => {
   const [chartData, setChartData] = useState({
     series: [{
       name: "Desktops",
-      data: [10, 41, 35, 51, 49, 62, 69, 91, 148,62, 69,62,]
+      data: [],
     }],
     options: {
       chart: {
@@ -21,10 +21,7 @@ const ApexChart = () => {
       },
       stroke: {
         curve: 'straight',
-     
       },
-   
- 
       grid: {
         row: {
           colors: ['#f3f3f3', 'transparent'],
@@ -51,15 +48,34 @@ const ApexChart = () => {
             colors: "#000000",
             fontSize: '15px',
           },
-          rotate: -45, 
+          rotate: -45,
         }
       }
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      setChartData(prevChartData => ({
+        ...prevChartData,
+        series: [{
+          name: "Desktops",
+          data: data,
+        }],
+      }));
+    }
+  }, [data]);
+
+  if (!data) {
+    return null;
+  }
+
   return (
-    <div id="chart">
-      <ReactApexChart options={chartData.options} series={chartData.series} type="line" height={350} />
+    <div className="">
+      <h1 className="text-lg w-48 mb-8"> Number of orders per month</h1>
+      <div id="chart">
+        <ReactApexChart options={chartData.options} series={chartData.series} type="line" height={350} />
+      </div>
     </div>
   );
 };

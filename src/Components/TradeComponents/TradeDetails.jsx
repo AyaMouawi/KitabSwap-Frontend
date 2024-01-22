@@ -1,20 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
-import SingleTradeData from "./SingleTradeData";
+import { useNavigate } from "react-router-dom";
 import "../css/SingleProduct.css";
 import TradeRequest from "./TradeRequest";
 
-function SingleTradeItem({tradeBook}) {
+function SingleTradeItem({ tradeBook }) {
   const modalRef = useRef(null);
-  // Trade Request MODAL
+  const navigate = useNavigate();
+
+ 
   const [isTradeRequestModalOpen, setTradeRequestModalOpen] = useState(false);
 
   const openTradeRequestModal = () => {
-    setTradeRequestModalOpen(true);
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      navigate("/SignIn");
+    } else {
+      setTradeRequestModalOpen(true);
+    }
   };
 
   const closeTradeRequestModal = () => {
     setTradeRequestModalOpen(false);
   };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {

@@ -12,6 +12,8 @@ const saleBookReducer = (state=[], action) => {
             return [...state, action.payload];
         case 'deleteById':
             return state.filter((saleBook)=>saleBook.saleBook_id!==action.payload);
+        case 'updateSaleBook':
+            return state.map((book)=>book.book_id===action.payload.Id?action.payload.book:book);
         default: return state; 
 }}
 

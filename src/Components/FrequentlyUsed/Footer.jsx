@@ -1,7 +1,16 @@
 import "../css/footer.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Footer() {
+  const navigate = useNavigate();
+
+  const isAdmin = localStorage.getItem("role") === "admin";
+  const handleCopyrightClick = () => {
+    if (isAdmin) {
+      navigate("/AdminDashboard");
+    }
+  };
+  
   return (
     <div className="footer-container flex flex-col md:flex-row justify-between items-center md:items-start space-y-4 md:space-y-0 md:space-x-8 pt-8 md:pt-16 pb-4 px-4 md:px-10">
       <div className="Footer-Description w-full md:w-1/3 text-center md:text-left">
@@ -9,7 +18,7 @@ function Footer() {
         <p className="text-2xl md:text-2xl mb-4 italic pt-5">
           Where every book has a story, and every story finds a new home.
         </p>
-        <p className="text-sm md:text-lg italic footer-full-screen">© Copyright kitabswap 2024</p>
+        <p className="text-sm md:text-lg italic footer-full-screen" onClick={handleCopyrightClick}>© Copyright kitabswap 2024</p>
       </div>
       <div className="Footer-Links w-full md:w-1/3 text-center md:text-center">
         <ul className="space-y-4">
@@ -52,7 +61,7 @@ function Footer() {
     </tr>
 </table>
       </div>
-      <p className="text-sm md:text-xl italic footer-phone-screen">© Copyright KitabSwap 2024</p>
+      <p className="text-sm md:text-xl italic footer-phone-screen" onClick={handleCopyrightClick}>© Copyright KitabSwap 2024</p>
     </div>
   );
 }
