@@ -23,6 +23,7 @@
     font-size: 2.5rem;
     padding: 3%;
     font-family: "lateef";
+    width: max-content;
   }
   
   .btn-not {
@@ -30,10 +31,13 @@
     text-decoration: none;
     padding: 13px 20px;
     background: #B75642;
+    font-size: 1.5rem;
+
     
   }
   
   .btn-not:hover {
     background: #ffff;
     color: #B75642;
+    border: solid #B75642 1px ;
   }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getAllTradeBooks } from "./tradeBook";
 
 
 export const getByBookId = (id) => {
@@ -62,6 +63,8 @@ export const decline = (id) => {
       .then((response) => {
         const tradeRequest = response.data.data;
         toast.success("Request declined successfully. Check your email");
+        dispatch(getByBookId());
+        dispatch(getAllTradeBooks());
         dispatch({
           type: "decline",
           payload: tradeRequest,
@@ -88,6 +91,7 @@ export const accept = (id) => {
         const tradeRequest = response.data.data;
         toast.success("Request accepted successfully. Check your email");
         dispatch(getByBookId());
+        dispatch(getAllTradeBooks());
         dispatch({
           type: "accept",
           payload: tradeRequest,

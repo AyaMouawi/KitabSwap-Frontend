@@ -44,12 +44,12 @@ function ViewCustomer({ userData }) {
            >{userData.phoneNumber} </p>
           </div>
           <div className="flex flex-wrap mb-4">
-            <span className="contactUsDescription-span"></span>
             <p
              
              className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-2xl text-black contactUs-input"
              required
            >{userData.address} </p>
+           <span className="contactUsDescription-span"></span>
           </div>
         
     

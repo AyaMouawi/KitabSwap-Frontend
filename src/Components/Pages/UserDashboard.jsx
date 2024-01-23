@@ -72,7 +72,7 @@ return (
           Post A Trading
         </button>
       </div>
-      <div className="flex flex-wrap items-center justify-between HomeArrival-items-cont mx-24">
+      <div className="flex flex-wrap items-center justify-start gap-4 HomeArrival-items-cont mx-24">
         {filteredOwnerBooks.length === 0 ? (
           <UserDashEmpty />
         ) : (

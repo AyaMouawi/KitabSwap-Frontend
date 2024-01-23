@@ -48,13 +48,13 @@ function SingleProduct({saleBook, closeModal}) {
         const isBookInDetails = cartDetails.some(item => item.saleBook_id === saleBook.saleBook_id);
   
         if (isBookInDetails) {
-          toast.error("This book is already in your cart details!");
+          toast.warning("This book is already in your cart!");
         } else {
           cartDetails.push(saleBook);
   
           localStorage.setItem("cartDetails", JSON.stringify(cartDetails));
   
-          toast.success("Product added to your cart details successfully!", {
+          toast.success("Product added to your cart successfully!", {
             onClose: () => {
               closeModal();
             }

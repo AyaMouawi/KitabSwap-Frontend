@@ -72,14 +72,14 @@ function EditProduct({ closeEditProductModal, bookData }) {
                 name="title"
                 placeholder="Title"
                 defaultValue={bookData.title || ""}
-                className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black"
+                className="flex flex-grow w-full md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black mr-4"
                 required
               />
             </div>
             <div className="flex flex-grow mb-4">
               <select
                 name="genre_id"
-                className="px-4 py-2 mr-4 bg-gray-100 focus:outline-none text-xl text-black w-full"
+                className="px-4 py-2 mr-2 bg-gray-100 focus:outline-none text-xl text-black w-full"
                 value={selectedGenre}
                 onChange={(e) => setSelectedGenre(e.target.value)}
               >

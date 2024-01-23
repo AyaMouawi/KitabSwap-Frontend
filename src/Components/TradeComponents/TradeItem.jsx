@@ -98,6 +98,7 @@ function TradeItem({tradeBook}) {
         </div>
       </div>
       <div className="">
+      <h4 className="text-2xl">{tradeBook.authorName}</h4>
         <h1
       
           className="text-2xl w-60 overflow-hidden whitespace-nowrap overflow-ellipsis"
@@ -105,7 +106,7 @@ function TradeItem({tradeBook}) {
         >Owner: {tradeBook.ownerFullName}
           
         </h1>
-        <h4 className="text-2xl">{tradeBook.authorName}</h4>
+       
       </div>
 
       {isModalOpen && (

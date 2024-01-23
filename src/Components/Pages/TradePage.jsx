@@ -369,7 +369,7 @@ function TradePage() {
               </div>
             ) : (
               <>
-                <div className="flex flex-wrap items-center justify-start gap-4 HomeArrival-items-cont mx-12">
+                <div className="flex flex-wrap items-center justify-start gap-4 HomeArrival-items-cont mx-10">
                   {currentProducts}
                 </div>
                 <div className="flex justify-center">

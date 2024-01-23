@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { postTrade } from "../../redux/actions/tradeBook";
+import { postTrade } from "../../redux/actions/PostTrade";
 import { getAllGenres } from "../../redux/actions/genres";
+import { hourglass } from 'ldrs';
 
 function PostTrading({ closeModal }) {
   const dispatch = useDispatch();
+  hourglass.register();
   const genres = useSelector((state) => state.genres);
+  const addLoading = useSelector(state => state.addPost.addLoading);
+
+  console.log("loading", addLoading)
 
   const [formData, setFormData] = useState({
     bookname: "",
@@ -38,18 +43,18 @@ function PostTrading({ closeModal }) {
     const data = new FormData();
     data.append("title", bookname);
     data.append("authorName", authorName);
-    data.append("genre_id", genre); 
+    data.append("genre_id", genre);
     data.append("location", location);
-    data.append("image", file); 
+    data.append("image", file);
     data.append("description", description);
 
- 
     const owner_id = localStorage.getItem("userId");
     if (owner_id) {
       data.append("owner_id", owner_id);
     }
 
     dispatch(postTrade(data));
+    closeModal();
 
     setFormData({
       bookname: "",
@@ -59,13 +64,13 @@ function PostTrading({ closeModal }) {
       file: null,
       description: "",
     });
-
-    closeModal();
   };
 
   useEffect(() => {
     dispatch(getAllGenres());
   }, [dispatch]);
+
+  
 
   return (
     <div className="  flex items-center justify-center font-lateef">
@@ -76,6 +81,16 @@ function PostTrading({ closeModal }) {
         <p className="text-3xl text-center  underline text-book mb-8">
           Post Trading
         </p>
+        {addLoading &&  (
+      <div className="text-center">
+        <l-hourglass
+          size="40"
+          bg-opacity="0.1"
+          speed="1.75"
+         color="rgb(183,86,66)"
+        ></l-hourglass></div>
+        )}
+        {!addLoading && (
         <form className="py-4" onSubmit={handleFormSubmit}>
           <div className="flex flex-wrap mb-4">
             <input
@@ -157,6 +172,7 @@ function PostTrading({ closeModal }) {
             Submit
           </button>
         </form>
+        )}
       </div>
     </div>
   );

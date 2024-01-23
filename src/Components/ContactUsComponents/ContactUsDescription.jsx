@@ -20,19 +20,13 @@ function ContactUsDescription() {
     });
   };
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-  
-    await handleSubmit(e);
-  
-    if (state.succeeded) {
-      toast.success("Thank you for contacting us! We will get back to you shortly.");
-      setFormData({ name: "", email: "", message: "" });
-    }
+  const handleSuccess = () => {
+    toast.success("Thank you for contacting us! We will get back to you shortly.");
+    setFormData({ name: "", email: "", message: "" });
   };
 
   return (
-    <div className="  mx-40  contactUsDescription-cont mt-16 font-lateef">
+    <div className="mx-40 contactUsDescription-cont mt-16 font-lateef">
       <p className="text-4xl text-center text-book underline HomeArrival-title">
         Get In Touch
       </p>
@@ -48,7 +42,7 @@ function ContactUsDescription() {
         </div>
       ) : (
         <div className="text-center">
-          <form className="py-4" onSubmit={handleFormSubmit}>
+          <form className="py-4" onSubmit={(e) => handleSubmit(e).then(handleSuccess)}>
             <div className="flex flex-wrap mb-4">
               <input
                 type="text"
@@ -56,7 +50,7 @@ function ContactUsDescription() {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Name"
-                className="px-4 py-2 bg-gray-100  focus:outline-none text-xl  contactUs-input"
+                className="px-4 py-2 bg-gray-100 focus:outline-none text-xl contactUs-input"
                 required
               />
 
@@ -67,12 +61,12 @@ function ContactUsDescription() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="E-mail"
-                className=" md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black contactUs-input"
+                className="md:mt-0 px-4 py-2 bg-gray-100 focus:outline-none text-xl text-black contactUs-input"
                 required
               />
             </div>
             <textarea
-              className="w-full px-4 py-2 h-32 bg-gray-100 focus:outline-none  text-xl text-black"
+              className="w-full px-4 py-2 h-32 bg-gray-100 focus:outline-none text-xl text-black"
               placeholder="Your message..."
               value={formData.message}
               onChange={handleInputChange}
@@ -80,7 +74,7 @@ function ContactUsDescription() {
               required
             ></textarea>
             <button
-              className="bg-book text-white py-2 px-4 border border-book w-fit text-2xl flex ml-auto font-normal mt-5  mb-5 hover:bg-white hover:text-book hover: border-book"
+              className="bg-book text-white py-2 px-4 border border-book w-fit text-2xl flex ml-auto font-normal mt-5 mb-5 hover:bg-white hover:text-book hover:border-book"
               disabled={state.submitting}
               type="submit"
             >

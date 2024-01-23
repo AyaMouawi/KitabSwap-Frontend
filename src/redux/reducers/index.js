@@ -9,6 +9,7 @@ import bannerReducer from "./bannerReducer";
 import testReducer from "./testReducer";
 import analyticReducer from "./analyticReducer";
 import AddBookReducer from "./AddBookReducer";
+import AddPostReducer from "./PostTradeReducer"
 
 const allReducers = combineReducers ({
     saleBooks : saleBookReducer,
@@ -20,7 +21,8 @@ const allReducers = combineReducers ({
     banners : bannerReducer,
     tests : testReducer,
     analytics : analyticReducer,
-    addBook : AddBookReducer
+    addBook : AddBookReducer,
+    addPost : AddPostReducer
 });
 
 export default allReducers;
