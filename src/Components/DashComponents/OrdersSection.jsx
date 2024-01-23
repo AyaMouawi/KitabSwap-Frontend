@@ -25,7 +25,6 @@ function OrdersSection() {
   
 
   const orderData = useSelector ((state) => state.orders);
-console.log('orders', orderData)
 
 /* MATERIAL REACT TABLE STUFF */
   const data = orderData;

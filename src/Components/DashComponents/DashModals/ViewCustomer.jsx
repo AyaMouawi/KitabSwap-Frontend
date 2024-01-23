@@ -1,8 +1,6 @@
 function ViewCustomer({ userData }) {
 
 
- console.log("userDetails", userData);
-
  const fullNameArray = userData.fullName ? userData.fullName.split(" ") : [];
  const firstName = fullNameArray[0] || "";
  const lastName = fullNameArray.slice(1).join(" ") || "";

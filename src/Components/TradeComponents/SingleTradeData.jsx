@@ -17,7 +17,7 @@ function SingleTradeData({openRequestModal}) {
         </div>
   
         <div className="mt-auto">
-          <button className="bg-book text-white py-3 px-6  text-3xl w-full" onClick={openRequestModal}>
+          <button className="bg-book text-white py-3 px-6  text-3xl w-full hover:bg-white hover:text-book hover: border-book border border-book" onClick={openRequestModal}>
            Request to Trade
           </button>
         </div>

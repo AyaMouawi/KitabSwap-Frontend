@@ -14,7 +14,7 @@ function HomeArrival() {
   },[dispatch]);
 
 const Latest = useSelector((state) => state.saleBooks);
-console.log("latest", Latest)
+
 
   return (
     <div className='w-full mx-auto p-4 HomeArrival-cont font-lateef font-light mt-10'>

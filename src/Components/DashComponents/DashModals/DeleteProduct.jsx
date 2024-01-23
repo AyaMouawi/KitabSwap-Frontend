@@ -3,7 +3,7 @@ import {deleteById} from "../../../redux/actions/saleBooks";
 
 function DeleteProduct({  closeDeleteProductModal, bookId }) {
     const dispatch = useDispatch();
-    console.log("bookId",bookId)
+
 
     const handleConfirmDelete = () => {
          dispatch(deleteById(bookId));

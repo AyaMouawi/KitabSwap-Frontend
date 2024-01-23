@@ -9,7 +9,6 @@ export const getAllSaleBooks = () => {
       .get(`${process.env.REACT_APP_API_URL}/saleBook/getAll`)
       .then((response) => {
         const saleBooks = response.data.data;
-        console.log("saleBooks", saleBooks)
         dispatch({
           type: "getAllSaleBooks",
           payload: saleBooks,
@@ -44,7 +43,6 @@ export const getLatestSaleBooks = () => {
         const allSaleBooks = response.data.data;
         const sortedSaleBooks = allSaleBooks.sort((a, b) => new Date(b.postDate) - new Date(a.postDate));
         const latestSaleBooks = sortedSaleBooks.slice(0, 5);
-        console.log("newestSaleBooks", latestSaleBooks);
         dispatch({
           type: "getLatestSaleBooks",
           payload:latestSaleBooks,

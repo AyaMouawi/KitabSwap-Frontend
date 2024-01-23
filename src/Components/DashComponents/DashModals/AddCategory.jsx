@@ -17,7 +17,6 @@ function AddCategory({ closeAddCategoryModal }) {
     closeAddCategoryModal();
   };
 
-  console.log("Submitting genreName:", genreName);
 
   return (
     <div className="font-lateef">

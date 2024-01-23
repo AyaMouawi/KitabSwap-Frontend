@@ -9,7 +9,7 @@ function AddProduct({ closeAddProductModal }) {
   hourglass.register();
   const genres = useSelector((state) => state.genres);
   const addLoading = useSelector(state => state.addBook.addLoading );
-console.log("loading", addLoading)
+
   const [formData, setFormData] = useState({
     genre_id: "",
     authorName: "",

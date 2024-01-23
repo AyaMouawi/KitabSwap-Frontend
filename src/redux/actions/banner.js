@@ -9,7 +9,6 @@ export const getAll = () => {
       .get(`${process.env.REACT_APP_API_URL}/banner/getAll`)
       .then((response) => {
         const banners = response.data.data;
-        console.log("banners", banners)
         dispatch({
           type: "getAll",
           payload: banners,

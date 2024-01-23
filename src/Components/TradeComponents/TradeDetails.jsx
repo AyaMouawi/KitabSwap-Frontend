@@ -64,7 +64,7 @@ function SingleTradeItem({ tradeBook }) {
         </div>
   
         <div className="mt-auto">
-          <button className="bg-book text-white py-3 px-6  text-3xl w-full" onClick={openTradeRequestModal}>
+          <button className="bg-book text-white py-3 px-6  border border-book text-3xl w-full hover:bg-white hover:text-book hover: border-book" onClick={openTradeRequestModal}>
            Request to Trade
           </button>
         </div>

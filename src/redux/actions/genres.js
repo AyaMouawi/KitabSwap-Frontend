@@ -8,7 +8,6 @@ export const getAllGenres = () => {
      .get(`${process.env.REACT_APP_API_URL}/genre/getAll`)
      .then((response) => {
        const genres = response.data.data;
-       console.log("genres", genres)
        dispatch({
          type: "getAllGenres",
          payload: genres,
@@ -46,7 +45,6 @@ export const deleteById = (id) => {
 }
 
 export const addGenre = (genreName) => {
-  console.log("Genre Name:", genreName);
   const Auth = localStorage.getItem("token");
   return (dispatch) => {
     axios
@@ -64,7 +62,6 @@ export const addGenre = (genreName) => {
         toast.success("Genre added successfully .");
       })
       .catch((error) => {
-        console.log("Failed to add genre :", error.response.data);
         toast.error(
           error.response.data.message || "Failed to add genre. Please try again."
         );

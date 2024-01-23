@@ -10,7 +10,6 @@ const userReducer = (state={}, action) => {
         case 'login':
                 return action.payload;
         case 'register' : 
-               console.log('idk', action.payload)
                return {
                 ...state,
                 registeredUser: action.payload.data

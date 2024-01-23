@@ -17,7 +17,7 @@ function CartTable({ openModal,updateCartKey }) {
 
   const saleBooks = useSelector((state) => state.saleBooks);
 
-  console.log("cartSaleBooks", saleBooks)
+
 
   const [cartDetails, setCartDetails] = useState(() => {
     const cartDetailsString = localStorage.getItem("cartDetails");
@@ -92,8 +92,6 @@ function CartTable({ openModal,updateCartKey }) {
   const filteredSaleBooks = saleBooks.filter((book) =>
   cart.some((cartItem) => cartItem.bookId === book.saleBook_id)
 );
-
-console.log("cartSaleBooksfiltered", filteredSaleBooks)
 
 
   return (

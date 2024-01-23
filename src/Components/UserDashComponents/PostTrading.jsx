@@ -38,7 +38,7 @@ function PostTrading({ closeModal }) {
     const data = new FormData();
     data.append("title", bookname);
     data.append("authorName", authorName);
-    data.append("genre_id", genre); // Assuming genre_id is the correct field name
+    data.append("genre_id", genre); 
     data.append("location", location);
     data.append("image", file); 
     data.append("description", description);
@@ -151,7 +151,7 @@ function PostTrading({ closeModal }) {
             required
           ></textarea>
           <button
-            className="bg-book text-white py-1 px-8 text-2xl inline-block mt-5 flex ml-auto justify-center"
+            className="bg-book text-white py-1 px-8 text-2xl inline-block mt-5 flex ml-auto justify-center border border-book hover:bg-white hover:text-book hover: border-book"
             type="submit"
           >
             Submit

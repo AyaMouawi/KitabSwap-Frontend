@@ -9,7 +9,6 @@ export const getAllTradeBooks = () => {
       .get(`${process.env.REACT_APP_API_URL}/tradeBook/getAll`)
       .then((response) => {
         const TradeBooks = response.data.data;
-        console.log("TradeBooks", TradeBooks)
         dispatch({
           type: "getAllTradeBooks",
           payload: TradeBooks,
@@ -25,7 +24,6 @@ export const getByOwnerId = (id) => {
       .get(`${process.env.REACT_APP_API_URL}/tradeBook/getByOwner/${id}`)
       .then((response) => {
         const tradeBook = response.data.data;
-        console.log("tradeBook",tradeBook)
         dispatch({
           type: "getByOwnerId",
           payload: tradeBook,
@@ -57,7 +55,6 @@ export const postTrade = (data) => {
         toast.success("book posted successfully ");
       })
       .catch((error) => {
-        console.log("Failed to request trade :", error.response.data);
         toast.error(
           error.response.data.message || "Failed to post book. Please try again."
         );

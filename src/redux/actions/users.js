@@ -9,7 +9,6 @@ export const getById = (id) => {
       .get(`${process.env.REACT_APP_API_URL}/user/getById/${id}`)
       .then((response) => {
         const user = response.data.data;
-        console.log('usersssss', user)
         dispatch({
           type: "getById",
           payload: user,
@@ -28,7 +27,6 @@ export const getAllClients = () => {
       .then((response) => {
         const users = response.data.data;
         const clients = users.filter(user => user.role === "client");
-        console.log("users", clients)
         dispatch({
           type: "getAllClients",
           payload: clients,
@@ -46,7 +44,6 @@ export const login = (Info) => {
       .then((response) => {
         const login = response.data;
         const shipment = 'delivery';
-        console.log('login', login);
         dispatch({
           type: "login",
           payload: login,
@@ -70,7 +67,6 @@ export const login = (Info) => {
         return response.data;
       })
       .catch((error) => {
-        console.log("Failed to login:", error);
         const errorMessage = error.response?.data?.message || "Failed to login. Please try again.";
         toast.error(errorMessage);
       });
@@ -93,7 +89,6 @@ export const register = (data) => {
 
       })
       .catch((error) => {
-        console.log("Failed to register:", error);
         const errorMessage = error.response?.data?.message || "Failed to register. Please try again.";
         toast.error(errorMessage);
       });

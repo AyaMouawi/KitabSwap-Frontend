@@ -4,7 +4,7 @@ import {deleteById} from "../../../redux/actions/genres";
 function DeleteCategory({ closeDeleteCategoryModal , genreId }) {
 
   const dispatch = useDispatch();
-console.log("genreid", genreId)
+
   const handleConfirmDelete = () => {
        dispatch(deleteById(genreId));
        closeDeleteCategoryModal(); 

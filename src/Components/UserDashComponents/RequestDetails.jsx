@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { getById } from "../../redux/actions/users";
 
 function RequestDetails({ userId, closeRequestModal }) {
-  console.log("id", userId)
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,9 +19,6 @@ function RequestDetails({ userId, closeRequestModal }) {
   }, [dispatch]);
 
   const users = useSelector ((state) => state.users )
-  useEffect(() => {
-    console.log(users);
-  },[]);
 
 
   return (

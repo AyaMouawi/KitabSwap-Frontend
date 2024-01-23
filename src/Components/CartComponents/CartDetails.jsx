@@ -41,7 +41,7 @@ function CartDetails({ openModal, openConfirmModal }) {
   };
 
   const calculateShipping = () => {
-    return selectedShipping === "delivery" ? "3.00" : "0.00";
+    return selectedShipping === "delivery" ? "$ 3.00" : "FREE";
   };
 
   const calculateTotal = () => {
@@ -77,7 +77,7 @@ function CartDetails({ openModal, openConfirmModal }) {
                 delivery at home (under 5-7 days) - 3 ${" "}
                 <p className="text-xl ml-8 italic">
                   {location}{" "}
-                  <a onClick={openModal} className="underline ml-4 not-italic">
+                  <a onClick={openModal} className="underline ml-4 not-italic hover:text-book">
                     edit address
                   </a>
                 </p>
@@ -106,7 +106,7 @@ function CartDetails({ openModal, openConfirmModal }) {
             </div>
             <div>
               <p className="text-2xl mb-4 italic">${calculateSubtotal()}</p>
-              <p className="text-2xl mb-4 italic">${calculateShipping()}</p>
+              <p className="text-2xl mb-4 italic">{calculateShipping()}</p>
               <p className="text-2xl mb-4 italic">${calculateTotal()}</p>
             </div>
           </div>
@@ -114,11 +114,11 @@ function CartDetails({ openModal, openConfirmModal }) {
       </form>
       <div className="flex justify-end">
         <button
-          className="bg-book text-white py-3 px-2 w-80 text-3xl inline-block mt-5 flex justify-center"
+          className="bg-book border border-book text-white py-3 px-2 w-80 text-3xl inline-block mt-5 flex justify-center hover:bg-gray-100 hover:text-book hover:border-book"
           onClick={openConfirmModal}
         >
-          <p>
-            Checkout <span className="ml-12">{`$${calculateTotal()}`}</span>{" "}
+          <p >
+            Checkout <span className="ml-12 ">{`$${calculateTotal()}`}</span>{" "}
           </p>
         </button>
       </div>

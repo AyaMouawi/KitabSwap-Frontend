@@ -9,7 +9,6 @@ export const getAllOrders = () => {
       .get(`${process.env.REACT_APP_API_URL}/order/getAll`)
       .then((response) => {
         const orders = response.data.data;
-        console.log("Orderssss", orders)
         dispatch({
           type: "getAllOrders",
           payload: orders,
@@ -48,7 +47,6 @@ export const getById = (id) => {
       .get(`${process.env.REACT_APP_API_URL}/order/getById/${id}`)
       .then((response) => {
         const order = response.data.data;
-        console.log('reduxorder', order)
         dispatch({
           type: "getById",
           payload: order,

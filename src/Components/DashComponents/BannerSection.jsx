@@ -85,7 +85,6 @@ function BannerSection() {
     },
   ];
   const handleRadioChange = (banner) => {
-console.log("banner",banner)
     dispatch(Highlight(banner));
     
   };

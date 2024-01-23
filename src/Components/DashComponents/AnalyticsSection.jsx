@@ -20,7 +20,7 @@ function AnalyticsSection() {
 
   const analytics = useSelector((state) => state.analytics);
 
-  console.log("analytics", analytics)
+
 
     return (
         <div className="mx-40 scale-85">

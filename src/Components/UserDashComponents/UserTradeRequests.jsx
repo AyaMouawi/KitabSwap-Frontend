@@ -33,7 +33,7 @@ const UserTradeRequests = ({bookId , bookName, postingDate }) => {
   }, [dispatch]);
 
   const tradeRequests = useSelector ((state) => state.tradeRequest )
-  console.log("tradeRequests", tradeRequests)
+ 
 
     const modalRef = useRef(null);
     // User Accept MODAL
@@ -121,7 +121,7 @@ const filteredTradeRequests = tradeRequests.filter(
   (request) => request.tradebook_id === bookId
 );
 
-console.log("filtered", filteredTradeRequests)
+
 
   return (
     <div className="w-screen p-6">
@@ -173,12 +173,12 @@ console.log("filtered", filteredTradeRequests)
                 {request.status === 'pending' ? (
                   <>
                     <td className="py-2 text-center mb-0">
-                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={() => openUserAcceptModal(request.tradeRequest_id)}>
+                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center border border-book hover:bg-white hover:text-book hover: border-book" onClick={() => openUserAcceptModal(request.tradeRequest_id)}>
                   Accept
                 </button>
               </td>
               <td className="py-2 text-center">
-                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center" onClick={()=> openUserDeclineModal(request.tradeRequest_id)}>
+                <button className="bg-book text-white py-0 px-4 text-3xl inline-block flex justify-center border border-book hover:bg-white hover:text-book hover: border-book" onClick={()=> openUserDeclineModal(request.tradeRequest_id)}>
                   Decline
                 </button>
               </td>

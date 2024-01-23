@@ -153,10 +153,7 @@ function AllProducts() {
     setShowDiscounted(event.target.checked);
   };
 
-  console.log("saleBookssss", saleBooks);
-  console.log("genresss", genres);
-  console.log("checkedgenres", checkedGenre);
-
+ 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };

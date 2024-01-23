@@ -80,7 +80,7 @@ function ContactUsDescription() {
               required
             ></textarea>
             <button
-              className="bg-book text-white py-2 px-4 border border-book w-fit text-2xl flex ml-auto font-normal mt-5  mb-5"
+              className="bg-book text-white py-2 px-4 border border-book w-fit text-2xl flex ml-auto font-normal mt-5  mb-5 hover:bg-white hover:text-book hover: border-book"
               disabled={state.submitting}
               type="submit"
             >

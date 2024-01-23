@@ -74,7 +74,7 @@ function Cart() {
    
   };
 
-  console.log("bookid", bookId)
+
 
   const closeDeleteModal = () => {
     setDeleteModalOpen(false);

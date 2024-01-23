@@ -55,7 +55,7 @@ import {
       toast.success('Trade request successful!');
     } catch (e) {
       dispatch(addRequestFail(e.response.data));
-      toast.error('Trade request failed.');
+      toast.warning('You already send a request to this book');
     }
   };
 

@@ -38,9 +38,8 @@ export const requestTrade = (data) => {
         toast.success("Request sent successfully. Please check your email.");
       })
       .catch((error) => {
-        console.log("Failed to request trade :", error.response.data);
-        toast.error(
-          error.response.data.message || "Failed to send request. Please try again."
+        toast.warning(
+         "You already send a request for this book."
         );
       });
   };

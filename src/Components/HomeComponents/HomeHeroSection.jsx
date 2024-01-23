@@ -15,7 +15,7 @@ function HomeHeroSection() {
         Book store and trading point for all books lover{" "}
         </p>
 
-        <a href="#about"> <button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-10">
+        <a href="#about"> <button className="bg-book text-white py-2 px-4 border border-book w-fit text-3xl inline-block font-extralight mt-10 hover:bg-gray-100 hover:text-book hover: border-book">
           Know More
         </button></a>
       </div>

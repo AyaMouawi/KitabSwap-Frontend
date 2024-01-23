@@ -9,7 +9,7 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
   const dispatch = useDispatch();
   hourglass.register();
   const addLoading = useSelector(state => state.tests.addLoading);
- console.log("loading", addLoading)
+
   const [formData, setFormData] = useState({
     bookName: "",
     location: "",
@@ -67,7 +67,6 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
     
   };
 
-  console.log("loading", addLoading)
 
   return (
     <div className="  flex items-center justify-center">
@@ -140,7 +139,7 @@ function TradeRequest({ tradeBookId, closeRequestModal }) {
             value={formData.description}
           ></textarea>
           <button
-            className="bg-book text-white  py-1 px-8  text-3xl inline-block mt-5 flex ml-auto justify-center"
+            className="bg-book text-white  py-1 px-8  text-3xl inline-block mt-5 flex ml-auto justify-center border border-book hover:bg-white hover:text-book hover: border-book"
             type="submit"
           >
             Submit

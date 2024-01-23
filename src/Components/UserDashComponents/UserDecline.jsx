@@ -9,8 +9,7 @@ function UserDecline ({closeDeclineModal, requestId}) {
     dispatch(decline(requestId));
     closeDeclineModal();
   };
- 
-console.log("traderid",requestId)
+
   return (
     <div className="  flex items-center justify-center">
       
@@ -23,7 +22,7 @@ console.log("traderid",requestId)
         <div className="flex justify-center p-6 items-center">
           <button 
           onClick={handleConfirm}
-          className="bg-book text-white  py-1 px-2  w-40 text-3xl inline-block ">
+          className="bg-book text-white  py-1 px-2  w-40 text-3xl inline-block border border-book hover:bg-white hover:text-book hover: border-book ">
             Decline
           </button>
           </div>

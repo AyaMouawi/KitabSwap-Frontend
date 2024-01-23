@@ -48,7 +48,7 @@ function TradePage() {
 
   const genres = useSelector((state) => state.genres);
   const tradeBook = useSelector((state) => state.tradeBooks);
-  console.log("tradeBook", tradeBook);
+
 
   const handleGenreChange = (event) => {
     const genre = event.target.name;

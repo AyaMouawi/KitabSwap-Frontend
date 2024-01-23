@@ -36,7 +36,7 @@ function SingleProduct({saleBook, closeModal}) {
       const isBookInCart = cart.some(item => item.bookId === cartItem.bookId);
   
       if (isBookInCart) {
-        toast.error("This book is already in your cart!");
+        toast.warning("This book is already in your cart!");
       } else {
         cart.push(cartItem);
   
@@ -91,7 +91,7 @@ function SingleProduct({saleBook, closeModal}) {
       </div>
 
       <div className="mt-auto">
-        <button className="bg-book text-white py-3 px-6  text-3xl w-full  " onClick={addToCart}>
+        <button className="bg-book text-white py-3 px-6  text-3xl w-full border border-book hover:bg-white hover:text-book hover: border-book " onClick={addToCart}>
          Add To Cart
         </button>
       </div>

@@ -18,7 +18,7 @@ function ProductsSection() {
 
   const [singleBookData, setSingleBookData] = useState('');
 
-  console.log('theBookID', bookId)
+
 
   useEffect(() => {
     
