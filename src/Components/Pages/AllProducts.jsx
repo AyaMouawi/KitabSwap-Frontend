@@ -200,7 +200,7 @@ function AllProducts() {
     }
   };
 
-  const productsPerPage = 4;
+  const productsPerPage = 8;
   const totalProducts = filteredBooks.length;
 
   const [currentPage, setCurrentPage] = useState(1);

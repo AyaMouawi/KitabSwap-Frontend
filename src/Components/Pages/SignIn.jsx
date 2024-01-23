@@ -89,7 +89,7 @@ function SignIn() {
             </div>
           </div>
 
-          <button className="bg-book text-white  py-2 px-4 w-full text-3xl mb-4 " onClick={handleLogin}>
+          <button className="bg-book text-white  py-2 px-4 w-full text-3xl mb-4 border border-book hover:bg-white hover:text-book hover: border-book" onClick={handleLogin}>
             LOG IN
           </button>
           <div className="mb-4 text-center">

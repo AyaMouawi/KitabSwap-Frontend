@@ -274,7 +274,7 @@ function SignUp() {
           </div>
 
           <div className="text-center">
-            <button className="bg-book text-white py-2 px-4 w-96 text-3xl mb-4 signup-button ">
+            <button className="bg-book text-white py-2 px-4 w-96 text-3xl mb-4 signup-button border border-book hover:bg-white hover:text-book hover: border-book ">
               Register
             </button>
           </div>

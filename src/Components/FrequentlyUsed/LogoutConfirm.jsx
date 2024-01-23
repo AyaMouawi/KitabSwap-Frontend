@@ -17,7 +17,7 @@ function Logout({ closeLogoutModal }) {
             Are you sure you want to log out?
             </p>
             <div className="flex justify-center p-6 items-center">
-                <button className="bg-book text-white  py-1 px-8  text-3xl inline-block mt-5 "
+                <button className="bg-book text-white  py-1 px-8  text-3xl inline-block mt-5 border border-book hover:bg-white hover:text-book hover: border-book "
                     onClick={Logout}>
                    Confirm
                 </button>

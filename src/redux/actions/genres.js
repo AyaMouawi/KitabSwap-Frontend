@@ -57,7 +57,7 @@ export const addGenre = (genreName) => {
         const genre = response.data.data;
         dispatch({
           type: "addGenre",
-          payload: genre,
+          payload: genre, 
         });
         toast.success("Genre added successfully .");
       })
