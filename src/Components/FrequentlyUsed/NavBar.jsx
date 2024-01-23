@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation , useNavigate} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../css/navbar.css";
 import LogoutConfirm from './LogoutConfirm';
 
@@ -8,8 +8,6 @@ function NavBar() {
   const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
-
-  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -107,14 +105,14 @@ function NavBar() {
                 </Link>
               </li>
               <li>
-              <div
-            onClick={() => navigate("/Shop")}
-            className={`block py-2 px-3 md:p-0 rounded ${
-              isCurrentPage("/Shop") ? "text-white underline" : "text-white"
-            } md:hover:bg-transparent md:hover:underline text-2xl white:text-white white:hover:bg-gray-700 white:hover:text-white md:white:hover:bg-transparent white:border-gray-700 `}
-          >
-            Shop
-          </div>
+                <Link
+                  to="/Shop"
+                  className={`block py-2 px-3 md:p-0 rounded ${
+                    isCurrentPage("/Shop") ? "text-white underline" : "text-white"
+                  } md:hover:bg-transparent md:hover:underline text-2xl white:text-white white:hover:bg-gray-700 white:hover:text-white md:white:hover:bg-transparent white:border-gray-700 `}
+                >
+                  Shop
+                </Link>
               </li>
               <li>
                 <Link

@@ -87,7 +87,7 @@ function UserItem({tradeBook}) {
       </div>
       <div className="">
         <h1 className="text-2xl w-60 overflow-hidden whitespace-nowrap overflow-ellipsis">
-          Owner: {tradeBook.ownerFullName}
+           {tradeBook.authorName}
         </h1>
       </div>
 
