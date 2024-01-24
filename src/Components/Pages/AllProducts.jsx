@@ -26,6 +26,11 @@ function AllProducts() {
   const [searchInput, setSearchInput] = useState("");
   const [sortOption, setSortOption] = useState(null);
   const [sortedProducts, setSortedProducts] = useState([]);
+  const [cartKey, setCartKey] = useState(0);
+  const updateCartKey = () => {
+    setCartKey((prevKey) => prevKey + 1);
+  };
+
 
   const dispatch = useDispatch();
 
@@ -210,7 +215,7 @@ function AllProducts() {
   const currentProducts = filteredBooks
     .slice(indexOfFirstProduct, indexOfLastProduct)
     .map((saleBook) => (
-      <ProductItem key={saleBook.saleBook_id} saleBook={saleBook} />
+      <ProductItem key={saleBook.saleBook_id} saleBook={saleBook} updateCartKey={updateCartKey}/>
     ));
 
   const nextPage = () => {
@@ -231,7 +236,7 @@ function AllProducts() {
   const showHideClassName = mobileFiltersOpen ? true : false;
   
   return (
-    <>
+    <div key={cartKey}>
       <NavBar />
       <div className="font-lateef ">
         <div className="p-4 pb-0">
@@ -569,7 +574,7 @@ function AllProducts() {
       </div>
 
       <Footer />
-    </>
+    </div>
   );
 }
 

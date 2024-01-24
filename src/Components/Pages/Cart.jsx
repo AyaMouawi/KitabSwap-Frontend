@@ -79,6 +79,7 @@ function Cart() {
   const closeDeleteModal = () => {
     setDeleteModalOpen(false);
   };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -94,6 +95,7 @@ function Cart() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDeleteModalOpen]);
+
   // CONFIRM MODAL
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
@@ -102,10 +104,10 @@ function Cart() {
   };
 
   const closeConfirmModal = () => {
-    
     setConfirmModalOpen(false);
     updateCartKey()
   };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -121,11 +123,12 @@ function Cart() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isConfirmModalOpen]);
+
   const updateCartKey = () => {
     setCartKey((prevKey) => prevKey + 1);
   };
 
-const removeItem = (bookId) => {
+  const removeItem = (bookId) => {
   const updatedCart = cart.filter((item) => item.bookId !== bookId);
   const updatedCartDetails = cartDetails.filter((item) => item.saleBook_id !== bookId);
 

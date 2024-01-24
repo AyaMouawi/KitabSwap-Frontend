@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import "../css/HomeArrival.css"
 import ProductItem from './ProductItem';
 
-function HomeArrival() {
+function HomeArrival({updateCartKey}) {
 
   const dispatch = useDispatch();
   useEffect (() => {
@@ -26,7 +26,7 @@ const Latest = useSelector((state) => state.saleBooks);
        
           
         {Latest.map((book) => (
-          <ProductItem key={book.id} saleBook={book} />
+          <ProductItem key={book.id} saleBook={book} updateCartKey = {updateCartKey} />
         ))}
        
           

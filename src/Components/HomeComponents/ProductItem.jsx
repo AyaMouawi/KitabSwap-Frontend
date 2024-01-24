@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../css/ArrivalItem.css";
 import SingleProduct from "../Pages/SingleProduct";
 
-function ProductItem({saleBook}) {
+function ProductItem({saleBook, updateCartKey}) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
@@ -140,7 +140,7 @@ function ProductItem({saleBook}) {
                   X
                 </button>
               </div>
-              <SingleProduct saleBook = {saleBook} closeModal= {closeModal}/>
+              <SingleProduct saleBook = {saleBook} closeModal= {closeModal} updateCartKey={updateCartKey}/>
               <div className="productItem-x">
                 <button className="text-4xl pt-4" onClick={closeModal}>
                   X

@@ -1,3 +1,4 @@
+import React, { useState} from "react";
 import NavBar from "../FrequentlyUsed/NavBar";
 import Footer from "../FrequentlyUsed/Footer";
 import HomeHeroSection from "../HomeComponents/HomeHeroSection";
@@ -6,14 +7,20 @@ import HomeBanner from "../HomeComponents/HomeBanner";
 import HomeArrival from "../HomeComponents/HomeArrival";
 
 function HomePage() {
+
+  const [cartKey, setCartKey] = useState(0);
+  const updateCartKey = () => {
+    setCartKey((prevKey) => prevKey + 1);
+  };
+
   return (
-    <div>
+    <div key={cartKey}>
+
       <NavBar />
       <HomeHeroSection />
       <AboutSection />
       <HomeBanner />
-      <HomeArrival />
-
+      <HomeArrival updateCartKey = {updateCartKey}/>
       <Footer />
        
     

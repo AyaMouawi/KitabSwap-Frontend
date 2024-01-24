@@ -2,7 +2,7 @@ import "../css/SingleProduct.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function SingleProduct({saleBook, closeModal}) {
+function SingleProduct({saleBook, closeModal, updateCartKey}) {
 
   let priceSection;
 
@@ -57,6 +57,7 @@ function SingleProduct({saleBook, closeModal}) {
           toast.success("Product added to your cart successfully!", {
             onClose: () => {
               closeModal();
+              updateCartKey();
             }
           });
         }

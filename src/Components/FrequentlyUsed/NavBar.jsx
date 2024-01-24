@@ -8,6 +8,14 @@ function NavBar() {
   const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartCount(storedCartItems.length);
+  }, [cartCount]);
+
+ 
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -41,9 +49,14 @@ function NavBar() {
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <div className="flex lg:w-56 md:w-56 sm:w-8 w-32   ">
             <div className="flex items-center">
-              <Link to="/Cart">
-                <img src="../Images/Icons/shoppingcart.png" className="h-7"  />
-              </Link>
+            <Link to="/Cart" className="relative">
+            <img src="../Images/Icons/shoppingcart.png" className="h-7" alt="Cart" />
+            {cartCount > 0 && (
+              <div className="bg-white rounded-full text-book w-5 h-5 flex items-center justify-center absolute top-0 right-0 -mt-1 -mr-1 z-10">
+                {cartCount}
+              </div>
+            )}
+          </Link>
               {isLoggedIn ? (
               <Link to="/UserDash" className="ml-4">
                 <img src="../Images/Icons/dashboard.png" className="h-7"  />
